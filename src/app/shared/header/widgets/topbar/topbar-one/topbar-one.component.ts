@@ -14,12 +14,24 @@ export class TopbarOneComponent implements OnInit {
   
   constructor(public productsService: ProductsService, private router: Router) { }
 
-  ngOnInit() { }
+  display: boolean;
+
+  ngOnInit() {
+    this.display = false;
+    this.checkIfLogged();
+   }
+
+
+  checkIfLogged() {
+    if (localStorage.getItem('token')) {
+      this.display = true;
+    }
+  }
 
   login() {
     const location = window.location.href;
     localStorage.setItem('redirectto', location);
-    this.router.navigate(['pages/login']);
+    this.router.navigate(['/pages/login']);
   }
 
   logout() {
@@ -27,6 +39,7 @@ export class TopbarOneComponent implements OnInit {
     localStorage.removeItem('uid');
     localStorage.removeItem('logintype');
     localStorage.removeItem('token');
+    localStorage.removeItem('redirectto');
     this.router.navigate(['']);
   }
 

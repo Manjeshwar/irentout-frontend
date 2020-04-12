@@ -18,12 +18,12 @@
         <li class="onhover-dropdown mobile-account">
           <i class="fa fa-user" aria-hidden="true"></i> {{ 'my-account' | translate }}
           <ul class="onhover-show-div">
-            <li>
+            <li *ngIf="!display">
               <a (click)="login()" data-lng="en">
                   {{ 'login' | translate }}
               </a>
             </li>
-            <li>
+            <li *ngIf="display">
               <a (click)="logout()" data-lng="es">
                   {{ 'logout' | translate }}
               </a>
