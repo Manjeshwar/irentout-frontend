@@ -19,12 +19,12 @@
           <i class="fa fa-user" aria-hidden="true"></i> {{ 'my-account' | translate }}
           <ul class="onhover-show-div">
             <li>
-              <a [routerLink]="'/pages/login'" data-lng="en">
+              <a (click)="login()" data-lng="en">
                   {{ 'login' | translate }}
               </a>
             </li>
             <li>
-              <a [routerLink]="'/home/one'" data-lng="es">
+              <a (click)="logout()" data-lng="es">
                   {{ 'logout' | translate }}
               </a>
             </li>

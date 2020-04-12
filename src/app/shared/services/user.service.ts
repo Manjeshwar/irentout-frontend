@@ -11,10 +11,14 @@ export class UserService {
   b_url = `http://localhost:3000/`;
 
   public register(regform) {
-      return this.http.post(`${this.b_url}register`, regform);
-    }
+    return this.http.post(`${this.b_url}register`, regform);
+  }
 
-    public userLogin(credentials) {
-      return this.http.post(`${this.b_url}userlogin`, credentials);
-    }
+  public userLogin(credentials) {
+    return this.http.post(`${this.b_url}userlogin`, credentials);
+  }
+
+  public getUserDetails(token) {
+    return this.http.post(`${this.b_url}userdetails`, {token: token});
+  }
 }

@@ -10,6 +10,8 @@ export type ProductTags = 'nike' | 'puma' | 'lifestyle' | 'caprese';
 // Product
 export interface Product {
   id?: string;
+  name?: string;
+  prod_img?;
   prod_id?: string;
   prod_name?: string;
   price?: number;

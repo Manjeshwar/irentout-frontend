@@ -22,8 +22,25 @@ export class LoginComponent implements OnInit {
   }
 
   loginUserForm() {
-    this.us.userLogin(this.loginForm.value).subscribe((res) => {
-      console.log(res);
+    let token;
+    this.us.userLogin(this.loginForm.value).subscribe((res: any) => {
+      if(res.authenticated) {
+        token = res.token;
+        this.us.getUserDetails(res.token).subscribe((res: any) => {
+          if(res.authenticated) {
+            const uname = res.data[0].uname;
+            const uid = res.data[0].uid;
+            const logintype = res.data[0].logintype;
+
+            localStorage.setItem('uname', uname);
+            localStorage.setItem('uid', uid);
+            localStorage.setItem('logintype', logintype);
+            localStorage.setItem('token', token);
+            const redirect = localStorage.getItem('redirectto');
+            window.location.href = redirect;
+          }
+        });
+      }
     });
   }
 
