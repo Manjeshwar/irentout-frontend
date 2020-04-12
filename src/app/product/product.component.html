@@ -31,7 +31,7 @@
   <div class="product-detail">
     <div>
       <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-      <a [routerLink]="['/home/left-sidebar/product', product.id]"><h6>{{product.name}}</h6></a>
+      <a [routerLink]="['/home/left-sidebar/product', product.id]"><h6>{{product.prod_name}}</h6></a>
       <h4 *ngIf="!productsService?.catalogMode">{{product.price | currency:productsService?.currency:'symbol'}} 
         <del><span class="money">{{product.salePrice | currency:productsService?.currency:'symbol'}}</span></del> 
       </h4>
