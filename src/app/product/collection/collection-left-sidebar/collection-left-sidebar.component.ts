@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { trigger, transition, style, animate } from "@angular/animations";
 import {
@@ -28,7 +28,7 @@ import * as $ from 'jquery';
     ]),
   ],
 })
-export class CollectionLeftSidebarComponent implements OnInit {
+export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
   public products: Product[] = [];
   public items: Product[] = [];
   public allItems: Product[] = [];
@@ -41,6 +41,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public sortByOrder: string = ''; // sorting
   public animation: any; // Animation
 
+  category: string;
+
   lastKey = ''; // key to offset next query from
   finished = false; // boolean when end of data is reached
 
@@ -50,9 +52,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private productsService: ProductsService
   ) {
     this.route.params.subscribe((params) => {
-      const category = params['category'];
+      this.category = params['category'];
       this.productsService
-        .getProductByCategory(category)
+        .getProductByCategory(this.category)
         .subscribe((products) => {
           this.allItems = products; // all products
           this.products = products.slice(0, 8);
@@ -60,10 +62,16 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.getColors(products);
           this.getRams(products);
         });
+
+        this.category = this.category.toLowerCase();
     });
   }
 
   ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
 
   // Get current product tags
   // public getTags(products) {
@@ -144,48 +152,29 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Initialize filetr Items
   public filterItems(): Product[] {
-    return this.items.filter((item: Product) => {
-      const Colors: boolean = this.colorFilters.reduce((prev, curr) => {
-        // Match Color
-        if (item.colors) {
-          if (item.colors.includes(curr.color)) {
-            return prev && true;
-          }
-        }
-      }, true);
-      const Tags: boolean = this.tagsFilters.reduce((prev, curr) => {
-        // Match Tags
-        if (item.brand_name) {
-          if (item.brand_name.includes(curr)) {
-            return prev && true;
-          }
-        }
-      }, true);
-      if(this.tagsFilters.length === 0) {
+    const brandFilter = this.items.filter((item: Product) => {
+
+      if (this.tagsFilters.length === 0) {
         return true;
       }
 
-      const Rams: boolean = this.ramsFilters.reduce((prev, curr) => {
-        // Match Tags
-        if (item.prod_ram) {
-          if (item.prod_ram.includes(curr)) {
-            return prev && true;
-          }
-        }
-      }, true);
-      if(this.ramsFilters.length === 0) {
+      if (this.tagsFilters.includes(item.brand_name)) {
         return true;
       }
-
-      //   if (this.tagsFilters.includes(item.brand_name)){
-      //     return true;
-      //   }
-
-      //   if (this.ramsFilters.includes(item.prod_ram)){
-      //     return true;
-      //   }
-      return Colors && Tags && Rams; // return true
     });
+
+    const ramFilter = brandFilter.filter((item: Product) => {
+
+      if (this.ramsFilters.length === 0) {
+        return true;
+      }
+
+      if (this.ramsFilters.includes(item.prod_ram)) {
+        return true;
+      }
+    });
+
+    return ramFilter;
   }
 
   // Update tags filter

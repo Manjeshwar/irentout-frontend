@@ -5,7 +5,7 @@
       <div class="collection-brand-filter">
         <div class="custom-control custom-checkbox collection-filter-checkbox" *ngFor="let filter of ramsFilters">
           <input type="checkbox" class="custom-control-input" [value]="filter.ram" (change)=checkedFilter($event) id="{{filter.ram}}">
-          <label class="custom-control-label" for="{{filter.ram}}">{{filter.brand}}</label>
+          <label class="custom-control-label" for="{{filter.ram}}">{{filter.ram}}</label>
         </div>
       </div>
     </div>

@@ -7,6 +7,9 @@ export type ProductSize = 'M' | 'L' | 'XL';
 // Product Tag
 export type ProductTags = 'nike' | 'puma' | 'lifestyle' | 'caprese';
 
+// Product Ram Size
+export type ProductRamSizes = '2GB' | '4GB' | '8GB' | '16GB' | '32GB' | '64GB';
+
 // Product
 export interface Product {
   id?: string;

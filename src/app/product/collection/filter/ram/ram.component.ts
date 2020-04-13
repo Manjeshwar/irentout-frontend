@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductTags, TagFilter } from '../../../../shared/classes/product';
+import { ProductTags, TagFilter, ProductRamSizes } from '../../../../shared/classes/product';
 declare var $: any;
 
 @Component({
@@ -10,8 +10,8 @@ declare var $: any;
 export class RamComponent implements OnInit {
 
   // Using Input nad Output EventEmitter
-  @Input()  ramsFilters : any[] = [];
-  @Output() ramFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Input()  ramsFilters : ProductRamSizes[] = [];
+  @Output() ramFilters  : EventEmitter<ProductRamSizes[]> = new EventEmitter<ProductRamSizes[]>();
 
   // Array
   public checkedTagsArray: any[] = [];

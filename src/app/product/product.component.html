@@ -4,7 +4,7 @@
       <span class="lable4" *ngIf='product.sale'>on sale</span>
     </div> -->
     <div class="front">
-      <a [routerLink]="['/home/left-sidebar/product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
+      <a [routerLink]="['../../../vertical/product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
     </div>
     <!-- <ul class="product-thumb-list">
       <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}" *ngFor="let variant of product.variants">
@@ -31,10 +31,11 @@
   <div class="product-detail">
     <div>
       <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-      <a [routerLink]="['/home/left-sidebar/product', product.id]"><h6>{{product.prod_name}}</h6></a>
+      <a [routerLink]="['../../../vertical/product', product.id]"><h6>{{product.prod_name | titlecase }}</h6></a>
       <h4 *ngIf="!productsService?.catalogMode">{{product.prod_price | currency:productsService?.currency:'symbol'}} / Month 
         <del><span class="money">{{product.salePrice | currency:productsService?.currency:'symbol'}}</span></del> 
       </h4>
+      <h5>{{product.prod_ram}}</h5>
       <ul class="color-variant" *ngIf="!productsService?.catalogMode">
         <li [class]="variant.color" (click)="changeVariantImage(variant.images)" *ngFor="let variant of product.variants"></li>
       </ul>

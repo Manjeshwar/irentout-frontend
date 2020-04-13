@@ -32,7 +32,7 @@
               </div>
               <div class="collection-filter-block">
                 <app-brand [tagsFilters]="tags" (tagFilters)="updateTagFilters($event)" *ngIf="tags.length"></app-brand>
-                <app-ram [ramsFilters]="rams" (ramFilters)="updateRamFilters($event)" *ngIf="rams.length"></app-ram>
+                <app-ram [ramsFilters]="rams" (ramFilters)="updateRamFilters($event)" *ngIf="rams.length && category==='laptop'"></app-ram>
                 <app-color [colorsFilters]="colors" (colorFilters)="updateColorFilters($event)" *ngIf="colors.length"></app-color>
                 <app-price (priceFilters)="updatePriceFilters($event)"></app-price>
               </div>
@@ -52,11 +52,11 @@
                   <div class="col-sm-12">
                     <div class="top-banner-wrapper">
                       <a [routerLink]="'/home/left-sidebar/collection/men'"><img src="assets/images/mega-menu/2.jpg" class="img-fluid" alt=""></a>
-                      <div class="top-banner-content small-section">
+                      <!-- <div class="top-banner-content small-section">
                         <h4>fashion</h4>
                         <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h5>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="collection-product-wrapper">
                       <!-- Filter Block Products -->
@@ -125,7 +125,6 @@
                             <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!filterItems().length">
                               <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                               <h3>Sorry! Couldn't find the product you were looking For!!!    </h3>
-                              <p>Please check if you have misspelt something or try searching with other words.</p>
                               <a [routerLink]="'/home/one'" class="btn btn-solid">continue shopping</a>
                             </div>
                           </div>
