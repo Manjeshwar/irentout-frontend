@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import * as _ from 'lodash';
+import { ProductsService } from '../../../shared/services/products.service';
 
 @Component({
   selector: 'app-categories',
@@ -8,10 +10,14 @@ import * as $ from 'jquery';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() { }
+  categories = [];
+  uniqCategories = [];
+
+  constructor(private ps: ProductsService) { }
   
   // collapse toggle
   ngOnInit() {
+    this.fetchAllCategories();
     $('.collapse-block-title').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
@@ -30,6 +36,19 @@ export class CategoriesComponent implements OnInit {
   // For mobile view
   public mobileFilterBack() {
      $('.collection-filter').css("left", "-365px");
+  }
+
+  fetchAllCategories() {
+    this.ps.getProducts().subscribe((res) => {
+      res.forEach((dta) => {
+        this.categories.push(dta.cat_name);
+      });
+      const categories = Array.from(new Set(this.categories));
+      categories.forEach((res) => {
+        this.uniqCategories.push({'href': `/home/left-sidebar/collection/${res}`, 'name': res});
+      });
+
+    });
   }
 
 }

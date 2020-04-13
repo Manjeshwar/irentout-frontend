@@ -8,12 +8,12 @@
     <div class="collection-collapse-block-content">
       <div class="collection-brand-filter">
         <ul class="category-list">
-          <li><a [routerLink]="'/home/left-sidebar/collection/women'">Womens Fashion</a></li>
-          <li><a [routerLink]="'/home/left-sidebar/collection/men'">Mens Fashion</a></li>
+          <li *ngFor="let item of uniqCategories"><a [routerLink]="item.href">{{item.name}}</a></li>
+          <!-- <li><a [routerLink]="'/home/left-sidebar/collection/men'">Mens Fashion</a></li>
           <li><a [routerLink]="'/home/left-sidebar/collection/watch'">Mens Watch</a></li>
           <li><a [routerLink]="'/home/left-sidebar/collection/beauty'">Beauty Products</a></li>
           <li><a [routerLink]="'/home/left-sidebar/collection/furniture'">Furnitures</a></li>
-          <li><a [routerLink]="'/home/left-sidebar/collection/flower'">Flowers Port</a></li>
+          <li><a [routerLink]="'/home/left-sidebar/collection/flower'">Flowers Port</a></li> -->
         </ul>
       </div>
     </div>
