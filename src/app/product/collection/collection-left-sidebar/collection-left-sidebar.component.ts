@@ -128,36 +128,43 @@ export class CollectionLeftSidebarComponent implements OnInit {
   // Initialize filetr Items
   public filterItems(): Product[] {
     return this.items.filter((item: Product) => {
-      const Colors: boolean = this.colorFilters.reduce((prev, curr) => {
-        // Match Color
-        if (item.colors) {
-          if (item.colors.includes(curr.color)) {
-            return prev && true;
-          }
+      // const Colors: boolean = this.colorFilters.reduce((prev, curr) => {
+      //   // Match Color
+      //   if (item.colors) {
+      //     if (item.colors.includes(curr.color)) {
+      //       return prev && true;
+      //     }
+      //   }
+      // }, true);
+      // const Tags: boolean = this.tagsFilters.reduce((prev, curr) => {
+      //   // Match Tags
+      //   if (item.brand_name) {
+      //     if (item.brand_name.includes(curr)) {
+      //       return prev && true;
+      //     }
+      //   }
+      // }, true);
+      if(this.tagsFilters.length === 0) {
+        return true;
+      }
+
+        if (this.tagsFilters.includes(item.brand_name)){
+        return true;
         }
-      }, true);
-      const Tags: boolean = this.tagsFilters.reduce((prev, curr) => {
-        // Match Tags
-        if (item.tags) {
-          if (item.tags.includes(curr)) {
-            return prev && true;
-          }
-        }
-      }, true);
-      return Colors && Tags; // return true
+      // return Colors && Tags; // return true
     });
   }
 
   // Update tags filter
   public updateTagFilters(tags: any[]) {
     this.tagsFilters = tags;
-    this.animation == "fadeOut" ? this.fadeIn() : this.fadeOut(); // animation
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
   }
 
   // Update color filter
   public updateColorFilters(colors: ColorFilter[]) {
     this.colorFilters = colors;
-    this.animation == "fadeOut" ? this.fadeIn() : this.fadeOut(); // animation
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
   }
 
   // Update price filter
