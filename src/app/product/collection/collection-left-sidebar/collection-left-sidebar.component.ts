@@ -35,6 +35,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public colorFilters: ColorFilter[] = [];
   public tagsFilters: any[] = [];
   public tags: any[] = [];
+  public ramsFilters: any[] = [];
+  public rams: any[] = [];
   public colors: any[] = [];
   public sortByOrder: string = ''; // sorting
   public animation: any; // Animation
@@ -56,7 +58,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.products = products.slice(0, 8);
           this.getTags(products);
           this.getColors(products);
-
+          this.getRams(products);
         });
     });
   }
@@ -94,6 +96,21 @@ export class CollectionLeftSidebarComponent implements OnInit {
     this.tags = itemBrand;
   }
 
+
+  // Ram Filters
+  public getRams(products) {
+    const uniqueRams = [];
+    products.filter((item) => {
+      uniqueRams.push(item.prod_ram);
+    });
+    let allRam = Array.from(new Set(uniqueRams));
+    const itemRam = Array();
+    allRam.forEach((i) => {
+      itemRam.push({ram: i});
+    });
+    this.rams = itemRam;
+  }
+
   // Get current product colors
   public getColors(products) {
     var uniqueColors = [];
@@ -128,36 +145,58 @@ export class CollectionLeftSidebarComponent implements OnInit {
   // Initialize filetr Items
   public filterItems(): Product[] {
     return this.items.filter((item: Product) => {
-      // const Colors: boolean = this.colorFilters.reduce((prev, curr) => {
-      //   // Match Color
-      //   if (item.colors) {
-      //     if (item.colors.includes(curr.color)) {
-      //       return prev && true;
-      //     }
-      //   }
-      // }, true);
-      // const Tags: boolean = this.tagsFilters.reduce((prev, curr) => {
-      //   // Match Tags
-      //   if (item.brand_name) {
-      //     if (item.brand_name.includes(curr)) {
-      //       return prev && true;
-      //     }
-      //   }
-      // }, true);
+      const Colors: boolean = this.colorFilters.reduce((prev, curr) => {
+        // Match Color
+        if (item.colors) {
+          if (item.colors.includes(curr.color)) {
+            return prev && true;
+          }
+        }
+      }, true);
+      const Tags: boolean = this.tagsFilters.reduce((prev, curr) => {
+        // Match Tags
+        if (item.brand_name) {
+          if (item.brand_name.includes(curr)) {
+            return prev && true;
+          }
+        }
+      }, true);
       if(this.tagsFilters.length === 0) {
         return true;
       }
 
-        if (this.tagsFilters.includes(item.brand_name)){
-        return true;
+      const Rams: boolean = this.ramsFilters.reduce((prev, curr) => {
+        // Match Tags
+        if (item.prod_ram) {
+          if (item.prod_ram.includes(curr)) {
+            return prev && true;
+          }
         }
-      // return Colors && Tags; // return true
+      }, true);
+      if(this.ramsFilters.length === 0) {
+        return true;
+      }
+
+      //   if (this.tagsFilters.includes(item.brand_name)){
+      //     return true;
+      //   }
+
+      //   if (this.ramsFilters.includes(item.prod_ram)){
+      //     return true;
+      //   }
+      return Colors && Tags && Rams; // return true
     });
   }
 
   // Update tags filter
   public updateTagFilters(tags: any[]) {
     this.tagsFilters = tags;
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
+  }
+
+  // Update Ram filter
+  public updateRamFilters(tags: any[]) {
+    this.ramsFilters = tags;
     this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
   }
 

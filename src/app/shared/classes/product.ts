@@ -5,7 +5,7 @@ export type ProductColor = 'white' | 'black' | 'red' | 'green' | 'purple' | 'yel
 export type ProductSize = 'M' | 'L' | 'XL';
 
 // Product Tag
-export type ProductTags = 'DELL' | 'ACER' | 'Predator' | 'caprese';
+export type ProductTags = 'nike' | 'puma' | 'lifestyle' | 'caprese';
 
 // Product
 export interface Product {
@@ -14,6 +14,7 @@ export interface Product {
   prod_img?;
   prod_id?: string;
   prod_name?: string;
+  prod_ram?: string;
   cat_name?: string;
   brand_name?: string;
   price?: number;

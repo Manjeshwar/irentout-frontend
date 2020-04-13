@@ -53,6 +53,7 @@ import { SuccessComponent } from '../product/success/success.component';
 import { ExitPopupComponent } from '../product/widgets/exit-popup/exit-popup.component';
 import { AgeVerificationComponent } from '../product/widgets/age-verification/age-verification.component';
 import { NewsletterComponent } from '../product/widgets/newsletter/newsletter.component';
+import { RamComponent } from '../product/collection/filter/ram/ram.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { NewsletterComponent } from '../product/widgets/newsletter/newsletter.co
     CollectionNoSidebarComponent,
     ColorComponent,
     BrandComponent,
+    RamComponent,
     PriceComponent,
     // ProductLeftSidebarComponent,
     // ProductRightSidebarComponent,
