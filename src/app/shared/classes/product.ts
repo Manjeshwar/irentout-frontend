@@ -14,6 +14,8 @@ export interface Product {
   prod_img?;
   prod_id?: string;
   prod_name?: string;
+  cat_name?: string;
+  brand_name?: string;
   price?: number;
   salePrice?: number;
   discount?: number;

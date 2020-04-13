@@ -4,7 +4,7 @@
       <span class="lable4" *ngIf='product.sale'>on sale</span>
     </div> -->
     <div class="front">
-      <a [routerLink]="['/home/left-sidebar/product', product.prod_id]"><img [src]="!variantImage ? product.prod_img[0] : variantImage" class="img-fluid" alt=""></a>
+      <a [routerLink]="['/home/left-sidebar/product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
     </div>
     <!-- <ul class="product-thumb-list">
       <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}" *ngFor="let variant of product.variants">

@@ -46,7 +46,7 @@ export class ProductsService {
          if(category == 'all')
             return item
          else
-            return item.category === category; 
+            return item.cat_name === category; 
         
        })
      ));
