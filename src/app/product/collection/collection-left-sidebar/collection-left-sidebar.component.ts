@@ -33,10 +33,22 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
   public items: Product[] = [];
   public allItems: Product[] = [];
   public colorFilters: ColorFilter[] = [];
+
   public tagsFilters: any[] = [];
   public tags: any[] = [];
+
   public ramsFilters: any[] = [];
   public rams: any[] = [];
+
+  public capacityHFilters: any[] = [];
+  public capacityH: any[] = [];
+
+  public processorsHFilters: any[] = [];
+  public processor: any[] = [];
+
+  public storageHFilters: any[] = [];
+  public storage: any[] = [];
+
   public colors: any[] = [];
   public sortByOrder: string = ''; // sorting
   public animation: any; // Animation
@@ -61,6 +73,9 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
           this.getTags(products);
           this.getColors(products);
           this.getRams(products);
+          this.getCapacity(products);
+          this.getProcessor(products);
+          this.getStorage(products);
         });
 
         this.category = this.category.toLowerCase();
@@ -119,6 +134,49 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
     this.rams = itemRam;
   }
 
+   // Capacity Filters
+   public getCapacity(products) {
+    const uniqueCapacity = [];
+    products.filter((item) => {
+      uniqueCapacity.push(item.prod_disksize);
+    });
+    let allCapacity = Array.from(new Set(uniqueCapacity));
+    const itemCapacity = Array();
+    allCapacity.forEach((i) => {
+      itemCapacity.push({capacity: i});
+    });
+    this.capacityH = itemCapacity;
+  }
+
+  // Processor Filters
+  public getProcessor(products) {
+    const uniqueProcessor = [];
+    products.filter((item) => {
+      uniqueProcessor.push(item.prod_processor);
+    });
+    let allProcessor = Array.from(new Set(uniqueProcessor));
+    const itemProcessor = Array();
+    allProcessor.forEach((i) => {
+      itemProcessor.push({processor: i});
+    });
+    this.processor = itemProcessor;
+  }
+
+  // Processor storage type
+  public getStorage(products) {
+    const uniqueStorage = [];
+    products.filter((item) => {
+      uniqueStorage.push(item.prod_disktype);
+    });
+    let allStorage = Array.from(new Set(uniqueStorage));
+    const itemStorage = Array();
+    allStorage.forEach((i) => {
+      let name = (i === '0') ? 'HDD' : 'SSD';
+      itemStorage.push({storage: i, dispName: name});
+    });
+    this.storage = itemStorage;
+  }
+
   // Get current product colors
   public getColors(products) {
     var uniqueColors = [];
@@ -152,7 +210,8 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
 
   // Initialize filetr Items
   public filterItems(): Product[] {
-    const brandFilter = this.items.filter((item: Product) => {
+    let filteredProducts = [];
+    filteredProducts = this.items.filter((item: Product) => {
 
       if (this.tagsFilters.length === 0) {
         return true;
@@ -163,7 +222,7 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
       }
     });
 
-    const ramFilter = brandFilter.filter((item: Product) => {
+    filteredProducts = filteredProducts.filter((item: Product) => {
 
       if (this.ramsFilters.length === 0) {
         return true;
@@ -174,7 +233,41 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
       }
     });
 
-    return ramFilter;
+    filteredProducts = filteredProducts.filter((item: Product) => {
+
+      if (this.capacityHFilters.length === 0) {
+        return true;
+      }
+
+      if (this.capacityHFilters.includes(item.prod_disksize)) {
+        return true;
+      }
+    });
+
+    filteredProducts = filteredProducts.filter((item: Product) => {
+
+      if (this.processorsHFilters.length === 0) {
+        return true;
+      }
+
+      if (this.processorsHFilters.includes(item.prod_processor)) {
+        return true;
+      }
+    });
+
+    filteredProducts = filteredProducts.filter((item: Product) => {
+
+      if (this.storageHFilters.length === 0) {
+        return true;
+      }
+
+      if (this.storageHFilters.includes(item.prod_disktype)) {
+        return true;
+      }
+    });
+
+
+    return filteredProducts;
   }
 
   // Update tags filter
@@ -186,6 +279,24 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
   // Update Ram filter
   public updateRamFilters(tags: any[]) {
     this.ramsFilters = tags;
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
+  }
+
+  // Update Capacity filter
+  public updateCapacityFilters(tags: any[]) {
+    this.capacityHFilters = tags;
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
+  }
+
+  // Update Processor filter
+  public updateProcessorFilters(tags: any[]) {
+    this.processorsHFilters = tags;
+    this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
+  }
+
+  // Update Processor filter
+  public updateStorageFilters(tags: any[]) {
+    this.storageHFilters = tags;
     this.animation === 'fadeOut' ? this.fadeIn() : this.fadeOut(); // animation
   }
 

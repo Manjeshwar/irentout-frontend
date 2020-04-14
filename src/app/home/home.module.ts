@@ -54,6 +54,9 @@ import { ExitPopupComponent } from '../product/widgets/exit-popup/exit-popup.com
 import { AgeVerificationComponent } from '../product/widgets/age-verification/age-verification.component';
 import { NewsletterComponent } from '../product/widgets/newsletter/newsletter.component';
 import { RamComponent } from '../product/collection/filter/ram/ram.component';
+import { CapacityComponent } from '../product/collection/filter/capacity/capacity.component';
+import { ProcessorComponent } from '../product/collection/filter/processor/processor.component';
+import { StorageTypeComponent } from '../product/collection/filter/storage-type/storage-type.component';
 
 
 @NgModule({
@@ -76,6 +79,9 @@ import { RamComponent } from '../product/collection/filter/ram/ram.component';
     ColorComponent,
     BrandComponent,
     RamComponent,
+    CapacityComponent,
+    ProcessorComponent,
+    StorageTypeComponent,
     PriceComponent,
     // ProductLeftSidebarComponent,
     // ProductRightSidebarComponent,

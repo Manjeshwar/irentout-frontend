@@ -2,23 +2,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var $: any;
 
 @Component({
-  selector: 'app-ram',
-  templateUrl: './ram.component.html',
-  styleUrls: ['./ram.component.scss']
+  selector: 'app-capacity',
+  templateUrl: './capacity.component.html',
+  styleUrls: ['./capacity.component.scss']
 })
-export class RamComponent implements OnInit {
+export class CapacityComponent implements OnInit {
 
   // Using Input nad Output EventEmitter
-  @Input()  ramsFilters : any[] = [];
-  @Output() ramFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Input()  capacityHFilters : any[] = [];
+  @Output() capacityFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
 
   // Array
   public checkedTagsArray: any[] = [];
 
   constructor() { }
 
-  ngOnInit() {  
-      this.ramFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
+  ngOnInit() {
+      this.capacityFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
       $('.collapse-block-title').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
@@ -43,7 +43,6 @@ export class RamComponent implements OnInit {
       this.checkedTagsArray.splice(index, 1);  // removed in array unchecked value
     }
 }
-
 
 
 }

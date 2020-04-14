@@ -32,7 +32,12 @@
               </div>
               <div class="collection-filter-block">
                 <app-brand [tagsFilters]="tags" (tagFilters)="updateTagFilters($event)" *ngIf="tags.length"></app-brand>
-                <app-ram [ramsFilters]="rams" (ramFilters)="updateRamFilters($event)" *ngIf="rams.length && category==='laptop'"></app-ram>
+                <span *ngIf="category==='laptop'">
+                  <app-ram [ramsFilters]="rams" (ramFilters)="updateRamFilters($event)" *ngIf="rams.length"></app-ram>
+                  <app-capacity [capacityHFilters]="capacityH" (capacityFilters)="updateCapacityFilters($event)" *ngIf="capacityH.length"></app-capacity>
+                  <app-processor [processorsHFilters]="processor" (processorFilters)="updateProcessorFilters($event)" *ngIf="processor.length"></app-processor>
+                  <app-storage-type [storageHFilters]="storage" (storageFilters)="updateStorageFilters($event)" *ngIf="storage.length"></app-storage-type>
+                </span>
                 <app-color [colorsFilters]="colors" (colorFilters)="updateColorFilters($event)" *ngIf="colors.length"></app-color>
                 <app-price (priceFilters)="updatePriceFilters($event)"></app-price>
               </div>

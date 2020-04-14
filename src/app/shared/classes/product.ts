@@ -20,6 +20,10 @@ export interface Product {
   prod_ram?: string;
   cat_name?: string;
   brand_name?: string;
+  prod_disksize?: string;
+  prod_processor?: string;
+  prod_screensize?: string;
+  prod_disktype?: string;
   price?: number;
   salePrice?: number;
   discount?: number;
