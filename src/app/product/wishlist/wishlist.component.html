@@ -10,7 +10,7 @@
         <div class="col-sm-6">
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="'/home/one'">Home</a></li>
+              <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
               <li class="breadcrumb-item active">wishlist</li>
             </ol>
           </nav>
@@ -42,12 +42,12 @@
             <tbody *ngFor="let item of wishlistItems">
               <tr>
                 <td>
-                  <a [routerLink]="['/home/left-sidebar/product', item.id]">
+                  <a [routerLink]="['/categories/product', item.id]">
                     <img [src]="item.pictures[0]" alt="">
                   </a>
                 </td>
                 <td>
-                  <a [routerLink]="['/home/left-sidebar/product', item.id]">{{ item.name }}</a>
+                  <a [routerLink]="['/categories/product', item.id]">{{ item.name }}</a>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
                       <p>in stock</p>
@@ -77,7 +77,7 @@
                   <a [routerLink]="" (click)="removeItem(item)" class="icon mr-3">
                     <i class="ti-close"></i>
                   </a>
-                  <a [routerLink]="'/home/cart'" (click)="addToCart(item)" class="cart">
+                  <a [routerLink]="'/categories/cart'" (click)="addToCart(item)" class="cart">
                     <i class="ti-shopping-cart"></i>
                   </a>
                 </td>
@@ -88,8 +88,8 @@
       </div>
       <div class="row wishlist-buttons" *ngIf='wishlistItems.length'>
         <div class="col-12">
-          <a [routerLink]="['/home/left-side/collection/all']" class="btn btn-solid">continue shopping</a>
-          <a [routerLink]="['/home/checkout']" class="btn btn-solid">check out</a>
+          <a [routerLink]="['/categories/collection/all']" class="btn btn-solid">continue shopping</a>
+          <a [routerLink]="['/categories/checkout']" class="btn btn-solid">check out</a>
         </div>
       </div>
     </div>

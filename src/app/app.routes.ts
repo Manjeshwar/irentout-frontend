@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { MainComponent } from './main/main.component';
-import { DemoComponent } from './demo/demo.component';
+// import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
 
 export const rootRouterConfig: Routes = [
@@ -19,7 +19,7 @@ export const rootRouterConfig: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'home',
+        path: 'categories',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {

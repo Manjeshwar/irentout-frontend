@@ -10,7 +10,7 @@
         <div class="col-sm-6">
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="'/home/one'">Home</a></li>
+              <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
               <li class="breadcrumb-item active">cart</li>
             </ol>
           </nav>
@@ -43,12 +43,12 @@
             <tbody *ngFor="let item of shoppingCartItems">
               <tr>
                 <td>
-                  <a [routerLink]="['/home/left-sidebar/product', item.product.id]">
-                  <img [src]="item.product.pictures[0]" alt="">
+                  <a [routerLink]="['/categories/product', item.product.id]">
+                  <img src='http://localhost:3000/images/products/{{item.product.prod_img[0]}}' alt="">
                 </a>
                 </td>
                 <td>
-                  <a [routerLink]="['/home/left-sidebar/product', item.product.id]">{{ item.product.name }}</a>
+                  <a [routerLink]="['/categories/product', item.product.id]">{{ item.product.prod_name }}</a>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
                       <div class="qty-box">
@@ -58,7 +58,7 @@
                       </div>
                     </div>
                     <div class="col-xs-3">
-                      <h2 class="td-color">{{ item.product.price | currency:productsService?.currency:'symbol' }}</h2>
+                      <h2 class="td-color">{{ item.product.tenure_price | currency:productsService?.currency:'symbol' }}</h2>
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
@@ -69,7 +69,7 @@
                     </div>
                   </div>
                 </td>
-                <td><h2>{{ item.product.price | currency:productsService?.currency:'symbol' }}</h2>
+                <td><h2>{{ item.product.tenure_price | currency:productsService?.currency:'symbol' }}</h2>
                 </td>
                 <td>
                   <div class="qty-box">
@@ -113,10 +113,10 @@
       </div>
       <div class="row cart-buttons" *ngIf='shoppingCartItems.length'>
         <div class="col-6">
-          <a [routerLink]="['/home/left-sidebar/collection/all']" class="btn btn-solid">continue shopping</a>
+          <a [routerLink]="['/categories/all']" class="btn btn-solid">continue shopping</a>
         </div>
         <div class="col-6">
-          <a [routerLink]="['/home/checkout']" class="btn btn-solid">check out</a>
+          <a [routerLink]="['/categories/checkout']" class="btn btn-solid">check out</a>
         </div>
       </div>
     </div>

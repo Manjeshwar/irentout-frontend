@@ -37,7 +37,8 @@ import { PriceComponent } from '../product/collection/filter/price/price.compone
 // import { ProductAccordianComponent } from '../product/product-details/product-accordian/product-accordian.component';
 // import { ProductLeftImageComponent } from '../product/product-details/product-left-image/product-left-image.component';
 // import { ProductRightImageComponent } from '../product/product-details/product-right-image/product-right-image.component';
-import { ProductVeticalTabComponent } from '../product/product-details/product-vetical-tab/product-vetical-tab.component';
+import { ProductDetailsComponent } from '../product/product-details/product-details.component';
+// import { ProductVeticalTabComponent } from '../product/product-details/product-vetical-tab/product-vetical-tab.component';
 import { RelatedProductsComponent } from '../product/product-details/related-products/related-products.component';
 import { SidebarComponent } from '../product/product-details/sidebar/sidebar.component';
 import { CategoriesComponent } from '../product/widgets/categories/categories.component';
@@ -92,7 +93,8 @@ import { StorageTypeComponent } from '../product/collection/filter/storage-type/
     // ProductAccordianComponent,
     // ProductLeftImageComponent,
     // ProductRightImageComponent,
-    ProductVeticalTabComponent,
+    ProductDetailsComponent,
+    // ProductVeticalTabComponent,
     RelatedProductsComponent,
     SidebarComponent,
     CategoriesComponent,

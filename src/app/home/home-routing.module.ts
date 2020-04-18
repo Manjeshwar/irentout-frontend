@@ -13,7 +13,8 @@ import { CollectionNoSidebarComponent } from '../product/collection/collection-n
 // import { ProductAccordianComponent } from '../product/product-details/product-accordian/product-accordian.component';
 // // import { ProductLeftImageComponent } from '../product/product-details/product-left-image/product-left-image.component';
 // import { ProductRightImageComponent } from '../product/product-details/product-right-image/product-right-image.component';
-import { ProductVeticalTabComponent } from '../product/product-details/product-vetical-tab/product-vetical-tab.component';
+import { ProductDetailsComponent } from '../product/product-details/product-details.component';
+// import { ProductVeticalTabComponent } from '../product/product-details/product-vetical-tab/product-vetical-tab.component';
 import { SearchComponent } from '../product/search/search.component';
 import { WishlistComponent } from '../product/wishlist/wishlist.component';
 import { ProductCompareComponent } from '../product/product-compare/product-compare.component';
@@ -26,7 +27,7 @@ import { SuccessComponent } from '../product/success/success.component';
 const routes: Routes = [
   
   {
-    path: 'left-sidebar/collection/:category',
+    path: ':category',
     component: CollectionLeftSidebarComponent
   },
   {
@@ -74,9 +75,13 @@ const routes: Routes = [
   //   component: ProductRightImageComponent
   // },
   {
-    path: 'vertical/product/:id',
-    component: ProductVeticalTabComponent
+    path: 'product/:id',
+    component: ProductDetailsComponent
   },
+  // {
+  //   path: 'vertical/product/:id',
+  //   component: ProductVeticalTabComponent
+  // },
   {
     path: 'search',
     component: SearchComponent

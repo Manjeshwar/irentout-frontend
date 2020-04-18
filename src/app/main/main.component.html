@@ -1,26 +1,26 @@
-<app-header-one *ngIf="url != '/home/two' && url != '/home/three' && url != '/home/four' && url != '/home/five' && url != '/home/ten' && url != '/home/eleven' && url != '/home/twelve' && url != '/home/thirteen' && url != '/home/fourteen'"></app-header-one>
+<app-header-one *ngIf="url != '/categories/two' && url != '/categories/three' && url != '/categories/four' && url != '/categories/five' && url != '/categories/ten' && url != '/categories/eleven' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-header-one>
 
-<app-header-two *ngIf="url == '/home/five' || url == '/home/three'"></app-header-two>
+<app-header-two *ngIf="url == '/categories/five' || url == '/categories/three'"></app-header-two>
 
-<app-header-three *ngIf="url == '/home/two' || url == '/home/four' || url === '/home/fourteen' "></app-header-three>
+<app-header-three *ngIf="url == '/categories/two' || url == '/categories/four' || url === '/categories/fourteen' "></app-header-three>
 
-<app-header-four *ngIf="url == '/home/twelve' || url == '/home/thirteen'"></app-header-four>
+<app-header-four *ngIf="url == '/categories/twelve' || url == '/categories/thirteen'"></app-header-four>
 
-<app-header-five *ngIf="url == '/home/ten'"></app-header-five>
+<app-header-five *ngIf="url == '/categories/ten'"></app-header-five>
 
-<app-left-sidebar *ngIf="url == '/home/eleven'"></app-left-sidebar>
+<app-left-sidebar *ngIf="url == '/categories/eleven'"></app-left-sidebar>
 
-<div [class]="url == '/home/eleven' ? 'left-sidebar_space' : ''"> <!-- Left sidebar menu only -->
+<div [class]="url == '/categories/eleven' ? 'left-sidebar_space' : ''"> <!-- Left sidebar menu only -->
 	
 	<router-outlet></router-outlet>
 	
-	<app-footer-one *ngIf="url != '/home/three' && url != '/home/twelve' && url != '/home/thirteen' && url != '/home/fourteen'"></app-footer-one>
+	<app-footer-one *ngIf="url != '/categories/three' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-footer-one>
 	
-	<app-footer-two *ngIf="url == '/home/three' || url == '/home/twelve'"></app-footer-two>
+	<app-footer-two *ngIf="url == '/categories/three' || url == '/categories/twelve'"></app-footer-two>
 
-	<app-footer-three *ngIf="url == '/home/thirteen'"></app-footer-three>
+	<app-footer-three *ngIf="url == '/categories/thirteen'"></app-footer-three>
 
-	<app-footer-four *ngIf="url == '/home/fourteen'"></app-footer-four>
+	<app-footer-four *ngIf="url == '/categories/fourteen'"></app-footer-four>
 
 </div>
 	
