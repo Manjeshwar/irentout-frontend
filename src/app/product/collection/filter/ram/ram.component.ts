@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var $: any;
+import { EmitService } from '../../../../shared/services/emit.service';
 
 @Component({
   selector: 'app-ram',
@@ -15,7 +16,7 @@ export class RamComponent implements OnInit {
   // Array
   public checkedTagsArray: any[] = [];
 
-  constructor() { }
+  constructor(private emitS: EmitService) { }
 
   ngOnInit() {  
       this.ramFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
@@ -31,6 +32,12 @@ export class RamComponent implements OnInit {
           thisItem.addClass('open');
           nextLevel.slideDown(speed);
         }
+    });
+    this.emitS.currentFilter.subscribe(val => {
+      if (val) {
+        this.checkedTagsArray = [];
+        this.ramFilters.emit(this.checkedTagsArray);
+      }
     });
   }
 

@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import * as _ from 'lodash';
 import { ProductsService } from '../../../shared/services/products.service';
 import { Router } from '@angular/router';
+import { EmitService } from '../../../shared/services/emit.service';
 
 @Component({
   selector: 'app-categories',
@@ -14,7 +15,7 @@ export class CategoriesComponent implements OnInit {
   categories = [];
   uniqCategories = [];
 
-  constructor(private ps: ProductsService, private router: Router) { }
+  constructor(private ps: ProductsService, private router: Router, private emitS: EmitService) { }
   
   // collapse toggle
   ngOnInit() {
@@ -53,7 +54,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   changeCategory(route) {
-    location.replace(`http://localhost:4200${route}`);
+    // location.replace(`http://localhost:4200${route}`);
+    this.emitS.emptyCurrentSelection(true);
+    this.router.navigate([route]);
   }
 
 

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductTags, TagFilter } from '../../../../shared/classes/product';
+import { EmitService } from '../../../../shared/services/emit.service';
 declare var $: any;
 
 @Component({
@@ -16,10 +17,10 @@ export class BrandComponent implements OnInit {
   // Array
   public checkedTagsArray: any[] = [];
 
-  constructor() { }
+  constructor(private emitS: EmitService) { }
 
-  ngOnInit() {  
-      this.tagFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
+  ngOnInit() {
+      this.tagFilters.emit(this.checkedTagsArray);   // Pass value Using emit
       $('.collapse-block-title').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
@@ -32,6 +33,12 @@ export class BrandComponent implements OnInit {
           thisItem.addClass('open');
           nextLevel.slideDown(speed);
         }
+    });
+    this.emitS.currentFilter.subscribe(val => {
+      if (val) {
+        this.checkedTagsArray = [];
+        this.tagFilters.emit(this.checkedTagsArray);
+      }
     });
   }
 

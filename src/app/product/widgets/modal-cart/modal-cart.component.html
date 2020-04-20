@@ -12,7 +12,7 @@
                                 </button>
                                 <div class="media">
                                     <a [routerLink]="['/categories/product', product.id]">
-                                        <img class="img-fluid pro-img" [src]="product.pictures[0]" alt="">
+                                        <img class="img-fluid pro-img" [src]="product.prod_img[0]" alt="">
                                     </a>
                                     <div class="media-body align-self-center text-center">
                                         <a [routerLink]="['/categories/product', product.id]">
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
 
-                                <div class="product-section">
+                                <!-- <div class="product-section">
                                     <div class="col-12 product-upsell text-center">
                                         <h4>Customers who bought this item also.</h4>
                                     </div>
@@ -42,8 +42,8 @@
                                         <div class="product-box col-sm-3 col-6" *ngFor="let relatedProduct of relatedProducts(product) | slice:0:4">
                                             <div class="img-wrapper">
                                                 <div class="front">
-                                                    <a [routerLink]="['/categories/product', relatedProduct.id]">
-                                                        <img [src]="relatedProduct.pictures[0]" class="img-fluid mb-1" alt="">
+                                                    <a [routerLink]="['/categories/product', relatedProduct.cat_name]">
+                                                        <img [src]="relatedProduct.category[0]" class="img-fluid mb-1" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-detail">
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                     </div> 
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
