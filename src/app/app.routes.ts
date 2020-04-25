@@ -10,16 +10,24 @@ export const rootRouterConfig: Routes = [
   //   redirectTo: 'abc',
   //   pathMatch: 'full'
   // },
-  {
-    path: '',
-    component: HomeComponent
-  },
+  // {
+  //   path: '',
+  //   component: HomeComponent
+  // },
   {
     path: '',
     component: MainComponent,
     children: [
       {
         path: 'categories',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'Bangalore',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'Mumbai',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {

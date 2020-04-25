@@ -1,0 +1,23 @@
+<!-- brand filter start -->
+<div class="collection-collapse-block open">
+  <h3 class="collapse-block-title">Hard Disk Capacity</h3>
+  <div class="collection-collapse-block-content">
+    <div class="collection-brand-filter">
+      <div
+        class="custom-control custom-checkbox collection-filter-checkbox"
+        *ngFor="let filter of capacityHFilters"
+      >
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          [value]="filter.capacity"
+          (change)="checkedFilter($event)"
+          id="{{ filter.capacity }}"
+        />
+        <label class="custom-control-label" for="{{ filter.capacity }}">{{
+          filter.capacity
+        }}</label>
+      </div>
+    </div>
+  </div>
+</div>

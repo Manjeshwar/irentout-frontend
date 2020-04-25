@@ -9,6 +9,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   b_url = `http://localhost:3000/`;
+  cty_url = `http://localhost:3000/cities`;
 
   public register(regform) {
     return this.http.post(`${this.b_url}register`, regform);
@@ -20,5 +21,9 @@ export class UserService {
 
   public getUserDetails(token) {
     return this.http.post(`${this.b_url}userdetails`, {token: token});
+  }
+
+  public getAllCities() {
+    return this.http.get(`${this.cty_url}`);
   }
 }

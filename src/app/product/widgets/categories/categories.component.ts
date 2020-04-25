@@ -41,13 +41,14 @@ export class CategoriesComponent implements OnInit {
   }
 
   fetchAllCategories() {
+    const cty = localStorage.getItem('city');
     this.ps.getProducts().subscribe((res) => {
       res.forEach((dta) => {
         this.categories.push(dta.cat_name);
       });
       const categories = Array.from(new Set(this.categories));
       categories.forEach((res) => {
-        this.uniqCategories.push({'href': `/categories/${res}`, 'name': res});
+        this.uniqCategories.push({'href': `${cty}/category/${res}`, 'name': res});
       });
 
     });

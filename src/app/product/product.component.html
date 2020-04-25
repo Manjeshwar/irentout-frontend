@@ -4,7 +4,7 @@
       <span class="lable4" *ngIf='product.sale'>on sale</span>
     </div> -->
     <div class="front">
-      <a [routerLink]="['../../categories/product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
+      <a [routerLink]="['../../product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
     </div>
     <!-- <ul class="product-thumb-list">
       <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}" *ngFor="let variant of product.variants">
@@ -31,7 +31,7 @@
   <div class="product-detail">
     <div>
       <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-      <a [routerLink]="['../../categories/product', product.id]"><h6>{{product.prod_name | titlecase }}</h6></a>
+      <a [routerLink]="['../../product', product.id]"><h6>{{product.prod_name | titlecase }}</h6></a>
       <h4 *ngIf="!productsService?.catalogMode">{{product.prod_price | currency:productsService?.currency:'symbol'}} / Month 
         <del><span class="money">{{product.salePrice | currency:productsService?.currency:'symbol'}}</span></del> 
       </h4>

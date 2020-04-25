@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectionBannerComponent implements OnInit {
 
+  cty: string;
+
   constructor() { }
 
   ngOnInit() {
+    this.cty = localStorage.getItem('city') ? localStorage.getItem('city') : 'Bangalore';
   }
 
   // Collection banner
@@ -22,7 +25,7 @@ export class CollectionBannerComponent implements OnInit {
     image: 'assets/images/furniture/2banner2.jpg',
     save: 'save 50%',
     title: 'Bean Bag',
-    link: '/categories/furniture'
+    link: `category/Laptop`
   },{
     image: 'assets/images/furniture/2banner3.jpg',
     save: 'save 50%',

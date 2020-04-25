@@ -58,6 +58,7 @@ import { RamComponent } from '../product/collection/filter/ram/ram.component';
 import { CapacityComponent } from '../product/collection/filter/capacity/capacity.component';
 import { ProcessorComponent } from '../product/collection/filter/processor/processor.component';
 import { StorageTypeComponent } from '../product/collection/filter/storage-type/storage-type.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import { StorageTypeComponent } from '../product/collection/filter/storage-type/
     InfiniteScrollModule,
     NgxPayPalModule,
     NgxImgZoomModule
-  ]
+  ],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })
 export class HomeModule { }

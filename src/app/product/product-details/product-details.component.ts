@@ -83,7 +83,8 @@ export class ProductDetailsComponent implements OnInit {
   public buyNow(product: Product, quantity) {
      if (quantity > 0) 
        this.cartService.addToCart(product,parseInt(quantity));
-       this.router.navigate(['/categories/checkout']);
+       const url = `/${localStorage.getItem('city')}`;
+       this.router.navigate([`${url}/checkout`]);
   }
 
   // Add to wishlist

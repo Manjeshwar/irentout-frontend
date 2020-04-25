@@ -2,6 +2,7 @@
 export interface Menu {
   path?: string;
   title?: string;
+  city?: string;
   type?: string;
   megaMenu?: boolean;
   megaMenuType?: string; // small, medium, large
@@ -39,19 +40,25 @@ export const MENUITEMS: Menu[] = [
 	//     ]
 	// },
 	{
-		title: 'Computers',  type: 'sub', children: [
-				{ path: '/categories/Laptop', title: 'Laptops',type: 'link' },
+		title: 'Computers', city: 'Bangalore', type: 'sub', children: [
+				{ path: `${localStorage.getItem('city')}/categories/Laptop`, title: 'Laptops',type: 'link' },
 				{ path: '/categories/Monitor', title: 'Desktops',type: 'link' }
 	    ]
 	},
 	{
-		title: 'Camera',  type: 'link', path: '/categories/Laptop'
+		title: 'Computers', city: 'Mumbai', type: 'sub', children: [
+				{ path: `${localStorage.getItem('city')}/categories/Laptop`, title: 'Monitors',type: 'link' },
+				{ path: '/categories/Monitor', title: 'Desktops',type: 'link' }
+	    ]
 	},
 	{
-		title: 'Offers',  type: 'link', path: '/'
+		title: 'Camera', city: 'Bangalore, Mumbai', type: 'link', path: '/categories/Laptop'
 	},
 	{
-		title: 'B2B',  type: 'link', path: '/'
+		title: 'Offers',  city: 'Bangalore, Mumbai', type: 'link', path: '/'
+	},
+	{
+		title: 'B2B',  city: 'Bangalore, Mumbai', type: 'link', path: '/'
 	},
 	// {
 	// 	title: 'pages', type: 'sub', children: [
@@ -85,58 +92,58 @@ export const MENUITEMS: Menu[] = [
 	//       { path: '/pages/404', title: '404', type: 'link'}        
 	//     ]
 	// },
-	{
-		title: 'shop', type: 'sub', megaMenu: true, megaMenuType: 'large', children: [
-	      { 
-	      	title: 'mens-fashion',  type: 'link', children: [
-		      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'top',  type: 'link' },
-		      	{ path: '/categories/all', title: 'bottom',  type: 'link' },
-		      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'shirts',  type: 'link' }
-	      	]
-	      },
-	      { 
-	      	title: 'women-fashion',  type: 'link', children: [
-		      	{ path: '/categories/all', title: 'dresses',  type: 'link' },
-		      	{ path: '/categories/all', title: 'skirts',  type: 'link' },
-		      	{ path: '/categories/all', title: 'westarn-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'bottom-wear',  type: 'link' }
-	      	]
-	      },
-	      { 
-	      	title: 'kids-fashion',  type: 'link', children: [
-		      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'top',  type: 'link' },
-		      	{ path: '/categories/all', title: 'bottom-wear',  type: 'link' },
-		      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' }
-	      	]
-	      },
-	      { 
-	      	title: 'accessories',  type: 'link', children: [
-		      	{ path: '/categories/all', title: 'fashion-jewellery',  type: 'link' },
-		      	{ path: '/categories/all', title: 'caps-and-hats',  type: 'link' },
-		      	{ path: '/categories/all', title: 'precious-jewellery',  type: 'link' },
-		      	{ path: '/categories/all', title: 'necklaces',  type: 'link' },
-		      	{ path: '/categories/all', title: 'earrings',  type: 'link' },
-		      	{ path: '/categories/all', title: 'rings-wrist-wear',  type: 'link' }
-	      	]
-	      },
-	      { 
-	      	title: 'men-accessories',  type: 'link', children: [
-		      	{ path: '/categories/all', title: 'ties',  type: 'link' },
-		      	{ path: '/categories/all', title: 'cufflinks',  type: 'link' },
-		      	{ path: '/categories/all', title: 'pockets-squares',  type: 'link' },
-		      	{ path: '/categories/all', title: 'helmets',  type: 'link' },
-		      	{ path: '/categories/all', title: 'scarves',  type: 'link' },
-		      	{ path: '/categories/all', title: 'phone-cases',  type: 'link' }
-	      	]
-	      },
-	    ]
-	},
+	// {
+	// 	title: 'shop', type: 'sub', megaMenu: true, megaMenuType: 'large', children: [
+	//       { 
+	//       	title: 'mens-fashion',  type: 'link', children: [
+	// 	      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'top',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'bottom',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'shirts',  type: 'link' }
+	//       	]
+	//       },
+	//       { 
+	//       	title: 'women-fashion',  type: 'link', children: [
+	// 	      	{ path: '/categories/all', title: 'dresses',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'skirts',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'westarn-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'bottom-wear',  type: 'link' }
+	//       	]
+	//       },
+	//       { 
+	//       	title: 'kids-fashion',  type: 'link', children: [
+	// 	      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'sports-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'top',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'bottom-wear',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'ethic-wear',  type: 'link' }
+	//       	]
+	//       },
+	//       { 
+	//       	title: 'accessories',  type: 'link', children: [
+	// 	      	{ path: '/categories/all', title: 'fashion-jewellery',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'caps-and-hats',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'precious-jewellery',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'necklaces',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'earrings',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'rings-wrist-wear',  type: 'link' }
+	//       	]
+	//       },
+	//       { 
+	//       	title: 'men-accessories',  type: 'link', children: [
+	// 	      	{ path: '/categories/all', title: 'ties',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'cufflinks',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'pockets-squares',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'helmets',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'scarves',  type: 'link' },
+	// 	      	{ path: '/categories/all', title: 'phone-cases',  type: 'link' }
+	//       	]
+	//       },
+	//     ]
+	// },
 ]

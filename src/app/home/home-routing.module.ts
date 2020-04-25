@@ -21,23 +21,27 @@ import { ProductCompareComponent } from '../product/product-compare/product-comp
 import { CartComponent } from '../product/cart/cart.component';
 import { CheckoutComponent } from '../product/checkout/checkout.component';
 import { SuccessComponent } from '../product/success/success.component';
+import { HomeComponent } from './home.component';
 
 
 // Routes
 const routes: Routes = [
-  
   {
-    path: ':category',
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'category/:category',
     component: CollectionLeftSidebarComponent
   },
-  {
-    path: 'right-sidebar/collection/:category',
-    component: CollectionRightSidebarComponent
-  },
-  {
-    path: 'no-sidebar/collection/:category',
-    component: CollectionNoSidebarComponent
-  },
+  // {
+  //   path: 'right-sidebar/collection/:category',
+  //   component: CollectionRightSidebarComponent
+  // },
+  // {
+  //   path: 'no-sidebar/collection/:category',
+  //   component: CollectionNoSidebarComponent
+  // },
   // {
   //   path: 'left-sidebar/product/:id',
   //   component: ProductLeftSidebarComponent

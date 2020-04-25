@@ -4,6 +4,7 @@ import { CartItem } from '../../../../shared/classes/cart-item';
 import { CartService } from '../../../../shared/services/cart.service';
 import { ProductsService } from '../../../../shared/services/products.service';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -18,7 +19,8 @@ export class SettingsComponent implements OnInit {
   public show  :   boolean = false;
 
   constructor(private translate: TranslateService, private cartService: CartService,
-   public productsService: ProductsService) { }
+   public productsService: ProductsService,
+   private route: Router) { }
 
   ngOnInit() { }
 
@@ -44,6 +46,16 @@ export class SettingsComponent implements OnInit {
 
   public removeItem(item: CartItem) {
     this.cartService.removeFromCart(item);
+  }
+
+  navigate() {
+    const url = `/${localStorage.getItem('city')}/cart`;
+    this.route.navigate([url]);
+  }
+
+  checkout() {
+    const url = `/${localStorage.getItem('city')}/checkout`;
+    this.route.navigate([url]);
   }
 
 }

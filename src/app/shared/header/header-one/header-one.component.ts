@@ -5,6 +5,7 @@ import { WINDOW } from '../../services/windows.service';
 import { CartItem } from '../../classes/cart-item';
 import { CartService } from '../../services/cart.service';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -18,7 +19,9 @@ export class HeaderOneComponent implements OnInit {
   public shoppingCartItems  :   CartItem[] = [];
   
   constructor(@Inject(DOCUMENT) private document: Document,
-    @Inject(WINDOW) private window,private fix: LandingFixService, private cartService: CartService) { 
+    @Inject(WINDOW) private window,private fix: LandingFixService,
+    private cartService: CartService,
+    private route: Router) { 
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
   }
 
@@ -32,6 +35,11 @@ export class HeaderOneComponent implements OnInit {
 
   closeNav() {
      this.fix.removeNavFix();
+  }
+
+  navigate() {
+    const url = `/${localStorage.getItem('city')}`;
+    this.route.navigate([url]);
   }
 
   // @HostListener Decorator

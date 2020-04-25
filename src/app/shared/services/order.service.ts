@@ -31,7 +31,7 @@ export class OrderService {
         totalAmount: amount
     };
     this.OrderDetails = item;
-    this.router.navigate(['/categories/checkout/success']);
+    this.router.navigate(['/checkout/success']);
   }
 
 }
