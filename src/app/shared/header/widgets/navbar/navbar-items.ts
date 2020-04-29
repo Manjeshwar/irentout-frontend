@@ -41,18 +41,18 @@ export const MENUITEMS: Menu[] = [
 	// },
 	{
 		title: 'Computers', city: 'Bangalore', type: 'sub', children: [
-				{ path: `${localStorage.getItem('city')}/categories/Laptop`, title: 'Laptops',type: 'link' },
-				{ path: '/categories/Monitor', title: 'Desktops',type: 'link' }
+				{ path: `/${localStorage.getItem('city')}/category/Laptop`, title: 'Laptops',type: 'link' },
+				{ path: `/${localStorage.getItem('city')}/category/Monitor`, title: 'Desktops',type: 'link' }
 	    ]
 	},
 	{
 		title: 'Computers', city: 'Mumbai', type: 'sub', children: [
-				{ path: `${localStorage.getItem('city')}/categories/Laptop`, title: 'Monitors',type: 'link' },
-				{ path: '/categories/Monitor', title: 'Desktops',type: 'link' }
+				{ path: `/${localStorage.getItem('city')}/category/Laptop`, title: 'Monitors',type: 'link' },
+				{ path: '/category/Monitor', title: 'Desktops',type: 'link' }
 	    ]
 	},
 	{
-		title: 'Camera', city: 'Bangalore, Mumbai', type: 'link', path: '/categories/Laptop'
+		title: 'Camera', city: 'Bangalore, Mumbai', type: 'link', path: '/category/Laptop'
 	},
 	{
 		title: 'Offers',  city: 'Bangalore, Mumbai', type: 'link', path: '/'

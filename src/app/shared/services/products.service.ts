@@ -46,7 +46,7 @@ export class ProductsService {
          if(category == 'all')
             return item
          else
-            return item.cat_name === category; 
+            return item.cat_name === category && item.prod_available_cities.includes(localStorage.getItem('city').toLowerCase()); 
         
        })
      ));

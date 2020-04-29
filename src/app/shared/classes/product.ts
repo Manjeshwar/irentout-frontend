@@ -24,6 +24,7 @@ export interface Product {
   prod_processor?: string;
   prod_screensize?: string;
   prod_disktype?: string;
+  prod_available_cities?: string;
   price?: number;
   salePrice?: number;
   discount?: number;

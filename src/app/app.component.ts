@@ -25,11 +25,11 @@ export class AppComponent implements OnInit {
    ngOnInit() {
       const cty = localStorage.getItem('city');
       this.emitS.changeCitySelection(cty);
+      const modal: HTMLElement = document.querySelector(".citiesModal");
       if(!cty) {
          this.cityService.getAllCities().subscribe((res) => {
             if(res){
                this.citiesList = res;
-               const modal: HTMLElement = document.querySelector(".citiesModal");
                modal.click();
             }
          });
@@ -41,6 +41,8 @@ export class AppComponent implements OnInit {
    getByCity(cityname) {
       localStorage.setItem('city', cityname);
       this.emitS.changeCitySelection(cityname);
+      const modal: HTMLElement = document.querySelector(".citiesModal");
+      modal.click();
       this.router.navigate([`/${cityname}`]);
    }
 	
