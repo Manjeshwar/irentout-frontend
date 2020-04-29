@@ -13,16 +13,16 @@ import { Observable, of } from 'rxjs';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  public product            :   Product = {};
-  public products           :   Product[] = [];
-  public counter            :   number = 1; 
-  public selectedSize       :   any = '';
-  
+  public product:   Product = {};
+  public products:   Product[] = [];
+  public counter = 1;
+  public selectedSize:   any = '';
+
   tenures = 3;
   tenure_price;
-  security_deposit= 0;
-  
-  //Get Product By Id
+  security_deposit = 0;
+
+  // Get Product By Id
   constructor(private route: ActivatedRoute, private router: Router,
     public productsService: ProductsService, private wishlistService: WishlistService,
     private cartService: CartService) {
@@ -32,7 +32,7 @@ export class ProductDetailsComponent implements OnInit {
           this.product = product;
           this.security_deposit = parseInt(product.prod_price);
           this.tenure_price = product.prod_tenure[0][1];
-        })
+        });
       });
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from './shared/services/user.service';
 import * as $ from 'jquery';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { EmitService } from './shared/services/emit.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 	
    constructor(translate: TranslateService,
       private cityService: UserService,
+      private route: ActivatedRoute,
       private router: Router,
       private emitS: EmitService) {
       translate.setDefaultLang('en');
@@ -23,12 +24,26 @@ export class AppComponent implements OnInit {
    }
 
    ngOnInit() {
+      const parm = window.location.search;
+      const arr = parm.split('&');
+      let arr1 = [];
+      arr.forEach((i) => {
+         arr1.push(i.split('='));
+      });
+      let arr2 = []
+      arr1.forEach((val) => {
+         let keyVal = val[0];
+         keyVal = (keyVal === '?uid') ? 'uid' : keyVal;
+         localStorage.setItem(keyVal, val[1]);
+      });
+
+
       const cty = localStorage.getItem('city');
       this.emitS.changeCitySelection(cty);
       const modal: HTMLElement = document.querySelector(".citiesModal");
       if(!cty) {
          this.cityService.getAllCities().subscribe((res) => {
-            if(res){
+            if (res) {
                this.citiesList = res;
                modal.click();
             }
@@ -40,9 +55,10 @@ export class AppComponent implements OnInit {
 
    getByCity(cityname) {
       localStorage.setItem('city', cityname);
+      const modalClose: HTMLElement = document.querySelector("#citiesModalTrigger .btn-danger");
+      modalClose.click();
       this.emitS.changeCitySelection(cityname);
       const modal: HTMLElement = document.querySelector(".citiesModal");
-      modal.click();
       this.router.navigate([`/${cityname}`]);
    }
 	

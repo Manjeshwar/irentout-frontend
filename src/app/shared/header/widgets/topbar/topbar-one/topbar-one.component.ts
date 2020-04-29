@@ -23,7 +23,7 @@ export class TopbarOneComponent implements OnInit {
 
 
   checkIfLogged() {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {
       this.display = true;
     }
   }
@@ -35,12 +35,14 @@ export class TopbarOneComponent implements OnInit {
   }
 
   logout() {
+    const city = localStorage.getItem('city');
     localStorage.removeItem('uname');
     localStorage.removeItem('uid');
     localStorage.removeItem('logintype');
     localStorage.removeItem('token');
     localStorage.removeItem('redirectto');
-    this.router.navigate(['']);
+    this.display = false;
+    this.router.navigate([`/${city}`]);
   }
 
 }
