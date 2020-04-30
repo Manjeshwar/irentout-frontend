@@ -37,10 +37,11 @@ export class CartService {
     var item: CartItem | boolean = false;
     // If Products exist
     let hasItem = products.find((items, index) => {
-      if(items.product.id == product.id) {
+      if(items.product.prod_id == product.prod_id) {
         let qty = products[index].quantity + quantity;
-        let stock = this.calculateStockCounts(products[index], quantity);
-        if (qty != 0 && stock) {
+        //let stock = this.calculateStockCounts(products[index], quantity);
+        // if (qty != 0 && stock) {
+        if (qty != 0) {
           products[index]['quantity'] = qty;
           this.toastrService.success('This product has been added.');
         }
@@ -61,7 +62,7 @@ export class CartService {
   // Update Cart Value
   public updateCartQuantity(product: Product, quantity: number): CartItem | boolean {
     return products.find((items, index) => {
-      if(items.product.id == product.id) {
+      if(items.product.prod_id == product.prod_id) {
         let qty = products[index].quantity + quantity;
         let stock = this.calculateStockCounts(products[index], quantity);
         if (qty != 0 && stock) 
@@ -94,8 +95,8 @@ export class CartService {
   // Total amount 
   public getTotalAmount(): Observable<number> {
     return this.cartItems.pipe(map((product: CartItem[]) => {
-      return products.reduce((prev, curr: CartItem) => {
-        return prev + curr.product.price * curr.quantity;
+      return products.reduce((prev, curr: any) => {
+        return prev + curr.product.prod_price * curr.quantity;
       }, 0);
     }));
   }

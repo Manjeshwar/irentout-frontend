@@ -14,7 +14,7 @@
       </li>
     </ul> -->
     <div class="cart-info cart-wrap" *ngIf="!productsService?.catalogMode">
-      <a [routerLink]="" [attr.data-target]="'#addtocart'+product.id" data-toggle="modal" (click)="addToCart(product)" data-placement="left" title="Add to cart">
+      <a [routerLink]="" [attr.data-target]="'#addtocart'+product.prod_id" data-toggle="modal" (click)="addToCart(product)" data-placement="left" title="Add to cart">
          <i class="ti-shopping-cart" ></i>
       </a>
       <a [routerLink]="" (click)="addToWishlist(product)" title="Add to Wishlist">
