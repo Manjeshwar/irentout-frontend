@@ -31,11 +31,13 @@ export class LoginComponent implements OnInit {
             const uname = res.data[0].uname;
             const uid = res.data[0].uid;
             const logintype = res.data[0].logintype;
+            const cart = res.data[0].cart;
 
             localStorage.setItem('uname', uname);
             localStorage.setItem('uid', uid);
             localStorage.setItem('logintype', logintype);
             localStorage.setItem('token', token);
+            localStorage.setItem('cartItem', cart);
             const redirect = localStorage.getItem('redirectto');
             window.location.href = redirect;
           }

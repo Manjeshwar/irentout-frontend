@@ -41,6 +41,8 @@ export class TopbarOneComponent implements OnInit {
     localStorage.removeItem('logintype');
     localStorage.removeItem('token');
     localStorage.removeItem('redirectto');
+    localStorage.removeItem('cartItem');
+    localStorage.removeItem('existinguser');
     this.display = false;
     this.router.navigate([`/${city}`]);
   }
