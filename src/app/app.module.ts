@@ -5,7 +5,6 @@ import { Http, HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ShopModule } from "./shop/shop.module";
 import { HomeModule } from "./home/home.module";
-import { CitiesModule } from "./cities/cities.module";
 import { SharedModule } from "./shared/shared.module";
 import { ToastrModule } from 'ngx-toastr';
 import { rootRouterConfig } from './app.routes';
@@ -39,7 +38,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     // ShopModule,
     HomeModule,
-    // CitiesModule,
     SharedModule,
     HttpClientModule,
     NgbModule,

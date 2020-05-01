@@ -13,7 +13,7 @@ export type ProductRamSizes = '2GB' | '4GB' | '8GB' | '16GB' | '32GB' | '64GB';
 // Product
 export interface Product {
   id?: string;
-  name?: string;
+  // name?: string;
   prod_img?;
   prod_id?: string;
   prod_name?: string;
