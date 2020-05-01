@@ -43,6 +43,7 @@ export class TopbarOneComponent implements OnInit {
     localStorage.removeItem('redirectto');
     localStorage.removeItem('cartItem');
     localStorage.removeItem('existinguser');
+    document.querySelector('.cart_qty_cls').textContent = '0';
     this.display = false;
     this.router.navigate([`/${city}`]);
   }

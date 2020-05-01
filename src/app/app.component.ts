@@ -4,6 +4,7 @@ import { UserService } from './shared/services/user.service';
 import * as $ from 'jquery';
 import { ActivatedRoute, Router} from '@angular/router';
 import { EmitService } from './shared/services/emit.service';
+import { CartService } from './shared/services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
       private cityService: UserService,
       private route: ActivatedRoute,
       private router: Router,
+      private cart: CartService,
       private emitS: EmitService) {
       translate.setDefaultLang('en');
       translate.addLangs(['en', 'fr']);
@@ -36,6 +38,14 @@ export class AppComponent implements OnInit {
          keyVal = (keyVal === '?uid') ? 'uid' : keyVal;
          localStorage.setItem(keyVal, val[1]);
       });
+
+      const social = ['google', 'facebook'];
+      if (social.includes(localStorage.getItem('logintype'))) {
+         this.cart.getCartDetails(localStorage.getItem('token')).subscribe((res) => {
+            localStorage.setItem('cartItem', res[0].cart);
+            this.cart.getItems();
+         });
+      }
 
 
       const cty = localStorage.getItem('city');

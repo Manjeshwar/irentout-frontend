@@ -31,6 +31,7 @@ export interface Product {
   prod_image?: string;
   prod_price?: string;
   prod_tenure?;
+  tenure_price?;
   shortDetails?: string;
   description?: string;
   stock?: number;

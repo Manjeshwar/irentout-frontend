@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private us: UserService) { }
+  constructor(private formBuilder: FormBuilder, private us: UserService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -44,6 +45,11 @@ export class LoginComponent implements OnInit {
         });
       }
     });
+  }
+
+  registerRedirect() {
+    const cty = localStorage.getItem('city');
+    this.router.navigate([`${cty}/register`]);
   }
 
 }

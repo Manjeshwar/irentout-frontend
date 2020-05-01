@@ -40,7 +40,7 @@
           <div class="media">
             <a [routerLink]="['/product', item.product.prod_id]"><img class="mr-3" src="http://localhost:3000/images/products/{{item.product.prod_img[0]}}" alt="Generic placeholder image"></a>
             <div class="media-body">
-              <a [routerLink]="['/product', item.product.id]"><h4>{{ item.product.name }}</h4></a>
+              <a [routerLink]="['/product', item.product.prod_id]"><h4>{{ item.product.prod_name }}</h4></a>
               <h4><span>{{ item.quantity }} x {{ item.product.price | currency:productsService?.currency:'symbol' }}</span></h4>
             </div>
           </div>

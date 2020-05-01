@@ -24,6 +24,7 @@ export class CartService {
 
   // Get Products
   public getItems(): Observable<CartItem[]> {
+    products = JSON.parse(localStorage.getItem("cartItem")) || [];
     const itemsStream = new Observable((observer) => {
       observer.next(products);
       observer.complete();
@@ -59,7 +60,9 @@ export class CartService {
     const allAddedProducts = JSON.stringify(products);
     const uid = localStorage.getItem("uid");
 
-    this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts });
+    this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts }).subscribe((res) => {
+      console.log(res);
+    })
 
     localStorage.setItem("cartItem", allAddedProducts);
     return item;
@@ -118,5 +121,9 @@ export class CartService {
         }, 0);
       })
     );
+  }
+
+  getCartDetails(token) {
+    return this.http.get(`${users_url}/cart/${token}`);
   }
 }

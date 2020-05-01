@@ -22,6 +22,7 @@ import { CartComponent } from '../product/cart/cart.component';
 import { CheckoutComponent } from '../product/checkout/checkout.component';
 import { SuccessComponent } from '../product/success/success.component';
 import { HomeComponent } from './home.component';
+import { RegisterComponent } from '../pages/register/register.component';
 
 
 // Routes
@@ -109,7 +110,11 @@ const routes: Routes = [
   {
     path: 'checkout/success',
     component: SuccessComponent
-  }
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
 ];
 
 @NgModule({
