@@ -34,21 +34,21 @@
               <tr class="table-head">
                 <th scope="col">image</th>
                 <th scope="col">product name</th>
-                <th scope="col">price</th>
+                <th scope="col">Tenure</th>
                 <th scope="col">quantity</th>
+                <th scope="col">Rent/month</th>
                 <th scope="col">action</th>
-                <th scope="col">total</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of shoppingCartItems">
               <tr>
                 <td>
-                  <a [routerLink]="['/product', item.product.id]">
+                  <a [routerLink]="['/',city,'product', item.product.prod_id]">
                   <img src='http://localhost:3000/images/products/{{item.product.prod_img[0]}}' alt="">
                 </a>
                 </td>
                 <td>
-                  <a [routerLink]="['/product', item.product.id]">{{ item.product.prod_name }}</a>
+                  <a [routerLink]="['/',city,'product', item.product.prod_id]">{{ item.product.prod_name }}</a>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
                       <div class="qty-box">
@@ -69,7 +69,7 @@
                     </div>
                   </div>
                 </td>
-                <td><h2>{{ item.product.tenure_price | currency:productsService?.currency:'symbol' }}</h2>
+                <td><h2>{{ item.tenures }}</h2>
                 </td>
                 <td>
                   <div class="qty-box">
@@ -87,14 +87,15 @@
                     </span>
                     </div>
                   </div>
+                </td>                
+                <td>
+                  <!-- <h2 class="td-color">{{ item.product.prod_tenure * item.quantity | currency:productsService?.currency:'symbol' }}</h2> -->
+                  <h2 class="td-color">{{ item.tenure_price }}</h2>
                 </td>
                 <td>
                   <a [routerLink]="" (click)="removeItem(item)" class="icon">
                   <i class="ti-close"></i>
                 </a>
-                </td>
-                <td>
-                  <h2 class="td-color">{{ item.product.price * item.quantity | currency:productsService?.currency:'symbol' }}</h2>
                 </td>
               </tr>
             </tbody>

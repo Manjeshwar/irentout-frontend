@@ -52,7 +52,7 @@ export class QuickViewComponent implements OnInit, OnDestroy {
 
   public addToCart(product: Product, quantity) {
     if (quantity == 0) return false;
-    this.cartService.addToCart(product, parseInt(quantity));
+    // this.cartService.addToCart(product, parseInt(quantity));
   }
 
 }

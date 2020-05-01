@@ -32,13 +32,15 @@ export class CartService {
   }
 
   // Add to cart
-  public addToCart(product: Product, quantity: number): CartItem | boolean {
+  public addToCart(product: Product, quantity: number,tenures:number, tenure_price: number): CartItem | boolean {
     var item: CartItem | boolean = false;
     // If Products exist
     let hasItem = products.find((items, index) => {
       if (items.product.prod_id == product.prod_id) {
         let qty = products[index].quantity + quantity;
-        // let stock = this.calculateStockCounts(products[index], quantity);
+        products[index].tenures=tenures;
+        products[index].tenure_price=tenure_price;
+        //let stock = this.calculateStockCounts(products[index], quantity);
         // if (qty != 0 && stock) {
         if (qty !== 0) {
           products[index]["quantity"] = qty;
@@ -48,10 +50,10 @@ export class CartService {
       }
     });
     // If Products does not exist (Add New Products)
-    if (!hasItem) {
-      item = { product: product, quantity: quantity };
-      products.push(item);
-      this.toastrService.success("This product has been added.");
+    if(!hasItem) {
+        item = { product: product, quantity: quantity, tenures: tenures, tenure_price: tenure_price };
+        products.push(item);
+        this.toastrService.success('This product has been added.');
     }
 
     const allAddedProducts = JSON.stringify(products);

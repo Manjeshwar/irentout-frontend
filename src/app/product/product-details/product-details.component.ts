@@ -74,15 +74,15 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   // Add to cart
-  public addToCart(product: Product, quantity) {
+  public addToCart(product: Product, quantity, tenures, tenure_price) {
     if (quantity == 0) return false;
-    this.cartService.addToCart(product, parseInt(quantity));
+    this.cartService.addToCart(product, parseInt(quantity), tenures, tenure_price);
   }
 
   // Add to cart
-  public buyNow(product: Product, quantity) {
+  public buyNow(product: Product, quantity,tenures, tenure_price) {
      if (quantity > 0) 
-       this.cartService.addToCart(product,parseInt(quantity));
+       this.cartService.addToCart(product,parseInt(quantity),tenures, tenure_price);
        const url = `/${localStorage.getItem('city')}`;
        this.router.navigate([`${url}/checkout`]);
   }

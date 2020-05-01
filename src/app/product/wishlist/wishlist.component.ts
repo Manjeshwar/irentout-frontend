@@ -25,9 +25,9 @@ export class WishlistComponent implements OnInit {
   ngOnInit() { }
 
   // Add to cart
-  public addToCart(product: Product,  quantity: number = 1) {
+  public addToCart(product: Product,  quantity: number = 1,tenures,tenure_price) {
      if (quantity > 0)
-      this.cartService.addToCart(product,quantity);
+      this.cartService.addToCart(product,quantity,tenures, tenure_price);
       this.wishlistService.removeFromWishlist(product);
   }
   

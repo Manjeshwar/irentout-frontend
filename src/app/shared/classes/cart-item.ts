@@ -4,4 +4,6 @@ import { Product } from './product';
 export interface CartItem {
     product: Product;
     quantity: number;
+    tenures:number;
+    tenure_price:number;
 }

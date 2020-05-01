@@ -24,7 +24,7 @@ export class ProductCompareComponent implements OnInit {
 
   // Add to cart
   public addToCart(product: Product, quantity: number = 1) {
-     this.cartService.addToCart(product, quantity);
+    //  this.cartService.addToCart(product, quantity);
   }
   
   // Remove from compare list
