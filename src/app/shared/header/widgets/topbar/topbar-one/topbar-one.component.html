@@ -16,7 +16,7 @@
           <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
         </li>
         <li class="onhover-dropdown mobile-account">
-          <i class="fa fa-user" aria-hidden="true"></i> {{ 'my-account' | translate }}
+          <i class="fa fa-user" aria-hidden="true"></i> {{ accountName }}
           <ul class="onhover-show-div">
             <li *ngIf="!display">
               <a (click)="login()" data-lng="en">

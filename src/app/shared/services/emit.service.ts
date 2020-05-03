@@ -9,6 +9,7 @@ export class EmitService {
   message:string = 'default title';
   emptyFilterSelection = false;
   cityChange = false;
+  displayName = 'My Account';
 
   private messageservice = new BehaviorSubject(this.message);
   currentMessage = this.messageservice.asObservable();
@@ -18,6 +19,9 @@ export class EmitService {
 
   private emptyCityService = new BehaviorSubject(this.cityChange);
   cityFilter = this.emptyCityService.asObservable();
+
+  private loggedUserNameservice = new BehaviorSubject(this.displayName);
+  currentUserName = this.loggedUserNameservice.asObservable();
 
   constructor() { }
 
@@ -31,5 +35,9 @@ export class EmitService {
 
   changeCitySelection(city) {
     this.emptyCityService.next(city);
+  }
+
+  changeUserName(name) {
+    this.loggedUserNameservice.next(name);
   }
 }

@@ -39,10 +39,12 @@ export class AppComponent implements OnInit {
          localStorage.setItem(keyVal, val[1]);
       });
 
-      const social = ['google', 'facebook'];
+      const social = ['google', 'facebook', 'web'];
       if (social.includes(localStorage.getItem('logintype'))) {
          this.cart.getCartDetails(localStorage.getItem('token')).subscribe((res) => {
             localStorage.setItem('cartItem', res[0].cart);
+            localStorage.setItem('uname', res[0].uname);
+            this.emitS.changeUserName(localStorage.getItem('uname') || 'My Account');
             this.cart.getItems();
          });
       }

@@ -4,6 +4,7 @@ import { WishlistService } from '../../../../services/wishlist.service';
 import { ProductsService } from '../../../../../shared/services/products.service';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { EmitService } from 'src/app/shared/services/emit.service';
 
 @Component({
   selector: 'app-topbar',
@@ -12,13 +13,19 @@ import { Router } from '@angular/router';
 })
 export class TopbarOneComponent implements OnInit {
   
-  constructor(public productsService: ProductsService, private router: Router) { }
+  constructor(public productsService: ProductsService, private router: Router, private emitS: EmitService) { }
 
   display: boolean;
+  accountName;
 
   ngOnInit() {
     this.display = false;
     this.checkIfLogged();
+    this.emitS.currentUserName.subscribe(val => {
+      if (val) {
+        this.accountName = val;
+      }
+    });
    }
 
 
@@ -45,6 +52,7 @@ export class TopbarOneComponent implements OnInit {
     localStorage.removeItem('existinguser');
     document.querySelector('.cart_qty_cls').textContent = '0';
     this.display = false;
+    this.emitS.changeUserName('My Account');
     this.router.navigate([`/${city}`]);
   }
 
