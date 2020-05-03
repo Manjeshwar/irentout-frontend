@@ -4,7 +4,7 @@ import { WishlistService } from '../../../../services/wishlist.service';
 import { ProductsService } from '../../../../../shared/services/products.service';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { EmitService } from 'src/app/shared/services/emit.service';
+import { EmitService } from '../../../../../shared/services/emit.service';
 
 @Component({
   selector: 'app-topbar',
@@ -53,7 +53,7 @@ export class TopbarOneComponent implements OnInit {
     document.querySelector('.cart_qty_cls').textContent = '0';
     this.display = false;
     this.emitS.changeUserName('My Account');
-    this.router.navigate([`/${city}`]);
+    this.router.navigateByUrl(`/${city}`);
   }
 
 }
