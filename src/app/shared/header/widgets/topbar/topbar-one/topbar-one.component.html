@@ -9,8 +9,13 @@
     </div>
     <div class="col-lg-6 text-right" *ngIf="!productsService?.catalogMode">
       <ul class="header-dropdown">
-        <li class="compare">
-          <a [routerLink]="'/categories/compare'"><i class="fa fa-random" aria-hidden="true"></i>{{ 'compare' | translate }}</a>
+        <li class="onhover-dropdown1 mobile-account">
+          <i class="fa fa-map-marker" aria-hidden="true"></i> {{ currentCity }} <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          <ul class="onhover-show-div1">
+            <li *ngFor="let city of citiesList">
+              <a (click)='getByCity(city.cityname)'>{{city.cityname}}</a>
+            </li>
+          </ul>
         </li>
         <li class="mobile-wishlist">
           <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>

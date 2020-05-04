@@ -5,6 +5,7 @@ import { ProductsService } from '../../../../../shared/services/products.service
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmitService } from '../../../../../shared/services/emit.service';
+import { UserService } from '../../../../../shared/services/user.service';
 
 @Component({
   selector: 'app-topbar',
@@ -13,10 +14,12 @@ import { EmitService } from '../../../../../shared/services/emit.service';
 })
 export class TopbarOneComponent implements OnInit {
   
-  constructor(public productsService: ProductsService, private router: Router, private emitS: EmitService) { }
+  constructor(public productsService: ProductsService, private router: Router, private emitS: EmitService, private cityService: UserService,) { }
 
   display: boolean;
   accountName;
+  citiesList;
+  currentCity= localStorage.getItem('city');
 
   ngOnInit() {
     this.display = false;
@@ -26,7 +29,16 @@ export class TopbarOneComponent implements OnInit {
         this.accountName = val;
       }
     });
+    this.cityService.getAllCities().subscribe((res) => {
+         this.citiesList = res;
+   });
    }
+
+   getByCity(cityname) {
+    localStorage.setItem('city', cityname);
+    this.currentCity=cityname;
+    this.router.navigate([`/${cityname}`]);
+ }
 
 
   checkIfLogged() {
