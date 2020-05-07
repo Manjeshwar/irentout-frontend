@@ -7625,8 +7625,32 @@ footer {
     }
   }
 
+  .date-picker {
+    top:10px; 
+    margin-bottom: 10px;
+
+    input { height: 40px; }
+    .btn-solid,
+    .btn-outline {
+      padding: 8px 25px;
+    }
+
+    a {
+      &:last-child {
+        margin-left: 10px;
+      }
+    }
+  }
+
   .product-description {
     h6 {
+      span {
+        float: right;
+      }
+    }
+
+    h4 {
+      padding: 8px 0;
       span {
         float: right;
       }
@@ -11907,7 +11931,7 @@ footer {
     padding-left: 300px;
     background-color: $white;
     .header-dropdown {
-      .mobile-wishlist, .mobile-account {
+      .mobile-wishlist, .mobile-account, .mobile-location {
         img {
           display: block;
         }

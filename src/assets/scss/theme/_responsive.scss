@@ -3952,7 +3952,7 @@ background-color: $black;*/
         li {
           padding: 0;
         }
-        .mobile-wishlist, .mobile-account {
+        .mobile-wishlist, .mobile-account, .mobile-location {
           img {
             display: none;
           }
@@ -4943,6 +4943,12 @@ background-color: $black;*/
             right:unset;
             left:0;
           }
+        .mobile-location{
+          .onhover-show-div1 {
+            right:unset;
+            left:0;
+          }
+        }
         }
       }
     }
@@ -4957,6 +4963,16 @@ background-color: $black;*/
         left:3px;
       }
       .onhover-show-div {
+        right: unset;
+        left:0;
+      }
+    }
+    .onhover-dropdown1 {
+      &:before {
+        right: unset;
+        left:3px;
+      }
+      .onhover-show-div1 {
         right: unset;
         left:0;
       }

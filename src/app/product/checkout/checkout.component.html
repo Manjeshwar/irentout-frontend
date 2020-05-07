@@ -173,9 +173,9 @@
                                     </div>
                                     <ul class="qty" *ngIf='checkOutItems.length'>
                                         <li *ngFor="let item of checkOutItems">
-                                        	 {{ item.product.name }} × {{ item.quantity }}
+                                        	 {{ item.product.prod_name }} × {{ item.quantity }}
                                         	<span>
-                                        	 {{ item.product.price * item.quantity | currency:productsService?.currency:'symbol' }}
+                                        	 {{ ((item.tenure_price*1) + item.product.prod_price)* item.quantity | currency:productsService?.currency:'symbol' }}
                                             </span>
                                         </li>
                                     </ul>

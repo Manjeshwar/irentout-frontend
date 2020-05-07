@@ -60,6 +60,8 @@ import { ProcessorComponent } from '../product/collection/filter/processor/proce
 import { StorageTypeComponent } from '../product/collection/filter/storage-type/storage-type.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -123,7 +125,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     RangeSliderModule,
     InfiniteScrollModule,
     NgxPayPalModule,
-    NgxImgZoomModule
+    NgxImgZoomModule,
+    NgbModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })

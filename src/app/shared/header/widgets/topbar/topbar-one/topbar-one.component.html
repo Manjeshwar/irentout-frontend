@@ -3,14 +3,14 @@
       <div class="header-contact">
         <ul>
           <li>{{ 'topbar-title' | translate }}</li>
-          <li><i class="fa fa-phone" aria-hidden="true"></i>{{ 'call-us' | translate }}: 123 - 456 - 7890</li>
+          <li><i class="fa fa-phone" aria-hidden="true"></i>{{ 'call-us' | translate }}: +91 8296959999</li>
         </ul>
       </div>
     </div>
     <div class="col-lg-6 text-right" *ngIf="!productsService?.catalogMode">
       <ul class="header-dropdown">
-        <li class="onhover-dropdown1 mobile-account">
-          <i class="fa fa-map-marker" aria-hidden="true"></i> {{ currentCity }} <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <li class="onhover-dropdown1 mobile-location">
+          <i class="fa fa-map-marker" aria-hidden="true"></i> {{ currentCity }}
           <ul class="onhover-show-div1">
             <li *ngFor="let city of citiesList">
               <a (click)='getByCity(city.cityname)'>{{city.cityname}}</a>

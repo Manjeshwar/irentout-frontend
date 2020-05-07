@@ -126,7 +126,7 @@ export class CartService {
     return this.cartItems.pipe(
       map((product: CartItem[]) => {
         return products.reduce((prev, curr: any) => {
-          return prev + curr.product.prod_price * curr.quantity;
+          return prev + (parseInt(curr.tenure_price)+curr.product.prod_price) * curr.quantity;
         }, 0);
       })
     );

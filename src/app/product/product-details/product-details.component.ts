@@ -4,6 +4,7 @@ import { Product } from '../../shared/classes/product';
 import { ProductsService } from '../../shared/services/products.service';
 import { WishlistService } from '../../shared/services/wishlist.service';
 import { CartService } from '../../shared/services/cart.service';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -17,6 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   public products:   Product[] = [];
   public counter = 1;
   public selectedSize:   any = '';
+  model: NgbDateStruct;
 
   tenures = 3;
   tenure_price;

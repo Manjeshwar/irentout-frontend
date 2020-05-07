@@ -6,7 +6,7 @@
         <i class="ti-search" (click)="openSearch()"></i>
       </div>
     </li>
-    <li class="onhover-div mobile-setting">
+    <!-- <li class="onhover-div mobile-setting">
       <div><img src="assets/images/icon/setting.png" class="img-fluid" alt="">
         <i class="ti-settings"></i></div>
       <div class="show-div setting">
@@ -23,7 +23,7 @@
           <li><a [routerLink]="" (click)="updateCurrency('GBP')">Pound</a> </li>
         </ul>
       </div>
-    </li>
+    </li> -->
     <li class="onhover-div mobile-cart" *ngIf="!productsService?.catalogMode">
       <div>
         <a (click)="navigate()">
