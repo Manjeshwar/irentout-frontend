@@ -60,6 +60,8 @@ export class CartService {
     const allAddedProducts = JSON.stringify(products);
     const uid = localStorage.getItem("uid");
 
+    document.querySelector('.cart_qty_cls').textContent = products.length;
+
     this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts }).subscribe((res) => {
       console.log(res);
     })
@@ -82,7 +84,9 @@ export class CartService {
         const uid = localStorage.getItem('uid');
         const email = localStorage.getItem('email');
 
-        this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts, email: email });
+        this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts, email: email }).subscribe((res) => {
+          console.log(res);
+        })
         localStorage.setItem('cartItem', JSON.stringify(products));
         return true;
       }
@@ -110,6 +114,11 @@ export class CartService {
     const index = products.indexOf(item);
     products.splice(index, 1);
     localStorage.setItem("cartItem", JSON.stringify(products));
+    const uid = localStorage.getItem('uid');
+    this.http.put(`${users_url}/cart/${uid}`, { cart: JSON.stringify(products) }).subscribe((res) => {
+      console.log(res);
+    });
+    document.querySelector('.cart_qty_cls').textContent = products.length;
   }
 
   // Total amount

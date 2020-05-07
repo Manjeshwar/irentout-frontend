@@ -31,35 +31,7 @@
           <i class="ti-shopping-cart"></i>
         </a>
       </div>
-      <ul class="show-div shopping-cart" *ngIf='!shoppingCartItems.length'>
-        <h5>Your cart is currently empty.</h5>
-      </ul>
       <span class="cart_qty_cls">{{shoppingCartItems.length}}</span>
-      <ul class="show-div shopping-cart" *ngIf='shoppingCartItems.length'>
-        <li *ngFor="let item of shoppingCartItems">
-          <div class="media">
-            <a [routerLink]="['/product', item.product.prod_id]"><img class="mr-3" src="http://localhost:3000/images/products/{{item.product.prod_img[0]}}" alt="Generic placeholder image"></a>
-            <div class="media-body">
-              <a [routerLink]="['/product', item.product.prod_id]"><h4>{{ item.product.prod_name }}</h4></a>
-              <h4><span>{{ item.quantity }} x {{ item.product.price | currency:productsService?.currency:'symbol' }}</span></h4>
-            </div>
-          </div>
-          <div class="close-circle">
-            <a (click)="removeItem(item)"><i class="fa fa-times" aria-hidden="true"></i></a>
-          </div>
-        </li>
-        <li>
-          <div class="total">
-            <h5>subtotal : <span>{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span></h5>
-          </div>
-        </li>
-        <li>
-          <div class="buttons">
-            <a [routerLink]="'../cart'" class="view-cart">view cart</a>
-            <a (click)="checkout()" class="checkout">checkout</a>
-          </div>
-        </li>
-      </ul>
     </li>
   </ul>
 </div>
