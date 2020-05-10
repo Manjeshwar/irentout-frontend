@@ -4,7 +4,7 @@ import { Product } from '../../shared/classes/product';
 import { ProductsService } from '../../shared/services/products.service';
 import { WishlistService } from '../../shared/services/wishlist.service';
 import { CartService } from '../../shared/services/cart.service';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -23,11 +23,12 @@ export class ProductDetailsComponent implements OnInit {
   tenures = 3;
   tenure_price;
   security_deposit = 0;
+  addDays =2;
 
   // Get Product By Id
   constructor(private route: ActivatedRoute, private router: Router,
     public productsService: ProductsService, private wishlistService: WishlistService,
-    private cartService: CartService) {
+    private cartService: CartService, private config: NgbDatepickerConfig) {
       this.route.params.subscribe(params => {
         const id: string = params['id'];
         this.productsService.getProduct(id).subscribe(product => {
@@ -36,6 +37,13 @@ export class ProductDetailsComponent implements OnInit {
           this.tenure_price = product.prod_tenure[0][1];
         });
       });
+
+      const current = new Date();
+      config.minDate = { year: current.getFullYear(), month: 
+      current.getMonth() + 1, day: current.getDate() + this.addDays };
+
+        //config.maxDate = { year: 2099, month: 12, day: 31 };
+      config.outsideDays = 'hidden';
   }
 
   ngOnInit() {
