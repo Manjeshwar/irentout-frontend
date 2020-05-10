@@ -6,6 +6,7 @@ import { WishlistService } from '../../shared/services/wishlist.service';
 import { CartService } from '../../shared/services/cart.service';
 import {NgbDateStruct, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-product-details',
@@ -23,11 +24,12 @@ export class ProductDetailsComponent implements OnInit {
   tenures = 3;
   tenure_price;
   security_deposit = 0;
-  addDays =2;
+  addDays = 0;
 
   // Get Product By Id
   constructor(private route: ActivatedRoute, private router: Router,
     public productsService: ProductsService, private wishlistService: WishlistService,
+    private cityService: UserService,
     private cartService: CartService, private config: NgbDatepickerConfig) {
       this.route.params.subscribe(params => {
         const id: string = params['id'];
@@ -37,16 +39,23 @@ export class ProductDetailsComponent implements OnInit {
           this.tenure_price = product.prod_tenure[0][1];
         });
       });
-
-      const current = new Date();
-      config.minDate = { year: current.getFullYear(), month: 
-      current.getMonth() + 1, day: current.getDate() + this.addDays };
-
-        //config.maxDate = { year: 2099, month: 12, day: 31 };
-      config.outsideDays = 'hidden';
   }
 
   ngOnInit() {
+    this.cityService.getAllCities().subscribe((res: any) => {
+      if (res) {
+        var a = res.filter((res) => {
+          if(res.cityname === localStorage.getItem('city')) {
+            return res.tentitiveDeleivery;
+          }
+      });
+      this.addDays = a[0].tentitiveDeleivery;
+        const current = new Date();
+        this.config.minDate = { year: current.getFullYear(), month:
+        current.getMonth() + 1, day: current.getDate() + this.addDays };
+        this.config.outsideDays = 'hidden';
+      }
+   });
      this.productsService.getProducts().subscribe(product => this.products = product);
   }
 
