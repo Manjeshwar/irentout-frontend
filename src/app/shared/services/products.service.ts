@@ -36,18 +36,23 @@ export class ProductsService {
 
   // Get Products By Id
   public getProduct(id: string): Observable<Product> {
-    return this.products().pipe(map(items => { return items.find((item: Product) => { return item.prod_id === id; }); }));
+    return this.products().pipe(map(items => {
+      return items.find((item: Product) => {
+        return item.prod_id === id;
+      });
+    }));
   }
 
    // Get Products By category
   public getProductByCategory(category: string): Observable<Product[]> {
-    return this.products().pipe(map(items => 
+    return this.products().pipe(map(items =>
        items.filter((item: Product) => {
-         if(category == 'all')
-            return item
-         else
-            return item.cat_name === category && item.prod_available_cities.includes(localStorage.getItem('city').toLowerCase()); 
-        
+         if (category === 'all') {
+          return item;
+         } else {
+          return item.prod_tags.includes(category.toLowerCase())
+            && item.prod_available_cities.includes(localStorage.getItem('city').toLowerCase());
+         }
        })
      ));
   }

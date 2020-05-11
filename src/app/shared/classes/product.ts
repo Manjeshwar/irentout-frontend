@@ -38,6 +38,7 @@ export interface Product {
   cat_name?: string;
   cat_desc?: string;
   cat_image?: string;
+  prod_tags?;
 
   price?: number;
   salePrice?: number;

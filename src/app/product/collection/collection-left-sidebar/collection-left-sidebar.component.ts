@@ -63,6 +63,17 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
     private router: Router,
     private productsService: ProductsService
   ) {
+    this.getProductsByParam();
+  }
+
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
+
+
+  getProductsByParam() {
     this.route.params.subscribe((params) => {
       this.category = params['category'];
       this.productsService
@@ -80,12 +91,6 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
 
         this.category = this.category.toLowerCase();
     });
-  }
-
-  ngOnInit() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
   }
 
   // Get current product tags
