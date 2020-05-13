@@ -26,7 +26,7 @@ export class ProductsService {
 
   // Observable Product Array
   private products(): Observable<Product[]> {
-     return this.http.get('http://localhost:3000/products').map((res:any) => res.json())
+     return this.http.get(`http://localhost:3000/products/productsByCity/${localStorage.getItem('city')}`).map((res:any) => res.json())
   }
 
   // Get Products
@@ -50,8 +50,13 @@ export class ProductsService {
          if (category === 'all') {
           return item;
          } else {
-          return item.prod_tags.includes(category.toLowerCase())
-            && item.prod_available_cities.includes(localStorage.getItem('city').toLowerCase());
+          /*return item.prod_tags.includes(category.toLowerCase())
+            && item.prod_available_cities.includes(localStorage.getItem('city').toLowerCase()); */
+            if(item.prod_tags.filter(s => s.includes(category.toLowerCase())).length > 0) {
+              return true;
+            } else {
+              return false;
+            }
          }
        })
      ));

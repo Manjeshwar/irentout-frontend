@@ -24,6 +24,12 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() { }
 
+  emitsearch(val) {
+    val = val === '' ? 'all' : val;
+    const url = `${localStorage.getItem('city')}/category/${val}`;
+    this.route.navigate([url]);
+  }
+
   public updateCurrency(curr) {
     this.productsService.currency = curr;
   }

@@ -2,6 +2,7 @@
   <ul>
     <li class="onhover-div mobile-search search-widgets" id="search-widgets">
       <div>
+        <input type="text" #searchval (keyup)="emitsearch(searchval.value)">
         <img src="assets/images/icon/search.png" (click)="openSearch()" class="img-fluid" alt="">
         <i class="ti-search" (click)="openSearch()"></i>
       </div>
