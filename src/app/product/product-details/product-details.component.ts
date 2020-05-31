@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   tenures = 3;
   tenure_price;
   security_deposit = 0;
-  addDays = 0;
+  addDays;
 
   // Get Product By Id
   constructor(private route: ActivatedRoute, private router: Router,
@@ -46,7 +46,7 @@ export class ProductDetailsComponent implements OnInit {
       if (res) {
         var a = res.filter((res) => {
           if(res.cityname === localStorage.getItem('city')) {
-            return res.tentitiveDeleivery;
+            return res;
           }
       });
       this.addDays = a[0].tentitiveDeleivery;
@@ -54,6 +54,7 @@ export class ProductDetailsComponent implements OnInit {
         this.config.minDate = { year: current.getFullYear(), month:
         current.getMonth() + 1, day: current.getDate() + this.addDays };
         this.config.outsideDays = 'hidden';
+        this.addDays = `${current.getDate() + this.addDays}-${current.getMonth() + 1}-${current.getFullYear()}`; 
       }
    });
      this.productsService.getProducts().subscribe(product => this.products = product);

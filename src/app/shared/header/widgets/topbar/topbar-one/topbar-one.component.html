@@ -1,13 +1,29 @@
 <div class="row" >
-    <div class="col-lg-6">
+    <div class="col-lg-2">
       <div class="header-contact">
         <ul>
-          <li>{{ 'topbar-title' | translate }}</li>
-          <li><i class="fa fa-phone" aria-hidden="true"></i>{{ 'call-us' | translate }}: +91 8296959999</li>
+          <!-- <li>{{ 'topbar-title' | translate }}</li> -->
+          <li><i class="fa fa-phone" aria-hidden="true"></i>+91 8296959999</li>
+          <!-- <li>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control search-all" placeholder="Your Email" id="mail" name="email">
+              <div class="input-group-append">
+                <button class="input-group-text search-all-btn"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </li> -->
         </ul>
       </div>
     </div>
-    <div class="col-lg-6 text-right" *ngIf="!productsService?.catalogMode">
+    <div class="col-lg-5 header-search">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control search-all" #searchval (keyup)="emitsearch(searchval.value)" placeholder="Search" id="mail" name="search">
+        <div class="input-group-append">
+          <button class="input-group-text search-all-btn"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 text-right" *ngIf="!productsService?.catalogMode">
       <ul class="header-dropdown">
         <li class="onhover-dropdown1 mobile-location">
           <i class="fa fa-map-marker" aria-hidden="true"></i> {{ currentCity }}

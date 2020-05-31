@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { EmitService } from '../../../../../shared/services/emit.service';
 import { UserService } from '../../../../../shared/services/user.service';
 
+
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar-one.component.html',
@@ -40,6 +41,11 @@ export class TopbarOneComponent implements OnInit {
     this.router.navigate([`/${cityname}`]);
  }
 
+ emitsearch(val) {
+  val = val === '' ? 'all' : val;
+  const url = `${localStorage.getItem('city')}/category/${val}`;
+  this.router.navigate([url]);
+}
 
   checkIfLogged() {
     if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {

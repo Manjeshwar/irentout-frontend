@@ -1431,6 +1431,10 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
     .header-contact {
       display: none;
     }
+    .header-search{
+      // display: none;
+      margin-top: 30px;
+   }
   }
   .main-nav-center {
     .toggle-nav {
@@ -1654,12 +1658,12 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
     left: 50%;
     margin-right: -50%;
     transform: translateX(-50%);
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
+    padding-top: 5px !important;
+    padding-bottom: 50px !important;
   }
   .toggle-nav {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 5px!important;
+    padding-bottom: 50px !important;
   }
   .rtl {
     .main-nav-center {

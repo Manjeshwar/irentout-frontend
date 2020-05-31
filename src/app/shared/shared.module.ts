@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // Services
 import { WINDOW_PROVIDERS } from "./services/windows.service";
 import { LandingFixService } from '../shared/services/landing-fix.service';
@@ -54,7 +56,9 @@ import { SocialComponent } from './footer/widgets/social/social.component';
   imports: [
     CommonModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   declarations: [
     HeaderOneComponent,
