@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
                modal.click();
             }
          });
-      } else {
+      } else{
          this.getByCity(cty);
       }
    }
@@ -71,7 +71,11 @@ export class AppComponent implements OnInit {
       modalClose.click();
       this.emitS.changeCitySelection(cityname);
       const modal: HTMLElement = document.querySelector(".citiesModal");
-      this.router.navigate([`/${cityname}`]);
+      const pathName=location.pathname;
+      if(pathName==='/'){
+         this.router.navigate([`/${cityname}`]);
+      }
+      
    }
 	
 }
