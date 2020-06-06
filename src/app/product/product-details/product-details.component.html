@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-lg-6 rtl-text">
                                 <div class="product-right">
-                                    <h2><strong>{{product.prod_name}}</strong></h2>
+                                    <h2>{{product.prod_name}}</h2>
                                     <!-- <h4 *ngIf="!productsService?.catalogMode"><del>{{product.salePrice | currency:productsService?.currency:'symbol'}}</del><span>{{product.discount}}% off</span></h4>
                                     <h3 *ngIf="!productsService?.catalogMode">{{product.price | currency:productsService?.currency:'symbol'}}</h3>
                                     <ul class="color-variant" *ngIf="!productsService?.catalogMode">
@@ -98,7 +98,7 @@
                                                                         </thead>
                                                                         <tbody *ngFor="let tenure of product.prod_tenure; let i=index">
                                                                         <tr>
-                                                                            <td><input type="radio" (change)="calcPrice(tenure[1], security_deposit, tenure[0])" value="{{tenure[1]}}"><label>{{tenure[0]}}</label></td>
+                                                                            <td><input type="radio" name="tenure" (change)="calcPrice(tenure[1], security_deposit, tenure[0])" value="{{tenure[1]}}"><label>{{tenure[0]}} Months</label></td>
                                                                             <td>₹{{tenure[1]}}/ Month</td>
                                                                         </tr>
                                                                         </tbody>

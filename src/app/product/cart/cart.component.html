@@ -37,7 +37,8 @@
                 <th scope="col">Tenure</th>
                 <th scope="col">quantity</th>
                 <th scope="col">Rent/month</th>
-                <th scope="col">action</th>
+                <th scope="col">Security Deposit</th>
+                <!-- <th scope="col"></th> -->
               </tr>
             </thead>
             <tbody *ngFor="let item of shoppingCartItems">
@@ -69,7 +70,8 @@
                     </div>
                   </div>
                 </td>
-                <td><h2>{{ item.tenures }} Months</h2>
+                <td>
+                  <a [routerLink]="['/',city,'product', item.product.prod_id]">{{ item.tenures }} Months</a>
                 </td>
                 <td>
                   <div class="qty-box">
@@ -89,14 +91,24 @@
                   </div>
                 </td>                
                 <td>
-                  <!-- <h2 class="td-color">{{ item.product.prod_tenure * item.quantity | currency:productsService?.currency:'symbol' }}</h2> -->
-                  <h2 class="td-color">{{ item.tenure_price }}</h2>
+                  <h2 class="td-color">₹ {{ item.tenure_price }}</h2>
                 </td>
                 <td>
-                  <a [routerLink]="" (click)="removeItem(item)" class="icon">
-                  <i class="ti-close"></i>
-                </a>
+                  <h2 class="td-color">₹ {{item.product.prod_price}}                      
+                  </h2>                    
                 </td>
+                <td class="trash">
+                  <h3>
+                    <span (click)="removeItem(item)" class="icon">
+                      <i class="ti-trash"></i>
+                    </span>
+                  </h3> 
+                </td>
+                <!-- <td>
+                  <a [routerLink]="" (click)="removeItem(item)" class="icon">
+                    <i class="ti-trash"></i>
+                  </a>
+                </td> -->
               </tr>
             </tbody>
           </table>
@@ -105,7 +117,7 @@
               <tr>
                 <td>total price :</td>
                 <td>
-                  <h2> {{ getTotal() | async | currency:productsService?.currency:'symbol'}}</h2>
+                  <h2>₹ {{ getTotal() | async }}</h2>
                 </td>
               </tr>
             </tfoot>
@@ -114,7 +126,7 @@
       </div>
       <div class="row cart-buttons" *ngIf='shoppingCartItems.length'>
         <div class="col-6">
-          <a [routerLink]="['/all']" class="btn btn-solid">continue shopping</a>
+          <a [routerLink]="['../category/Laptop']" class="btn btn-solid">continue shopping</a>
         </div>
         <div class="col-6">
           <a [routerLink]="['/',currentCity,'checkout']" class="btn btn-solid">check out</a>

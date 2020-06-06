@@ -791,8 +791,10 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
       }
     }
     ul {
+      margin-top: -30px!important;
       border: none;
-      padding: 30px 20px 30px 5px;
+      border-left: 1px solid #ff4c3b;
+      padding: 0px 20px 0px 5px;
       background: $theme-deafult__desktop-sub-bg;
 
       ul {

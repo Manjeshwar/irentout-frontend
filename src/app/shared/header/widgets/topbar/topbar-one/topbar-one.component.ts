@@ -56,7 +56,7 @@ export class TopbarOneComponent implements OnInit {
   login() {
     const location = window.location.href;
     localStorage.setItem('redirectto', location);
-    this.router.navigate(['/pages/login']);
+    this.router.navigate([this.currentCity,'login']);
   }
 
   logout() {

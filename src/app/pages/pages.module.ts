@@ -30,6 +30,7 @@ import { MasonaryFourGridComponent } from './portfolio/masonary-four-grid/masona
 import { MasonaryFullwidthComponent } from './portfolio/masonary-fullwidth/masonary-fullwidth.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FailureComponent } from './failure/failure.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MasonaryTwoGridComponent,
     MasonaryThreeGridComponent,
     MasonaryFourGridComponent,
-    MasonaryFullwidthComponent
+    MasonaryFullwidthComponent,
+    FailureComponent
   ]
 })
 export class PagesModule { }

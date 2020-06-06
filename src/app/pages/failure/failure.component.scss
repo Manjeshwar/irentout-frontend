@@ -1,0 +1,39 @@
+.failure-section{
+    overflow: auto;
+    height: 100%;
+    .container{
+        .warning{
+            h1{
+                color: #f2ec30;
+            }        
+        }
+        .warning-message{
+            width:80%;
+            margin:auto;
+            margin-bottom: 15px;
+            h3{
+                color: black;
+            }
+        }   
+        .failure-buttons {
+            margin-bottom: 20px;
+        
+            .btn-solid,
+            .btn-outline {
+              padding: 7px 75px;
+            }
+        
+            a {
+                color: white;
+              &:last-child {
+                margin-left: 10px;
+              }
+            }
+            a:hover{
+                color:black;
+            }
+          }
+
+    }
+    
+}

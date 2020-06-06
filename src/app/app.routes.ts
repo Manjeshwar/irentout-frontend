@@ -31,7 +31,11 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'pages',
+        path: 'Bangalore',
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+      },
+      {
+        path: 'Mumbai',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
       },
       {
@@ -42,7 +46,9 @@ export const rootRouterConfig: Routes = [
   },
   {
     path: '**',
-    component: HomeComponent
+    // component: HomeComponent
+    redirectTo: 'Bangalore/404',
+    pathMatch: 'full'
   }
 ];
 

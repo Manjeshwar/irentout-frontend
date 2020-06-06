@@ -26,6 +26,7 @@ import { MasonaryTwoGridComponent } from './portfolio/masonary-two-grid/masonary
 import { MasonaryThreeGridComponent } from './portfolio/masonary-three-grid/masonary-three-grid.component';
 import { MasonaryFourGridComponent } from './portfolio/masonary-four-grid/masonary-four-grid.component';
 import { MasonaryFullwidthComponent } from './portfolio/masonary-fullwidth/masonary-fullwidth.component';
+import { FailureComponent } from './failure/failure.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
       {
         path: 'order-success',
         component: OrderSuccessComponent
+      },
+      {
+        path: 'failure',
+        component: FailureComponent
       },
       {
         path: 'dashboard',

@@ -1,9 +1,9 @@
 <div class="row" >
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <div class="header-contact">
         <ul>
           <!-- <li>{{ 'topbar-title' | translate }}</li> -->
-          <li><i class="fa fa-phone" aria-hidden="true"></i>+91 8296959999</li>
+          <li><i class="fa fa-phone" aria-hidden="true"></i>Call us: +91 8296959999</li>
           <!-- <li>
             <div class="input-group mb-3">
               <input type="text" class="form-control search-all" placeholder="Your Email" id="mail" name="email">
@@ -15,7 +15,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-lg-5 header-search">
+    <div class="col-lg-4 header-search">
       <div class="input-group mb-3">
         <input type="text" class="form-control search-all" #searchval (keyup)="emitsearch(searchval.value)" placeholder="Search" id="mail" name="search">
         <div class="input-group-append">
@@ -36,7 +36,7 @@
         <li class="mobile-wishlist">
           <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
         </li>
-        <li class="onhover-dropdown mobile-account">
+        <!-- <li class="onhover-dropdown mobile-account">
           <i class="fa fa-user" aria-hidden="true"></i> {{ accountName }}
           <ul class="onhover-show-div">
             <li *ngIf="!display">
@@ -50,7 +50,15 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
+        <li>
+          <span *ngIf="!display"><a (click)="login()" data-lng="en">
+            {{ 'login' | translate }}
+        </a></span>
+          <span *ngIf="display"><a (click)="logout()" data-lng="es">
+            {{ 'logout' | translate }}
+        </a></span>
+      </li>
       </ul>
     </div>
 </div>
