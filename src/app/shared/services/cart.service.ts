@@ -132,6 +132,26 @@ export class CartService {
     );
   }
 
+  public getTotalTenureAmount(): Observable<number> {
+    return this.cartItems.pipe(
+      map((product: CartItem[]) => {
+        return products.reduce((prev, curr: any) => {
+          return prev + (parseInt(curr.tenure_price)) * curr.quantity;
+        }, 0);
+      })
+    );
+  }
+
+  public getTotalDepositAmount(): Observable<number> {
+    return this.cartItems.pipe(
+      map((product: CartItem[]) => {
+        return products.reduce((prev, curr: any) => {
+          return prev + (curr.product.prod_price) * curr.quantity;
+        }, 0);
+      })
+    );
+  }
+
   getCartDetails(token) {
     return this.http.get(`${users_url}/cart/${token}`);
   }

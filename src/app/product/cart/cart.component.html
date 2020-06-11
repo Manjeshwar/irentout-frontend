@@ -91,11 +91,11 @@
                   </div>
                 </td>                
                 <td>
-                  <h2 class="td-color">₹ {{ item.tenure_price }}</h2>
+                  <h4 class="td-color">₹ {{ item.tenure_price }}</h4>
                 </td>
                 <td>
-                  <h2 class="td-color">₹ {{item.product.prod_price}}                      
-                  </h2>                    
+                  <h4 class="td-color">₹ {{item.product.prod_price}}                      
+                  </h4>                    
                 </td>
                 <td class="trash">
                   <h3>
@@ -115,11 +115,23 @@
           <table class="table cart-table table-responsive-md">
             <tfoot>
               <tr>
-                <td>total price :</td>
+                <td>Monthly rental <span><i placement="top" ngbTooltip="Excluding GST and Delivery fee!" class="fa fa-info-circle"></i></span> :</td>
                 <td>
-                  <h2>₹ {{ getTotal() | async }}</h2>
+                  <h4 class="td-color">₹ {{ getTenure() | async }} </h4>
                 </td>
               </tr>
+              <tr>
+                <td>Refundable Security Deposit :</td>
+                <td>
+                  <h4 class="td-color">₹ {{ getDeposit() | async }}</h4>
+                </td>
+              </tr>
+              <!-- <tr>
+                <td>total price :</td>
+                <td>
+                  <h4 class="td-color">₹ {{ getTotal() | async }}</h4>
+                </td>
+              </tr> -->
             </tfoot>
           </table>
         </div>

@@ -7046,15 +7046,28 @@ footer {
       }
 
       td {
-        padding-top: 35px;
+        padding-top: 18px;
         padding-bottom: 0;
         text-align: right;
         border: none;
         padding-right: 63px;
+        
+        span i{
+          color:#ff4c3b;
+        }
 
         h2 {
           font-size: 24px;
           margin-bottom: 0;
+        }
+
+        h4 {
+          width: 85%;
+          font-size: 15px;
+          padding-right: 10px;
+          text-transform: capitalize;
+          font-weight: 700;
+          // color: #ff4c3b;
         }
 
         &:first-child {

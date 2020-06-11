@@ -169,13 +169,16 @@
                             <div class="checkout-details">
                                 <div class="order-box">
                                     <div class="title-box">
+                                        <div>Coupon Code <span>  <input type="text" name="coupon" [formControl]="" value="" placeholder="" autocomplete="off"></span></div>
+                                    </div>
+                                    <div class="title-box">
                                         <div>Product <span> Total</span></div>
                                     </div>
                                     <ul class="qty" *ngIf='checkOutItems.length'>
                                         <li *ngFor="let item of checkOutItems">
                                         	 {{ item.product.prod_name }} × {{ item.quantity }}
                                         	<span>
-                                        	 {{ ((item.tenure_price*1) + item.product.prod_price)* item.quantity | currency:productsService?.currency:'symbol' }}
+                                        	 ₹ {{ (item.tenure_price*1)* item.quantity  }}
                                             </span>
                                         </li>
                                     </ul>
@@ -184,9 +187,19 @@
                                     </ul>
                                     <ul class="sub-total">
                                         <li>
-                                        	Subtotal <span class="count">{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span>
+                                        	Subtotal <span class="count">₹{{ getTenure() | async }}</span>
                                         </li>
-                                        <li *ngIf='checkOutItems.length'>
+                                        <li>
+                                        	Taxes <i placement="top" ngbTooltip="{{taxInfo}}" class="fa fa-info-circle"></i> <span class="count">₹{{(getTenure() | async)*(gst)/100}}</span>
+                                        </li>
+                                        <li>
+                                            Delivery Charges  <span class="count">₹ {{deliveryFee}}</span>
+                                            <div class="form-check">
+                                                <input type="checkbox" (change)="delivery($event)" class="form-check-input" id="deliveryCheck1">
+                                                <label class="form-check-label" for="deliveryCheck1">Self pickup</label>
+                                            </div>
+                                        </li>
+                                        <!-- <li *ngIf='checkOutItems.length'>
                                         	Shipping
                                          <div class="shipping">
                                             <div class="shopping-option">
@@ -198,10 +211,12 @@
                                                 <label for="local-pickup">Local Pickup</label>
                                             </div>
                                          </div>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <ul class="total">
-                                        <li>Total <span class="count">{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span></li>
+                                        <li>Total <span class="count">₹{{((getTenure() | async)*(gst)/100)+(getTenure() | async)}}</span></li>
+                                        <li>Refundable Security Deposit <span class="count">₹{{(getDeposit() | async)}}</span></li>
+                                        <li>Grand Total <span class="count">₹{{(getDeposit() | async)+((getTenure() | async)*(gst)/100)+(getTenure() | async)}}</span></li>
                                     </ul>
                                 </div>
 

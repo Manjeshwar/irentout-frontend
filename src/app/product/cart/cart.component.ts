@@ -34,6 +34,16 @@ export class CartComponent implements OnInit {
   public decrement(product: any, quantity: number = -1) {
     this.cartService.updateCartQuantity(product,quantity);
   }
+
+  // Get Tenure price only
+  public getTenure(): Observable<number> {
+    return this.cartService.getTotalTenureAmount();
+  }
+
+  // Get Security Deposit price only
+  public getDeposit(): Observable<number> {
+    return this.cartService.getTotalDepositAmount();
+  }
   
   // Get Total
   public getTotal(): Observable<number> {

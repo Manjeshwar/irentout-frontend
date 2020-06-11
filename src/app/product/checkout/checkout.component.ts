@@ -6,6 +6,7 @@ import { CartItem } from '../../shared/classes/cart-item';
 import { ProductsService } from '../../shared/services/products.service';
 import { CartService } from '../../shared/services/cart.service';
 import { OrderService } from '../../shared/services/order.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -22,6 +23,10 @@ public checkOutItems  :  CartItem[] = [];
 public orderDetails   :  any[] = [];
 public amount         :  number;
 public payPalConfig ? : PayPalConfig;
+gst:number;
+totalprice;
+deliveryFee:number=200;
+taxInfo = "";
 
 
 pincodes = {
@@ -40,7 +45,7 @@ invalidPostal = false;
   
 
 // Form Validator
-constructor(private fb: FormBuilder, private cartService: CartService, 
+constructor(private fb: FormBuilder, private cartService: CartService, private cityService: UserService, 
   public productsService: ProductsService, private orderService: OrderService) {
   this.checkoutForm = this.fb.group({
     firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -56,11 +61,33 @@ constructor(private fb: FormBuilder, private cartService: CartService,
 }
 
 ngOnInit() {
+  this.cityService.getAllCities().subscribe((res: any) => {
+    if (res) {
+      var a = res.filter((res) => {
+        if(res.cityname === localStorage.getItem('city')) {
+          return res;
+        }
+    });
+    this.gst = parseFloat(a[0].taxes);
+    this.taxInfoDisp(a[0].cityname);
+    }
+ });
+  
   this.cartItems = this.cartService.getItems();
   this.cartItems.subscribe(products => this.checkOutItems = products);
   this.getTotal().subscribe(amount => this.amount = amount);
   this.initConfig();
   this.patchCityState();
+}
+
+
+taxInfoDisp(city) {
+  if(city=='Bangalore') {
+    var a = this.gst / 2;
+    this.taxInfo = `CGST = ${a}% and SGST = ${a}%`
+  } else {
+    this.taxInfo = `IGST ${this.gst}%`;
+  }
 }
 
 patchCityState() {
@@ -89,9 +116,30 @@ validatePostal() {
 }
 
 
+
+
 // Get sub Total
 public getTotal(): Observable<number> {
   return this.cartService.getTotalAmount();
+}
+
+// Get Tenure price only
+public getTenure(): Observable<number> {
+  return this.cartService.getTotalTenureAmount();
+}
+
+// Get Security Deposit price only
+public getDeposit(): Observable<number> {
+  return this.cartService.getTotalDepositAmount();
+}
+
+delivery(evt){
+  if(evt.target.checked){
+    this.deliveryFee=0;
+  }
+  else{
+    this.deliveryFee=200;
+  }
 }
 
 // stripe payment gateway
