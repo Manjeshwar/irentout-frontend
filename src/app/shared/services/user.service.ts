@@ -23,6 +23,10 @@ export class UserService {
     return this.http.post(`${this.b_url}userdetails`, {token: token});
   }
 
+  public getHash(paramVal) {
+    return this.http.post(`${this.b_url}payments`, paramVal);
+  }
+
   public getAllCities() {
     return this.http.get(`${this.cty_url}`);
   }

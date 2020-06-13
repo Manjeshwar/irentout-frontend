@@ -10,6 +10,7 @@ export class OrderSuccessComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('test');
   }
 
 }
