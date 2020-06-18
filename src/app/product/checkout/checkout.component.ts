@@ -32,6 +32,9 @@ gst:number;
 totalprice;
 deliveryFee:number=200;
 taxInfo = "";
+grandTotal;
+getTenureVal;
+grandDeposit;
 
 
 pincodes = {
@@ -75,7 +78,12 @@ ngOnInit() {
     });
     this.gst = parseFloat(a[0].taxes);
     this.taxInfoDisp(a[0].cityname);
+    
+    this.getDeposit();
+    this.getTenure();
+    this.calculateTotal();
     }
+    
  });
 
  this.paymentForm = this.fb.group({
@@ -84,11 +92,11 @@ ngOnInit() {
   key: 'LLb865rB',
   salt: 'm5sx41HICr',
   txnid: 'ORD567',
-  amount: '68.90',
+  amount: '',
   pinfo: 'P01,P02',
-  fname: 'prashanth',
-  email: 'prashanth11391@gmail.com',
-  mobile: '9988888888',
+  fname: '',
+  email: '',
+  mobile: '',
   hash: ''
 });
 
@@ -143,23 +151,43 @@ public getTotal(): Observable<number> {
 }
 
 // Get Tenure price only
-public getTenure(): Observable<number> {
-  return this.cartService.getTotalTenureAmount();
+public getTenure() {
+  this.cartService.getTotalTenureAmount().subscribe((res) => {
+    this.getTenureVal = res;
+  });
 }
 
 // Get Security Deposit price only
-public getDeposit(): Observable<number> {
-  return this.cartService.getTotalDepositAmount();
+public getDeposit() {
+  this.cartService.getTotalDepositAmount().subscribe((res) => {
+    this.grandDeposit = res;
+  });
+}
+
+calculateTotal() {
+  this.grandTotal =this.grandDeposit + (parseInt(this.getTenureVal) * (this.gst)/100) + parseInt(this.getTenureVal);
+  this.paymentForm.patchValue({
+    amount: this.grandTotal
+  });
 }
 
 delivery(evt){
   if(evt.target.checked){
     this.deliveryFee=0;
+    this.grandTotal = this.grandTotal - 200;
   }
   else{
     this.deliveryFee=200;
+    this.grandTotal = this.grandTotal + 200;
   }
+  this.paymentForm.patchValue({
+    amount: this.grandTotal
+  });
+
+  this.generateHash();
+  
 }
+
 
 // stripe payment gateway
 stripeCheckout() {
@@ -222,6 +250,12 @@ generateHash() {
   });
 }
 
+startPayment() {
+  // generate order id and tran id
+  // store in db
+  // get the response - pass tranid from db
+  this.launchBOLT();
+}
 
 launchBOLT()
   {
@@ -258,6 +292,10 @@ launchBOLT()
           var form = jQuery(fr);
           jQuery('body').append(form);								
           form.submit();
+      }
+
+      if(BOLT.response.txnStatus === 'CANCEL') {
+        alert('Payment cancelled');
       }
   },
       catchException: function(BOLT){
