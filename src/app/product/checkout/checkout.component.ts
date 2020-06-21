@@ -82,6 +82,7 @@ ngOnInit() {
     this.getDeposit();
     this.getTenure();
     this.calculateTotal();
+    this.transactionId();
     }
     
  });
@@ -105,6 +106,26 @@ ngOnInit() {
   this.getTotal().subscribe(amount => this.amount = amount);
   this.initConfig();
   this.patchCityState();
+}
+
+transactionId(){
+  var subCity=this.city.substring(0,3);
+  var rand = JSON.stringify(Math.random()*9999);
+  var dte = new Date();
+  var ordId=subCity +
+  rand +
+  dte.getMonth() +
+  ":" +
+  dte.getFullYear() +
+  "-" +
+  dte.getHours() +
+  "-" +
+  dte.getMinutes() +
+  "-" +
+  dte.getSeconds() +
+  "-" +
+  dte.getMilliseconds();
+  console.log(ordId);
 }
 
 
