@@ -30,7 +30,7 @@
                                 <h3>Billing Details</h3>
                             </div>
                             <div class="row check-out">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
                                     <input type="text" name="firstname" [formControl]="checkoutForm.controls['firstname']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.required" class="text text-danger">
@@ -49,8 +49,8 @@
                                     <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.pattern" class="text text-danger">
                                     Last Name must be an alphabates.
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                </div> -->
+                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Phone</div>
                                     <input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.required" class="text text-danger">
@@ -69,7 +69,7 @@
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
                                      Invalid Email
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Country</div>
                                     <select name="country" [formControl]="checkoutForm.controls['country']">
@@ -82,7 +82,7 @@
                                      Country is required
                                     </div>
                                 </div> -->
-                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Address</div>
                                     <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
@@ -91,8 +91,8 @@
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
                                       Maximum 50 character
                                     </div>
-                                </div>
-                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                </div> -->
+                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Town/City</div>
                                     <input type="text" name="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
@@ -113,6 +113,109 @@
                                         Postal code should be of 6 digits
                                     </div>
                                     <div *ngIf="invalidPostal && !checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
+                                </div> -->
+
+                                <div class="payment-box" *ngIf='checkOutItems.length'>
+                                    <form [formGroup]="paymentForm">
+                                        <div class="dv">
+                                        <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
+                                        <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
+                                        <span class="text"><label>Merchant Key:</label></span>
+                                        <span><input type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" /></span>
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Merchant Salt:</label></span>
+                                        <span><input type="text" formControlName="salt" id="salt" name="salt" placeholder="Merchant Salt" value="" /></span>
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Transaction/Order ID:</label></span>
+                                        <span><input type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" /></span>
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Amount:</label></span>
+                                        <span><input type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" /></span>    
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Product Info:</label></span>
+                                        <span><input type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" /></span>
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>First Name:</label></span>
+                                        <span><input type="text" formControlName="fname" (change)="generateHash()" id="fname" name="fname" placeholder="First Name" value="" /></span>
+                                        </div>
+
+                                        <div class="dv">
+                                            <span class="text"><label>Last Name:</label></span>
+                                            <span><input type="text" formControlName="lname"  id="lname" name="lname" placeholder="Last Name" value="" /></span>
+                                            </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Email ID:</label></span>
+                                        <span><input type="text" formControlName="email" (change)="generateHash()" id="email" name="email" placeholder="Email ID" value="" /></span>
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Mobile/Cell Number:</label></span>
+                                        <span><input type="text" formControlName="mobile" (change)="generateHash()" id="mobile" name="mobile" placeholder="Mobile/Cell Number" value="" /></span>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="field-label">Town/City</div>
+                                            <input type="text" name="town" formControlName="town" value="" placeholder="" autocomplete="off">
+                                             
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                            <div class="field-label">State</div>
+                                            <input type="text" name="state" formControlName="state" value="" placeholder="" autocomplete="off">
+                                            
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                            <div class="field-label">Postal Code</div>
+                                            <input type="text" name="postalcode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['postalcode']" value="" placeholder="" autocomplete="off">
+                                            <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">
+                                                Postal code should be of 6 digits
+                                            </div>
+                                            <div *ngIf="invalidPostal && !checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="field-label">Address</div>
+                                            <input type="text" name="address" formControlName="address" value="" placeholder="" autocomplete="off">
+                                            
+                                        </div>
+                                        
+                                        <div class="dv">
+                                        <span class="text"><label>Hash:</label></span>
+                                        <span><input type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" /></span>
+                                        </div>
+                                        <div id="alertinfo" class="dv"></div>
+                                        
+                                        <!-- <div><input type="submit" value="Pay" onclick="launchBOLT(); return false;" /></div> -->
+                                        </form>
+                                    <!-- <div class="upper-box">
+                                        <div class="payment-options">
+                                            <ul>
+                                                <li>
+                                                    <div class="radio-option">
+                                                        <input type="radio" [(ngModel)]="payment" [value]="false"  name="payment-group" id="payment-2">
+                                                        <label for="payment-2">Stripe
+                                                            <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio-option paypal">
+                                                        <input type="radio" [(ngModel)]="payment" [value]="true" name="payment-group" id="payment-3">
+                                                        <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                           <!-- <div class="row ">
@@ -219,85 +322,14 @@
                                         <li>Grand Total <span class="count">₹{{grandTotal}}</span></li>
                                     </ul>
                                 </div>
-
-                                <div class="payment-box" *ngIf='checkOutItems.length'>
-                                    <form [formGroup]="paymentForm">
-                                        <div class="dv">
-                                        <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
-                                        <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
-                                        <span class="text"><label>Merchant Key:</label></span>
-                                        <span><input type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Merchant Salt:</label></span>
-                                        <span><input type="text" formControlName="salt" id="salt" name="salt" placeholder="Merchant Salt" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Transaction/Order ID:</label></span>
-                                        <span><input type="text" formControlName="txnid" (change)="generateHash()" id="txnid" name="txnid" placeholder="Transaction ID" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Amount:</label></span>
-                                        <span><input type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" /></span>    
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Product Info:</label></span>
-                                        <span><input type="text" formControlName="pinfo" (change)="generateHash()" id="pinfo" name="pinfo" placeholder="Product Info" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>First Name:</label></span>
-                                        <span><input type="text" formControlName="fname" (change)="generateHash()" id="fname" name="fname" placeholder="First Name" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Email ID:</label></span>
-                                        <span><input type="text" formControlName="email" (change)="generateHash()" id="email" name="email" placeholder="Email ID" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Mobile/Cell Number:</label></span>
-                                        <span><input type="text" formControlName="mobile" (change)="generateHash()" id="mobile" name="mobile" placeholder="Mobile/Cell Number" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Hash:</label></span>
-                                        <span><input type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" /></span>
-                                        </div>
-                                        <div id="alertinfo" class="dv"></div>
-                                        <div class="text-right">
-                                            <button class="btn-solid btn" type="submit" value="Pay" (click)="startPayment()">
-                                               Place Order
-                                            </button>
-                                            <!-- <ngx-paypal [config]="payPalConfig" [ngClass]="{'btn disabled': !checkoutForm.valid}" *ngIf="payment">
-                                            </ngx-paypal> -->
-                                        </div>
-                                        <!-- <div><input type="submit" value="Pay" onclick="launchBOLT(); return false;" /></div> -->
-                                        </form>
-                                    <!-- <div class="upper-box">
-                                        <div class="payment-options">
-                                            <ul>
-                                                <li>
-                                                    <div class="radio-option">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="false"  name="payment-group" id="payment-2">
-                                                        <label for="payment-2">Stripe
-                                                            <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio-option paypal">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="true" name="payment-group" id="payment-3">
-                                                        <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div> -->
+                                <div class="text-right">
+                                    <button class="btn-solid btn" type="submit" value="Pay" (click)="startPayment()">
+                                       Place Order
+                                    </button>
+                                    <!-- <ngx-paypal [config]="payPalConfig" [ngClass]="{'btn disabled': !checkoutForm.valid}" *ngIf="payment">
+                                    </ngx-paypal> -->
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

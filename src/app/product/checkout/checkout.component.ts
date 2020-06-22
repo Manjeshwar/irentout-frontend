@@ -35,6 +35,7 @@ taxInfo = "";
 grandTotal;
 getTenureVal;
 grandDeposit;
+cartProducts = [];
 
 
 pincodes = {
@@ -88,16 +89,24 @@ ngOnInit() {
  });
 
  this.paymentForm = this.fb.group({
+  uid: localStorage.getItem('uid'),
   udf5: 'BOLT_KIT_NODE_JS',
   surl: '',
   key: 'LLb865rB',
   salt: 'm5sx41HICr',
-  txnid: 'ORD567',
+  txnid: '',
   amount: '',
-  pinfo: 'P01,P02',
+  securityDeposit: '',
+  pinfo: '',
   fname: '',
+  lname: '',
   email: '',
   mobile: '',
+  address: '',
+  town: '',
+  state: '',
+  pincode: '',
+  selfPickup: false,
   hash: ''
 });
 
@@ -106,6 +115,18 @@ ngOnInit() {
   this.getTotal().subscribe(amount => this.amount = amount);
   this.initConfig();
   this.patchCityState();
+  this.getProducts();
+}
+
+getProducts() {
+  this.cartItems.subscribe((res) => {
+    res.forEach((dta) => {
+     this.cartProducts.push(dta.product.prod_id);
+    });
+    this.paymentForm.patchValue({
+      pinfo: JSON.stringify(this.cartProducts)
+    });
+  });
 }
 
 transactionId(){
@@ -125,7 +146,9 @@ transactionId(){
   dte.getSeconds() +
   "-" +
   dte.getMilliseconds();
-  console.log(ordId);
+  this.paymentForm.patchValue({
+    txnid: ordId
+  });
 }
 
 
@@ -146,7 +169,7 @@ patchCityState() {
     } 
   });
 
-  this.checkoutForm.patchValue({
+  this.paymentForm.patchValue({
     town: this.city,
     state: state[0].state
   })
@@ -161,6 +184,9 @@ validatePostal() {
       this.invalidPostal = true;
     }
   }
+  this.paymentForm.patchValue({
+    pincode: this.checkoutForm.value.postalcode
+  });
 }
 
 
@@ -183,6 +209,9 @@ public getDeposit() {
   this.cartService.getTotalDepositAmount().subscribe((res) => {
     this.grandDeposit = res;
   });
+  this.paymentForm.patchValue({
+    securityDeposit: this.grandDeposit
+  });
 }
 
 calculateTotal() {
@@ -192,41 +221,28 @@ calculateTotal() {
   });
 }
 
-delivery(evt){
-  if(evt.target.checked){
-    this.deliveryFee=0;
+delivery(evt) {
+  if (evt.target.checked){
+    this.deliveryFee = 0;
     this.grandTotal = this.grandTotal - 200;
-  }
-  else{
-    this.deliveryFee=200;
+    this.paymentForm.patchValue({
+      selfPickup: false
+    });
+  } else {
+    this.deliveryFee = 200;
     this.grandTotal = this.grandTotal + 200;
+    this.paymentForm.patchValue({
+      selfPickup: true
+    });
   }
   this.paymentForm.patchValue({
     amount: this.grandTotal
   });
 
   this.generateHash();
-  
 }
 
 
-// stripe payment gateway
-stripeCheckout() {
-    var handler = (<any>window).StripeCheckout.configure({
-      key: 'PUBLISHBLE_KEY', // publishble key
-      locale: 'auto',
-      token: (token: any) => {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-        this.orderService.createOrder(this.checkOutItems, this.checkoutForm.value, token.id, this.amount);
-      }
-    });
-    handler.open({
-      name: 'Multikart',
-      description: 'Online Fashion Store',
-      amount: this.amount * 100
-    })
-}
 
 // Paypal payment gateway
 private initConfig(): void {
@@ -272,17 +288,20 @@ generateHash() {
 }
 
 startPayment() {
-  // generate order id and tran id
-  // store in db
-  // get the response - pass tranid from db
-  this.launchBOLT();
+  this.cityService.initiateTransaction(this.paymentForm.value).subscribe((res) => {
+    if (res) {
+      this.launchBOLT();
+    }
+  }, (error) => {
+    alert('Internal Server Error');
+  });
 }
 
-launchBOLT()
-  {
+launchBOLT() {
+  const cityServiceBk = this.cityService;
       bolt.launch({
       key: $('#key').val(),
-      txnid: $('#txnid').val(), 
+      txnid: $('#txnid').val(),
       hash: $('#hash').val(),
       amount: $('#amount').val(),
       firstname: $('#fname').val(),
@@ -292,13 +311,19 @@ launchBOLT()
       udf5: $('#udf5').val(),
       surl : $('#surl').val(),
       furl: $('#surl').val()
-  },{ responseHandler: function(BOLT){
-      console.log( BOLT.response.txnStatus );		
-      if(BOLT.response.txnStatus != 'CANCEL')
-      {
+  }, { responseHandler: function(BOLT) {
+      console.log( BOLT.response.txnStatus );
+      let status = BOLT.response.txnStatus;
+      if (BOLT.response.txnStatus === 'CANCEL') {
+        status = 'Payment cancelled';
+      }
+
+    cityServiceBk.updateTransaction({txnid: $('#txnid').val(), status: status}).subscribe((res) => {
+      if (res) {
+        if (BOLT.response.txnStatus !== 'CANCEL') {
           //Salt is passd here for demo purpose only. For practical use keep salt at server side only.
-          var fr = '<form action=\"'+$('#surl').val()+'\" method=\"post\">' +
-          '<input type=\"hidden\" name=\"key\" value=\"'+BOLT.response.key+'\" />' +
+          var fr = '<form action=\"' + $('#surl').val() +'\" method=\"post\">' +
+          '<input type=\"hidden\" name=\"key\" value=\"' + BOLT.response.key + '\" />' +
           '<input type=\"hidden\" name=\"salt\" value=\"'+$('#salt').val()+'\" />' +
           '<input type=\"hidden\" name=\"txnid\" value=\"'+BOLT.response.txnid+'\" />' +
           '<input type=\"hidden\" name=\"amount\" value=\"'+BOLT.response.amount+'\" />' +
@@ -311,15 +336,15 @@ launchBOLT()
           '<input type=\"hidden\" name=\"hash\" value=\"'+BOLT.response.hash+'\" />' +
           '</form>';
           var form = jQuery(fr);
-          jQuery('body').append(form);								
+          jQuery('body').append(form);
           form.submit();
       }
-
-      if(BOLT.response.txnStatus === 'CANCEL') {
-        alert('Payment cancelled');
       }
+    }, (error) => {
+      alert('Internal Server Error');
+    });
   },
-      catchException: function(BOLT){
+      catchException: function(BOLT) {
            alert( BOLT.message );
       }
   });

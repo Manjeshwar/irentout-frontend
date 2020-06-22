@@ -30,4 +30,12 @@ export class UserService {
   public getAllCities() {
     return this.http.get(`${this.cty_url}`);
   }
+
+  public initiateTransaction(formval) {
+    return this.http.post(`${this.b_url}payments/saveorder`, formval);
+  }
+
+  public updateTransaction(formval) {
+    return this.http.post(`${this.b_url}payments/updateorder`, formval);
+  }
 }
