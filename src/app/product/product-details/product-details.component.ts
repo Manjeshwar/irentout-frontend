@@ -1,17 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { Product } from '../../shared/classes/product';
 import { ProductsService } from '../../shared/services/products.service';
 import { WishlistService } from '../../shared/services/wishlist.service';
 import { CartService } from '../../shared/services/cart.service';
-import {NgbDateStruct, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbDatepickerConfig, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user.service';
+
+
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  format(date: NgbDateStruct | null): string {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
+  }
+}
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
+  providers: [
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
+  ]
 })
 export class ProductDetailsComponent implements OnInit {
 
@@ -19,12 +45,13 @@ export class ProductDetailsComponent implements OnInit {
   public products:   Product[] = [];
   public counter = 1;
   public selectedSize:   any = '';
-  model: NgbDateStruct;
+  model2: NgbDateStruct;
 
   tenures = 3;
   tenure_price;
   security_deposit = 0;
   addDays;
+  deliveryDate:string;
 
   // Get Product By Id
   constructor(private route: ActivatedRoute, private router: Router,
@@ -93,16 +120,24 @@ export class ProductDetailsComponent implements OnInit {
       }
   }
 
-  // Add to cart
-  public addToCart(product: Product, quantity, tenures, tenure_price) {
-    if (quantity == 0) return false;
-    this.cartService.addToCart(product, parseInt(quantity), tenures, tenure_price);
+  getDate(){    
+    var day = this.model2.day;
+    var month = this.model2.month;
+    var year = this.model2.year;
+    this.deliveryDate= day + '/' + month + '/' + year;
+    // console.log(this.deliveryDate);
   }
 
   // Add to cart
-  public buyNow(product: Product, quantity,tenures, tenure_price) {
+  public addToCart(product: Product, quantity, tenures, tenure_price, deliveryDate) {
+    if (quantity == 0) return false;
+    this.cartService.addToCart(product, parseInt(quantity), tenures, tenure_price, deliveryDate);
+  }
+
+  // Add to cart
+  public buyNow(product: Product, quantity,tenures, tenure_price, deliveryDate) {
      if (quantity > 0) 
-       this.cartService.addToCart(product,parseInt(quantity),tenures, tenure_price);
+       this.cartService.addToCart(product,parseInt(quantity),tenures, tenure_price, deliveryDate);
        const url = `/${localStorage.getItem('city')}`;
        this.router.navigate([`${url}/checkout`]);
   }

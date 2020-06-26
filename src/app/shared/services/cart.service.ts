@@ -10,6 +10,7 @@ import { HttpClient } from "@angular/common/http";
 let products = JSON.parse(localStorage.getItem("cartItem")) || [];
 let users_url = `http://localhost:3000/users`;
 
+
 @Injectable({
   providedIn: "root",
 })
@@ -17,7 +18,6 @@ export class CartService {
   // Array
   public cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject([]);
   public observer: Subscriber<{}>;
-
   constructor(private toastrService: ToastrService, private http: HttpClient) {
     this.cartItems.subscribe((products) => (products = products));
   }
@@ -33,7 +33,7 @@ export class CartService {
   }
 
   // Add to cart
-  public addToCart(product: Product, quantity: number,tenures:number, tenure_price: number): CartItem | boolean {
+  public addToCart(product: Product, quantity: number,tenures:number, tenure_price: number, deliveryDate:Date): CartItem | boolean{
     var item: CartItem | boolean = false;
     // If Products exist
     let hasItem = products.find((items, index) => {
@@ -41,18 +41,19 @@ export class CartService {
         let qty = products[index].quantity + quantity;
         products[index].tenures=tenures;
         products[index].tenure_price=tenure_price;
+        products[index].deliveryDate=deliveryDate;
         //let stock = this.calculateStockCounts(products[index], quantity);
         // if (qty != 0 && stock) {
         if (qty !== 0) {
           products[index]["quantity"] = qty;
           this.toastrService.success("This product has been added.");
-        }
+        }        
         return true;
       }
     });
     // If Products does not exist (Add New Products)
     if(!hasItem) {
-        item = { product: product, quantity: quantity, tenures: tenures, tenure_price: tenure_price };
+        item = { product: product, quantity: quantity, tenures: tenures, tenure_price: tenure_price, deliveryDate : deliveryDate};
         products.push(item);
         this.toastrService.success('This product has been added.');
     }
@@ -120,6 +121,7 @@ export class CartService {
     });
     document.querySelector('.cart_qty_cls').textContent = products.length;
   }
+
 
   // Total amount
   public getTotalAmount(): Observable<number> {

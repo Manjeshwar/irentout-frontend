@@ -49,7 +49,8 @@
                 </a>
                 </td>
                 <td>
-                  <a [routerLink]="['/',city,'product', item.product.prod_id]">{{ item.product.prod_name }}</a>
+                  <a class="line-break" [routerLink]="['/',city,'product', item.product.prod_id]">{{ item.product.prod_name }}</a>
+                  <small>Delivery Date: {{item.deliveryDate | json}}</small>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
                       <div class="qty-box">

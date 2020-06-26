@@ -8,6 +8,7 @@ import { CartService } from '../../shared/services/cart.service';
 import { OrderService } from '../../shared/services/order.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 declare var jquery:any;
 declare var $ :any;
 declare var bolt :any;
@@ -22,7 +23,6 @@ export class CheckoutComponent implements OnInit {
 
 // form group
 public checkoutForm   :  FormGroup;
-public paymentForm: FormGroup;
 public cartItems      :  Observable<CartItem[]> = of([]);
 public checkOutItems  :  CartItem[] = [];
 public orderDetails   :  any[] = [];
@@ -55,17 +55,29 @@ invalidPostal = false;
 
 // Form Validator
 constructor(private fb: FormBuilder, private cartService: CartService, private cityService: UserService, 
-  public productsService: ProductsService, private orderService: OrderService) {
+  public productsService: ProductsService, private orderService: OrderService, public router:Router) {
   this.checkoutForm = this.fb.group({
-    firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-    lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-    phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+    uid: localStorage.getItem('uid'),
+    udf5: 'BOLT_KIT_NODE_JS',
+    surl: '',
+    key: 'LLb865rB',
+    salt: 'm5sx41HICr',
+    txnid: '',
+    amount: '',
+    securityDeposit: '',
+    checkoutProductsInfo:'',
+    pinfo: '',
+    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+    mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     email: ['', [Validators.required, Validators.email]],
     address: ['', [Validators.required, Validators.maxLength(50)]],
     country: ['', Validators.required],
     town: ['', Validators.required],
     state: ['', Validators.required],
-    postalcode: ['', [Validators.required, Validators.minLength(6)]]
+    pincode: ['', [Validators.required, Validators.minLength(6)]],
+    selfPickup: false,
+    hash: ''
   });
 }
 
@@ -85,30 +97,10 @@ ngOnInit() {
     this.calculateTotal();
     this.transactionId();
     }
-    
+    if(!localStorage.getItem('uid')){
+      this.router.navigate([this.city,'login']);
+    }
  });
-
- this.paymentForm = this.fb.group({
-  uid: localStorage.getItem('uid'),
-  udf5: 'BOLT_KIT_NODE_JS',
-  surl: '',
-  key: 'LLb865rB',
-  salt: 'm5sx41HICr',
-  txnid: '',
-  amount: '',
-  securityDeposit: '',
-  pinfo: '',
-  fname: '',
-  lname: '',
-  email: '',
-  mobile: '',
-  address: '',
-  town: '',
-  state: '',
-  pincode: '',
-  selfPickup: false,
-  hash: ''
-});
 
   this.cartItems = this.cartService.getItems();
   this.cartItems.subscribe(products => this.checkOutItems = products);
@@ -116,6 +108,7 @@ ngOnInit() {
   this.initConfig();
   this.patchCityState();
   this.getProducts();
+  this.generateCheckoutDta();
 }
 
 getProducts() {
@@ -123,7 +116,7 @@ getProducts() {
     res.forEach((dta) => {
      this.cartProducts.push(dta.product.prod_id);
     });
-    this.paymentForm.patchValue({
+    this.checkoutForm.patchValue({
       pinfo: JSON.stringify(this.cartProducts)
     });
   });
@@ -146,7 +139,7 @@ transactionId(){
   dte.getSeconds() +
   "-" +
   dte.getMilliseconds();
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     txnid: ordId
   });
 }
@@ -169,23 +162,23 @@ patchCityState() {
     } 
   });
 
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     town: this.city,
     state: state[0].state
   })
 }
 
 validatePostal() {
-  const postalCode = this.checkoutForm.value.postalcode;
-  if(postalCode.length >= 6) {
-    if(this.pincodes[this.city].includes(postalCode)) {
+  const pincode = this.checkoutForm.value.pincode;
+  if(pincode.length >= 6) {
+    if(this.pincodes[this.city].includes(pincode)) {
       this.invalidPostal = false;
     } else {
       this.invalidPostal = true;
     }
   }
-  this.paymentForm.patchValue({
-    pincode: this.checkoutForm.value.postalcode
+  this.checkoutForm.patchValue({
+    pincode: this.checkoutForm.value.pincode
   });
 }
 
@@ -209,14 +202,14 @@ public getDeposit() {
   this.cartService.getTotalDepositAmount().subscribe((res) => {
     this.grandDeposit = res;
   });
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     securityDeposit: this.grandDeposit
   });
 }
 
 calculateTotal() {
   this.grandTotal =this.grandDeposit + (parseInt(this.getTenureVal) * (this.gst)/100) + parseInt(this.getTenureVal);
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     amount: this.grandTotal
   });
 }
@@ -225,17 +218,17 @@ delivery(evt) {
   if (evt.target.checked){
     this.deliveryFee = 0;
     this.grandTotal = this.grandTotal - 200;
-    this.paymentForm.patchValue({
-      selfPickup: false
+    this.checkoutForm.patchValue({
+      selfPickup: true
     });
   } else {
     this.deliveryFee = 200;
     this.grandTotal = this.grandTotal + 200;
-    this.paymentForm.patchValue({
-      selfPickup: true
+    this.checkoutForm.patchValue({
+      selfPickup: false
     });
   }
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     amount: this.grandTotal
   });
 
@@ -277,18 +270,28 @@ private initConfig(): void {
 }
 
 generateHash() {
-  this.paymentForm.patchValue({
+  this.checkoutForm.patchValue({
     surl: 'http://localhost:3000/payments/response'
   });
-  this.cityService.getHash(this.paymentForm.value).subscribe((res) => {
-    this.paymentForm.patchValue({
+  this.cityService.getHash(this.checkoutForm.value).subscribe((res) => {
+    this.checkoutForm.patchValue({
       hash: res
     });
   });
 }
 
+generateCheckoutDta() {
+  let delvDta = [];
+  this.checkOutItems.forEach((res) => {
+    delvDta.push({id: res.product.prod_id, delvdate: res.deliveryDate, qty: res.quantity, price: res.tenure_price, tenure: res.tenures});
+  });
+  this.checkoutForm.patchValue({
+    checkoutProductsInfo: JSON.stringify(delvDta)
+  })
+}
+
 startPayment() {
-  this.cityService.initiateTransaction(this.paymentForm.value).subscribe((res) => {
+  this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
     if (res) {
       this.launchBOLT();
     }

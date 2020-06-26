@@ -23,53 +23,61 @@
     <div class="container padding-cls">
         <div class="checkout-page">
             <div class="checkout-form">
-                <form>
+                <form [formGroup]="checkoutForm">
                     <div class="row">
                         <div class="col-lg-6 col-sm-12 col-xs-12">
                             <div class="checkout-title">
                                 <h3>Billing Details</h3>
                             </div>
                             <div class="row check-out">
-                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
+                                <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
+                                <input hidden type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" />
+                                <input hidden type="text" formControlName="salt" id="salt" name="salt" placeholder="Merchant Salt" value="" />
+                                <input hidden type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" />
+                                <input hidden type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" />
+                                <input hidden type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" />
+                                <input hidden type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
-                                    <input type="text" name="firstname" [formControl]="checkoutForm.controls['firstname']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.required" class="text text-danger">
+                                    <input type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.controls.fname.touched && checkoutForm.controls.fname.errors?.required" class="text text-danger">
                                     First Name is required.
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.pattern" class="text text-danger">
+                                    <div *ngIf="checkoutForm.controls.fname.touched && checkoutForm.controls.fname.errors?.pattern" class="text text-danger">
                                     First Name must be an alphabates.
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Last Name </div>
-                                    <input type="text" name="lastname" [formControl]="checkoutForm.controls['lastname']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.required" class="text text-danger">
+                                    <input type="text" name="lname" formControlName="lname" (change)="generateHash()"  id="lname" [formControl]="checkoutForm.controls['lname']" value="" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.controls.lname.touched && checkoutForm.controls.lname.errors?.required" class="text text-danger">
                                     Last Name is required.
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.pattern" class="text text-danger">
+                                    <div *ngIf="checkoutForm.controls.lname.touched && checkoutForm.controls.lname.errors?.pattern" class="text text-danger">
                                     Last Name must be an alphabates.
                                     </div>
-                                </div> -->
-                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Phone</div>
-                                    <input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.required" class="text text-danger">
+                                    <input type="text" name="mobile" formControlName="mobile" (change)="generateHash()"  id="mobile" [formControl]="checkoutForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.controls.mobile.touched && checkoutForm.controls.mobile.errors?.required" class="text text-danger">
                                      Phone No is required.
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
+                                    <div *ngIf="checkoutForm.controls.mobile.touched && checkoutForm.controls.mobile.errors?.pattern" class="text text-danger">
                                       Phone No is must be number.
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Email Address</div>
-                                    <input type="text" name="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="email" formControlName="email" (change)="generateHash()"  id="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.required" class="text text-danger">
                                      Email is required
                                     </div>
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
                                      Invalid Email
                                     </div>
-                                </div> -->
+                                </div>
                                 <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Country</div>
                                     <select name="country" [formControl]="checkoutForm.controls['country']">
@@ -82,141 +90,40 @@
                                      Country is required
                                     </div>
                                 </div> -->
-                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Address</div>
-                                    <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="address" formControlName="address" (change)="generateHash()"  id="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
                                      Address is required
                                     </div>
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
                                       Maximum 50 character
                                     </div>
-                                </div> -->
-                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Town/City</div>
-                                    <input type="text" name="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
+                                    <input disabled type="text" name="town" formControlName="town"  id="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
                                      City is required
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">State</div>
-                                    <input type="text" name="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
+                                    <input disabled type="text" name="state" formControlName="state"  id="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.state.touched && checkoutForm.controls.state.errors?.required" class="text text-danger">
                                      State is required
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                     <div class="field-label">Postal Code</div>
-                                    <input type="text" name="postalcode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['postalcode']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">
+                                    <input type="text" name="pincode" formControlName="pincode" (change)="generateHash()"  id="pincode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.controls.pincode.touched && checkoutForm.controls.pincode.errors?.minlength" class="text text-danger">
                                         Postal code should be of 6 digits
                                     </div>
-                                    <div *ngIf="invalidPostal && !checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
-                                </div> -->
-
-                                <div class="payment-box" *ngIf='checkOutItems.length'>
-                                    <form [formGroup]="paymentForm">
-                                        <div class="dv">
-                                        <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
-                                        <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
-                                        <span class="text"><label>Merchant Key:</label></span>
-                                        <span><input type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Merchant Salt:</label></span>
-                                        <span><input type="text" formControlName="salt" id="salt" name="salt" placeholder="Merchant Salt" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Transaction/Order ID:</label></span>
-                                        <span><input type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Amount:</label></span>
-                                        <span><input type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" /></span>    
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Product Info:</label></span>
-                                        <span><input type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>First Name:</label></span>
-                                        <span><input type="text" formControlName="fname" (change)="generateHash()" id="fname" name="fname" placeholder="First Name" value="" /></span>
-                                        </div>
-
-                                        <div class="dv">
-                                            <span class="text"><label>Last Name:</label></span>
-                                            <span><input type="text" formControlName="lname"  id="lname" name="lname" placeholder="Last Name" value="" /></span>
-                                            </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Email ID:</label></span>
-                                        <span><input type="text" formControlName="email" (change)="generateHash()" id="email" name="email" placeholder="Email ID" value="" /></span>
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Mobile/Cell Number:</label></span>
-                                        <span><input type="text" formControlName="mobile" (change)="generateHash()" id="mobile" name="mobile" placeholder="Mobile/Cell Number" value="" /></span>
-                                        </div>
-
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <div class="field-label">Town/City</div>
-                                            <input type="text" name="town" formControlName="town" value="" placeholder="" autocomplete="off">
-                                             
-                                        </div>
-                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                            <div class="field-label">State</div>
-                                            <input type="text" name="state" formControlName="state" value="" placeholder="" autocomplete="off">
-                                            
-                                        </div>
-                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                            <div class="field-label">Postal Code</div>
-                                            <input type="text" name="postalcode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['postalcode']" value="" placeholder="" autocomplete="off">
-                                            <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">
-                                                Postal code should be of 6 digits
-                                            </div>
-                                            <div *ngIf="invalidPostal && !checkoutForm.controls.postalcode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
-                                        </div>
-
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <div class="field-label">Address</div>
-                                            <input type="text" name="address" formControlName="address" value="" placeholder="" autocomplete="off">
-                                            
-                                        </div>
-                                        
-                                        <div class="dv">
-                                        <span class="text"><label>Hash:</label></span>
-                                        <span><input type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" /></span>
-                                        </div>
-                                        <div id="alertinfo" class="dv"></div>
-                                        
-                                        <!-- <div><input type="submit" value="Pay" onclick="launchBOLT(); return false;" /></div> -->
-                                        </form>
-                                    <!-- <div class="upper-box">
-                                        <div class="payment-options">
-                                            <ul>
-                                                <li>
-                                                    <div class="radio-option">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="false"  name="payment-group" id="payment-2">
-                                                        <label for="payment-2">Stripe
-                                                            <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio-option paypal">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="true" name="payment-group" id="payment-3">
-                                                        <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div> -->
+                                    <div *ngIf="invalidPostal && !checkoutForm.controls.pincode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
                                 </div>
+
+                                
                             </div>
                           <!-- <div class="row ">
                             <div class="col-12">
@@ -283,6 +190,7 @@
                                         	<span>
                                         	 ₹ {{ (item.tenure_price*1)* item.quantity  }}
                                             </span>
+                                            <small class="line-break">Delivery Date: {{item.deliveryDate}}</small>
                                         </li>
                                     </ul>
                                     <ul class="qty" *ngIf='!checkOutItems.length'>

@@ -6,4 +6,5 @@ export interface CartItem {
     quantity: number;
     tenures:number;
     tenure_price:number;
+    deliveryDate:Date;
 }

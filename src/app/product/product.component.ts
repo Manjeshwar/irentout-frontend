@@ -26,8 +26,8 @@ export class ProductComponent implements OnInit {
   ngOnInit() {  }
 
   // Add to cart
-  public addToCart(product: Product,  quantity: number = 1,tenures, tenure_price) {
-    this.cartService.addToCart(product, quantity,tenures, tenure_price);
+  public addToCart(product: Product,  quantity: number = 1,tenures, tenure_price, deliveryDate:Date) {
+    this.cartService.addToCart(product, quantity,tenures, tenure_price, deliveryDate);
   }
 
   // Add to compare
