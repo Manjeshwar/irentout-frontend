@@ -77,7 +77,8 @@ constructor(private fb: FormBuilder, private cartService: CartService, private c
     state: ['', Validators.required],
     pincode: ['', [Validators.required, Validators.minLength(6)]],
     selfPickup: false,
-    hash: ''
+    hash: '',
+    city: ''
   });
 }
 
@@ -122,22 +123,16 @@ getProducts() {
   });
 }
 
-transactionId(){
-  var subCity=this.city.substring(0,3);
-  var rand = JSON.stringify(Math.random()*9999);
-  var dte = new Date();
-  var ordId=subCity +
-  rand +
+transactionId() {
+  const subCity = this.city.substring(0, 3);
+  const rand = JSON.stringify(Math.random() * 9999);
+  const dte = new Date();
+  const ordId = subCity + rand +
   dte.getMonth() +
-  ":" +
   dte.getFullYear() +
-  "-" +
   dte.getHours() +
-  "-" +
   dte.getMinutes() +
-  "-" +
   dte.getSeconds() +
-  "-" +
   dte.getMilliseconds();
   this.checkoutForm.patchValue({
     txnid: ordId
@@ -146,32 +141,32 @@ transactionId(){
 
 
 taxInfoDisp(city) {
-  if(city=='Bangalore') {
-    var a = this.gst / 2;
-    this.taxInfo = `CGST = ${a}% and SGST = ${a}%`
+  if (city === 'Bangalore') {
+    const a = this.gst / 2;
+    this.taxInfo = `CGST = ${a}% and SGST = ${a}%`;
   } else {
     this.taxInfo = `IGST ${this.gst}%`;
   }
 }
 
 patchCityState() {
-  
-  let state = this.cityStateMatch.filter((res) => {
-    if(res.city === this.city) {
+
+  const state = this.cityStateMatch.filter((res) => {
+    if (res.city === this.city) {
      return true;
-    } 
+    }
   });
 
   this.checkoutForm.patchValue({
     town: this.city,
     state: state[0].state
-  })
+  });
 }
 
 validatePostal() {
   const pincode = this.checkoutForm.value.pincode;
-  if(pincode.length >= 6) {
-    if(this.pincodes[this.city].includes(pincode)) {
+  if (pincode.length >= 6) {
+    if (this.pincodes[this.city].includes(pincode)) {
       this.invalidPostal = false;
     } else {
       this.invalidPostal = true;
@@ -181,8 +176,6 @@ validatePostal() {
     pincode: this.checkoutForm.value.pincode
   });
 }
-
-
 
 
 // Get sub Total
@@ -208,14 +201,14 @@ public getDeposit() {
 }
 
 calculateTotal() {
-  this.grandTotal =this.grandDeposit + (parseInt(this.getTenureVal) * (this.gst)/100) + parseInt(this.getTenureVal);
+  this.grandTotal = this.grandDeposit + (parseInt(this.getTenureVal) * (this.gst)/100) + parseInt(this.getTenureVal);
   this.checkoutForm.patchValue({
     amount: this.grandTotal
   });
 }
 
 delivery(evt) {
-  if (evt.target.checked){
+  if (evt.target.checked) {
     this.deliveryFee = 0;
     this.grandTotal = this.grandTotal - 200;
     this.checkoutForm.patchValue({
@@ -302,23 +295,29 @@ startPayment() {
 
 launchBOLT() {
   const cityServiceBk = this.cityService;
-      bolt.launch({
-      key: $('#key').val(),
-      txnid: $('#txnid').val(),
-      hash: $('#hash').val(),
-      amount: $('#amount').val(),
-      firstname: $('#fname').val(),
-      email: $('#email').val(),
-      phone: $('#mobile').val(),
-      productinfo: $('#pinfo').val(),
-      udf5: $('#udf5').val(),
-      surl : $('#surl').val(),
-      furl: $('#surl').val()
-  }, { responseHandler: function(BOLT) {
-      console.log( BOLT.response.txnStatus );
+
+  bolt.launch({
+    key: $('#key').val(),
+    txnid: $('#txnid').val(),
+    hash: $('#hash').val(),
+    amount: $('#amount').val(),
+    firstname: $('#fname').val(),
+    email: $('#email').val(),
+    phone: $('#mobile').val(),
+    productinfo: $('#pinfo').val(),
+    udf5: $('#udf5').val(),
+    surl : $('#surl').val(),
+    furl: $('#surl').val(),
+    city: localStorage.getItem('city'),
+    uid: localStorage.getItem('uid')
+  }, {
+      responseHandler: function(BOLT) {
       let status = BOLT.response.txnStatus;
       if (BOLT.response.txnStatus === 'CANCEL') {
         status = 'Payment cancelled';
+        cityServiceBk.deleteTransaction({txnid: $('#txnid').val()}).subscribe((res) => {
+          alert('Transaction cancelled');
+        });
       }
 
     cityServiceBk.updateTransaction({txnid: $('#txnid').val(), status: status}).subscribe((res) => {
@@ -327,7 +326,8 @@ launchBOLT() {
           //Salt is passd here for demo purpose only. For practical use keep salt at server side only.
           var fr = `<form action='${$('#surl').val()}' method='post'>
           <input type='hidden' name='key' value='${BOLT.response.key}' />
-          <input type='hidden' name='salt' value='${$('#salt').val()}' />
+          <input type='hidden' name='city' value='${localStorage.getItem('city')}' />
+          <input type='hidden' name='uid' value='${localStorage.getItem('uid')}' />
           <input type='hidden' name='txnid' value='${BOLT.response.txnid}' />
           <input type='hidden' name='amount' value='${BOLT.response.amount}' />
           <input type='hidden' name='productinfo' value='${BOLT.response.productinfo}' />

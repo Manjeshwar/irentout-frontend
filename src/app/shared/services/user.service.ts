@@ -38,4 +38,12 @@ export class UserService {
   public updateTransaction(formval) {
     return this.http.post(`${this.b_url}payments/updateorder`, formval);
   }
+
+  public deleteTransaction(txnid) {
+    return this.http.post(`${this.b_url}payments/deleteorder`, txnid);
+  }
+
+  public ordDetails(txnid) {
+    return this.http.post(`${this.b_url}products/ordDetails`, txnid);
+  }
 }

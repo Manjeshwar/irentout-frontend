@@ -7,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderSuccessComponent implements OnInit {
 
+  orderid;
+
   constructor() { }
 
   ngOnInit() {
-    console.log('test');
+    const getid = window.location.search.split('=');
+    this.orderid = getid[1];
+    this.getOrderDetails(this.orderid);
+  }
+
+  getOrderDetails(ordid) {
+    
   }
 
 }
