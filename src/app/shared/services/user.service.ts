@@ -44,6 +44,6 @@ export class UserService {
   }
 
   public ordDetails(txnid) {
-    return this.http.post(`${this.b_url}products/ordDetails`, txnid);
+    return this.http.get(`${this.b_url}products/ordDetails/${txnid}`);
   }
 }

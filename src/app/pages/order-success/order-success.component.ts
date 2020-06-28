@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-order-success',
@@ -8,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class OrderSuccessComponent implements OnInit {
 
   orderid;
+  addressDta = {
+    address: 'test',
+    state: 'test',
+    city: ''
+  };
 
-  constructor() { }
+  constructor(private order: UserService) { }
 
   ngOnInit() {
     const getid = window.location.search.split('=');
@@ -18,7 +24,14 @@ export class OrderSuccessComponent implements OnInit {
   }
 
   getOrderDetails(ordid) {
-    
+    this.order.ordDetails(ordid).subscribe((res) => {
+      const OrderDetails = res[0];
+      this.addressDta = {
+        address: OrderDetails.address,
+        state: OrderDetails.state,
+        city: OrderDetails.city
+      }
+    });
   }
 
 }
