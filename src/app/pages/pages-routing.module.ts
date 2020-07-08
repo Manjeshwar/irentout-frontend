@@ -11,6 +11,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CartComponent } from './cart/cart.component';
 import { CollectionComponent } from './collection/collection.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactComponent } from './contact/contact.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CompareComponent } from './compare/compare.component';
@@ -69,8 +70,12 @@ const routes: Routes = [
         component: CollectionComponent
       },
       {
-        path: 'forgetpassword',
+        path: 'forgotpassword',
         component: ForgetPasswordComponent
+      },
+      {
+        path: 'resetpassword/:id',
+        component: ResetPasswordComponent
       },
       {
         path: 'contact',

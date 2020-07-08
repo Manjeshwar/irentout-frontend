@@ -55,6 +55,10 @@ export class TopbarOneComponent implements OnInit {
 
   login() {
     const location = window.location.href;
+    const ignoreURL = ['forgotpassword', 'login'];
+    if(ignoreURL.includes(location)) {
+
+    }
     localStorage.setItem('redirectto', location);
     this.router.navigate([this.currentCity,'login']);
   }

@@ -14,6 +14,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CartComponent } from './cart/cart.component';
 import { CollectionComponent } from './collection/collection.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactComponent } from './contact/contact.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CompareComponent } from './compare/compare.component';
@@ -66,7 +67,8 @@ import { FailureComponent } from './failure/failure.component';
     MasonaryThreeGridComponent,
     MasonaryFourGridComponent,
     MasonaryFullwidthComponent,
-    FailureComponent
+    FailureComponent,
+    ResetPasswordComponent
   ]
 })
 export class PagesModule { }

@@ -72,7 +72,6 @@ constructor(private fb: FormBuilder, private cartService: CartService, private c
     mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     email: ['', [Validators.required, Validators.email]],
     address: ['', [Validators.required, Validators.maxLength(50)]],
-    country: ['', Validators.required],
     town: ['', Validators.required],
     state: ['', Validators.required],
     pincode: ['', [Validators.required, Validators.minLength(6)]],
@@ -122,6 +121,10 @@ getProducts() {
     });
   });
 }
+
+// checkoutUserForm(){
+ 
+// }
 
 transactionId() {
   const subCity = this.city.substring(0, 3);
@@ -270,6 +273,7 @@ generateHash() {
     this.checkoutForm.patchValue({
       hash: res
     });
+    console.log(res);
   });
 }
 
@@ -284,13 +288,21 @@ generateCheckoutDta() {
 }
 
 startPayment() {
-  this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
-    if (res) {
-      this.launchBOLT();
-    }
-  }, (error) => {
-    alert('Internal Server Error');
-  });
+  const controls = this.checkoutForm.controls;
+
+  Object.keys(controls).forEach(key => {
+    controls[key].markAsTouched();
+  })
+
+  if(this.checkoutForm.valid) {
+    this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
+      if (res) {
+        this.launchBOLT();
+      }
+    }, (error) => {
+      alert('Internal Server Error');
+    });
+  }
 }
 
 launchBOLT() {
@@ -341,6 +353,7 @@ launchBOLT() {
           var form = jQuery(fr);
           jQuery('body').append(form);
           form.submit();
+          console.log(BOLT.response.mihpayid );
       }
       }
     }, (error) => {
@@ -348,7 +361,7 @@ launchBOLT() {
     });
   },
       catchException: function(BOLT) {
-           alert( BOLT.message );
+           console.log(BOLT.message );
       }
   });
   }

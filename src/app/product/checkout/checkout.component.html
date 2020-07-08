@@ -37,7 +37,7 @@
                                 <input hidden type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" />
                                 <input hidden type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" />
                                 <input hidden type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" />
-                                <input hidden type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
+                                <input type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
                                     <input type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Last Name </div>
-                                    <input type="text" name="lname" formControlName="lname" (change)="generateHash()"  id="lname" [formControl]="checkoutForm.controls['lname']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="lname" formControlName="lname" id="lname" [formControl]="checkoutForm.controls['lname']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.lname.touched && checkoutForm.controls.lname.errors?.required" class="text text-danger">
                                     Last Name is required.
                                     </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Phone</div>
-                                    <input type="text" name="mobile" formControlName="mobile" (change)="generateHash()"  id="mobile" [formControl]="checkoutForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="checkoutForm.controls['mobile']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.mobile.touched && checkoutForm.controls.mobile.errors?.required" class="text text-danger">
                                      Phone No is required.
                                     </div>
@@ -92,7 +92,7 @@
                                 </div> -->
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Address</div>
-                                    <input type="text" name="address" formControlName="address" (change)="generateHash()"  id="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="address" formControlName="address"  id="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
                                      Address is required
                                     </div>
@@ -116,7 +116,10 @@
                                 </div>
                                 <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                     <div class="field-label">Postal Code</div>
-                                    <input type="text" name="pincode" formControlName="pincode" (change)="generateHash()"  id="pincode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                                    <input type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.controls.pincode.touched && checkoutForm.controls.pincode.errors?.required" class="text text-danger">
+                                        pincode is required
+                                    </div>
                                     <div *ngIf="checkoutForm.controls.pincode.touched && checkoutForm.controls.pincode.errors?.minlength" class="text text-danger">
                                         Postal code should be of 6 digits
                                     </div>

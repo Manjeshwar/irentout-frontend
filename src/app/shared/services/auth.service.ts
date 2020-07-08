@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginCheck(formdata) {
-    return this.http.post('localhost:3000/userlogin', formdata);
+    return this.http.post('http://localhost:3000/userlogin', formdata);
   }
 
   authenticatedCheck() {

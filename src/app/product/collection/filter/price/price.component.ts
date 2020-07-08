@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import 'rxjs/add/observable/interval';
+// import 'rxjs/add/observable/interval';
 
 @Component({
   selector: 'app-price',

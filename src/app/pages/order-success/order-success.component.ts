@@ -10,9 +10,15 @@ export class OrderSuccessComponent implements OnInit {
 
   orderid;
   addressDta = {
-    address: 'test',
-    state: 'test',
-    city: ''
+    address: '',
+    state: '',
+    city: '',
+    pincode:'',
+    mobile:'',
+    orderId:'',
+    orderDate:'',
+    orderTotal:'',
+    deliveryDate:'',
   };
 
   constructor(private order: UserService) { }
@@ -29,7 +35,13 @@ export class OrderSuccessComponent implements OnInit {
       this.addressDta = {
         address: OrderDetails.address,
         state: OrderDetails.state,
-        city: OrderDetails.city
+        city: OrderDetails.city,
+        pincode: OrderDetails.pincode,
+        mobile:OrderDetails.mobile,
+        orderId:OrderDetails.txnid,
+        orderDate:OrderDetails.orderdate[0],
+        orderTotal:OrderDetails.amount,
+        deliveryDate:'',
       }
     });
   }

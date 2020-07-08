@@ -28,35 +28,86 @@
                 <div class="theme-card">
                     <form class="theme-form" [formGroup]="registerForm" (ngSubmit)="registerUserForm()">
                         <div class="form-row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="email">First Name</label>
-                                <input type="text" class="form-control" formControlName="firstName" id="fname" placeholder="First Name" required="">
+                                <input type="text" class="form-control" formControlName="firstName" id="fname" [formControl]="registerForm.controls['firstName']" placeholder="First Name" required="">
+                                <div *ngIf="registerForm.controls.firstName.touched && registerForm.controls.firstName.errors?.required" class="text text-danger">
+                                    First Name is required.
+                                </div>
+                                <div *ngIf="registerForm.controls.firstName.touched && registerForm.controls.firstName.errors?.pattern" class="text text-danger">
+                                    First Name must be an alphabates.
+                                </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="review">Last Name</label>
-                                <input type="password" class="form-control" formControlName="lastName" id="lname" placeholder="Last Name" required="">
+                                <input type="text" class="form-control" formControlName="lastName" id="lname" placeholder="Last Name" required="">
+                                <div *ngIf="registerForm.controls.lastName.touched && registerForm.controls.lastName.errors?.required" class="text text-danger">
+                                    Last Name is required.
+                                </div>
+                                <div *ngIf="registerForm.controls.lastName.touched && registerForm.controls.lastName.errors?.pattern" class="text text-danger">
+                                    Last Name must be an alphabates.
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="email">email</label>
                                 <input type="email" class="form-control" formControlName="email" id="email" placeholder="Email" required="">
+                                <div *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.required" class="text text-danger">
+                                    Email is required
+                                </div>
+                                <div *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.email" class="text text-danger">
+                                    Invalid Email
+                                </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="email">Phone</label>
                                 <input type="tel" class="form-control" formControlName="phone" id="phone" placeholder="Phone" required="">
+                                <div *ngIf="registerForm.controls.phone.touched && registerForm.controls.phone.errors?.required" class="text text-danger">
+                                    Phone No is required.
+                                </div>
+                                <div *ngIf="registerForm.controls.phone.touched && registerForm.controls.phone.errors?.pattern" class="text text-danger">
+                                     Phone No is must be number.
+                                </div>
                             </div>
                             
                         </div>
 
                         <div class="form-row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="review">Password</label>
-                                <input type="password" class="form-control" formControlName="password" placeholder="Enter your password" required="">
+                                <div class="input-group">
+                                    <input [type]="show ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Enter your password" required="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                        <a (click)="passwordVisibility()"><i class="fa {{fa}}"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div *ngIf="registerForm.controls.password.touched && registerForm.controls.password.errors?.required" class="text text-danger">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="registerForm.controls.password.touched && registerForm.controls.password.errors?.minlength" class="text text-danger">
+                                    Password minimum length must be atleast 6 characters.
+                                </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="review">Confirm Password</label>
-                                <input type="password" class="form-control" formControlName="confirmPassword" placeholder="ReEnter your password" required="">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="ReEnter your password" required="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                        <a (click)="passwordVisibility()"><i class="fa {{fa}}"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="registerForm.controls.confirmPassword.touched && registerForm.controls.confirmPassword.errors?.required" class="text text-danger">
+                                    Please confirm your password.
+                                </div>
+                                <div *ngIf="registerForm.controls.confirmPassword.touched && registerForm.controls.confirmPassword.errors?.mismatch" class="text text-danger">
+                                    password does'nt match
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-solid">create Account</button>
                         </div>

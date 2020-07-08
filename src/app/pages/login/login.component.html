@@ -30,17 +30,33 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" formControlName="email" id="email" placeholder="Email" required="">
+                            <div *ngIf="submitted && !loginForm.valid && loginForm.controls.email.errors?.required" class="text text-danger">
+                                Please enter your email and password to login
+                            </div>
+                            <div *ngIf="!loginForm.valid && loginForm.controls.email.errors?.email" class="text text-danger">
+                                Invalid Email
+                            </div>
+                            <div class="text text-danger">
+                                {{emailMessage}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="review">Password</label>
                             <input type="password" class="form-control" formControlName="password" id="review" placeholder="Enter your password" required="">
+                            <div *ngIf="submitted && !loginForm.valid && loginForm.controls.password.errors?.required" class="text text-danger">
+                                Please enter password.
+                            </div>
+                            <div *ngIf="dbVerifiedPassword" class="text text-danger">
+                                Incorrect password
+                            </div>
+                            <a [routerLink]="['/',city,'forgotpassword']">Forgot password?</a>
                         </div>
                         <button class="btn btn-solid">Login</button>
                     </form>
                 </div>
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <a href="http://localhost:3000/auth/facebook">Login with Facebook</a>
-                </div>
+                </div> -->
                 <div class="col-lg-6">
                     <a href="http://localhost:3000/auth/google">Login with Google</a>
                 </div>
