@@ -65,7 +65,7 @@ export class CartService {
 
     this.http.put(`${users_url}/cart/${uid}`, { cart: allAddedProducts }).subscribe((res) => {
       console.log(res);
-    })
+    });
 
     localStorage.setItem("cartItem", allAddedProducts);
     return item;

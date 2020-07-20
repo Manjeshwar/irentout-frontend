@@ -76,6 +76,7 @@ export class TopbarOneComponent implements OnInit {
     this.display = false;
     this.emitS.changeUserName('My Account');
     this.router.navigateByUrl(`/${city}`);
+    location.reload();
   }
 
 }

@@ -6,6 +6,10 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { EmitService } from './shared/services/emit.service';
 import { CartService } from './shared/services/cart.service';
 
+import { HttpClient } from "@angular/common/http";
+
+let users_url = `http://localhost:3000/users`;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,9 +21,11 @@ export class AppComponent implements OnInit {
 	
    constructor(translate: TranslateService,
       private cityService: UserService,
+      private cartService: CartService,
       private route: ActivatedRoute,
       private router: Router,
       private cart: CartService,
+      private http: HttpClient,
       private emitS: EmitService) {
       translate.setDefaultLang('en');
       translate.addLangs(['en', 'fr']);
@@ -42,7 +48,12 @@ export class AppComponent implements OnInit {
       const social = ['google', 'facebook', 'web'];
       if (social.includes(localStorage.getItem('logintype'))) {
          this.cart.getCartDetails(localStorage.getItem('token')).subscribe((res) => {
-            localStorage.setItem('cartItem', res[0].cart);
+            if(localStorage.getItem('cartItem')) {
+               this.pushLocalCartToLogin(res[0].cart, localStorage.getItem('uid'));
+            } else {
+               localStorage.setItem('cartItem', res[0].cart);
+            }
+
             localStorage.setItem('uname', res[0].uname);
             this.emitS.changeUserName(localStorage.getItem('uname') || 'My Account');
             this.cart.getItems();
@@ -63,6 +74,31 @@ export class AppComponent implements OnInit {
       } else{
          this.getByCity(cty);
       }
+   }
+
+   pushLocalCartToLogin(loggedInCartDet, uid) {
+      let localCart = JSON.parse(localStorage.getItem('cartItem'));
+      let loggedInCart = JSON.parse(loggedInCartDet);
+
+      let nonAddedProduct = [];
+      loggedInCart.forEach((res, j) => {
+         nonAddedProduct.push(res.product.prod_id);
+      });
+
+      let newStorageCart = [];
+      localCart.forEach((res, i) => {
+         if(!nonAddedProduct.includes(res.product.prod_id)) {
+            // this.cartService.addToCart(res.product, res.quantity, res.tenures, res.tenure_price, null);
+            newStorageCart.push(res);
+         }
+     });
+
+     const finalCartItems = JSON.stringify(loggedInCart.concat(newStorageCart));
+
+     localStorage.setItem('cartItem', finalCartItems);
+     this.http.put(`${users_url}/cart/${uid}`, { cart: finalCartItems }).subscribe((res) => {
+      console.log(res);
+      });
    }
 
    getByCity(cityname) {
