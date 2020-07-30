@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import { BehaviorSubject, Observable, of, Subscriber} from 'rxjs';
 import { map, filter, scan } from 'rxjs/operators';
-import 'rxjs/add/operator/map';
 
 // Get product from Localstorage
 let products = JSON.parse(localStorage.getItem("compareItem")) || [];
@@ -26,7 +25,7 @@ export class ProductsService {
 
   // Observable Product Array
   private products(): Observable<Product[]> {
-     return this.http.get(`http://localhost:3000/products/productsByCity/${localStorage.getItem('city')}`).map((res:any) => res.json())
+     return this.http.get(`http://localhost:3000/products/productsByCity/${localStorage.getItem('city')}`).pipe(map((res:any) => res.json()));
   }
 
   // Get Products

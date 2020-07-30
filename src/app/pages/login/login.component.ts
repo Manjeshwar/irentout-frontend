@@ -76,7 +76,8 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('logintype', logintype);
               localStorage.setItem('token', token);
 
-              const redirect = localStorage.getItem('redirectto');
+              let redirect = localStorage.getItem('redirectto');
+              redirect = redirect ? localStorage.getItem('redirectto') : '/';
               window.location.href = redirect;
             }
           });

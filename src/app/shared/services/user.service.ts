@@ -40,6 +40,10 @@ export class UserService {
     return this.http.post(`${this.b_url}userdetails`, {token: token});
   }
 
+  public getUserDetailsByUid(id) {
+    return this.http.get(`${this.b_url}userdetails`, id);
+  }
+
   public getHash(paramVal) {
     return this.http.post(`${this.b_url}payments`, paramVal);
   }

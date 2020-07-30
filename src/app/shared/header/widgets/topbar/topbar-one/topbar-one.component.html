@@ -36,7 +36,7 @@
         <li class="mobile-wishlist">
           <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
         </li>
-        <!-- <li class="onhover-dropdown mobile-account">
+        <li class="onhover-dropdown mobile-account">
           <i class="fa fa-user" aria-hidden="true"></i> {{ accountName }}
           <ul class="onhover-show-div">
             <li *ngIf="!display">
@@ -49,16 +49,17 @@
                   {{ 'logout' | translate }}
               </a>
             </li>
+            <li *ngIf="display"><a [routerLink]="['/',currentCity,'your-orders']">Your orders</a></li>
           </ul>
-        </li> -->
-        <li>
+        </li>
+        <!-- <li>
           <span *ngIf="!display"><a (click)="login()" data-lng="en">
             {{ 'login' | translate }} / Signup
         </a></span>
           <span *ngIf="display"><a (click)="logout()" data-lng="es">
             {{ 'logout' | translate }}
         </a></span>
-      </li>
+      </li> -->
       </ul>
     </div>
 </div>

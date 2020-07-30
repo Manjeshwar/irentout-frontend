@@ -1,0 +1,65 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Your Orders</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+                        <li class="breadcrumb-item active">Your orders</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<section class="orders-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card" *ngFor="let o of orders">            
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>Order Date <span>{{o.orderdate[0] | date:'dd MMM yyyy'}}</span></p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Total <span>₹{{o.amount}}</span></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Security deposit <span>₹{{o.securitydeposit}}</span></p>
+                            </div>
+                            <div class="col-md-5">
+                                <p>Order # <span>{{o.txnid}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div *ngFor="let p of o.prodlists">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a [routerLink]="['/',city,'product',p.id]"><img src='http://localhost:3000/images/products/{{p.prod_img}}' alt="" class="img-fluid"></a>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{p.prod_name}}</p>
+                                    <p>Rent Duration: For {{p.tenure}} Months</p>
+                                    <p>Rent per month: ₹{{p.price}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>Address: <span> {{o.address}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                       
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

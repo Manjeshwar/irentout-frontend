@@ -39,7 +39,7 @@ export class TopbarOneComponent implements OnInit {
     localStorage.setItem('city', cityname);
     this.currentCity=cityname;
     this.router.navigate([`/${cityname}`]);
- }
+   }
 
  emitsearch(val) {
   val = val === '' ? 'all' : val;

@@ -37,7 +37,7 @@
                                 <input hidden type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" />
                                 <input hidden type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" />
                                 <input hidden type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" />
-                                <input type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
+                                <input hidden type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
                                     <input type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">

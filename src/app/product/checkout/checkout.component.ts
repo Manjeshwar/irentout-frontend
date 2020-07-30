@@ -98,6 +98,8 @@ ngOnInit() {
     this.transactionId();
     }
     if(!localStorage.getItem('uid')){
+      const location = window.location.href;
+      localStorage.setItem('redirectto', location);
       this.router.navigate([this.city,'login']);
     }
  });

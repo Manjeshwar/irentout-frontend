@@ -17,7 +17,7 @@
         <div class="modal-body">
           <div class="row">
               <div class="col" *ngFor="let city of citiesList">
-                <a (click)='getByCity(city.cityname)'>{{city.cityname}}</a>
+                <a (click)='getByCity(city.cityname); refresh()'>{{city.cityname}}</a>
               </div>
           </div>
         </div>
