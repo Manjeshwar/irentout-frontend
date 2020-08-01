@@ -20,32 +20,47 @@ function passwordMatchValidator(password: string): ValidatorFn {
 })
 export class ResetPasswordComponent implements OnInit {
 
-  userDetails:any;
-  resetForm:FormGroup;
-  id:string;
-  fa:string="fa-eye-slash";
-  show: boolean=false;
-  
+  userDetails: any;
+  resetForm: FormGroup;
+  id: string;
+  tokenValid: string;
+  fa = 'fa-eye-slash';
+  show = false;
+  isLinkExpired = false;
+  ExpiredTime
 
-  constructor(private formBuilder: FormBuilder,public route:ActivatedRoute,private router: Router,private us: UserService) { }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public route:ActivatedRoute,
+    private router: Router,
+    private us: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id= params['id'];
+      this.id = params['id'];
+      this.tokenValid = params['isvalidtoken'];
       console.log(this.id);
     });
     this.resetForm = this.formBuilder.group({
       upass: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6), passwordMatchValidator('upass')]],
     });
+
+    const tokenDetails = this.us.checkMailLinkValidity(this.tokenValid);
+    this.isLinkExpired = tokenDetails['valid'];
+    this.ExpiredTime = tokenDetails['time'];
+
   }
 
-  reset(){
+  
+
+  reset() {
     const controls = this.resetForm.controls;
-    var city=localStorage.getItem('city');
+    const city = localStorage.getItem('city');
     Object.keys(controls).forEach(key => {
       controls[key].markAsTouched();
-    })
+    });
     this.us.getFullUserDetails().subscribe(res =>{
       this.userDetails=res;
       if ((this.resetForm.value.upass === this.resetForm.value.confirmPassword) && this.resetForm.valid) {

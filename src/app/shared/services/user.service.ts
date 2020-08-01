@@ -77,4 +77,36 @@ export class UserService {
     console.log(obj);
     return this.http.post(uri, obj);
   }
+
+  isTimeValid(tokenTime, currentTime) {
+    let diff = (tokenTime.getTime() - currentTime.getTime()) / 1000;
+    diff /= 60;
+    return Math.abs(Math.round(diff));
+  }
+
+  public checkMailLinkValidity(tokenValue) {
+    const currentTime = new Date();
+    const year = tokenValue.slice(0, 4);
+    let month = tokenValue.slice(4, 6);
+    month = parseInt(month);
+    let date = tokenValue.slice(6, 8);
+    date = parseInt(date);
+    const hours = parseInt(tokenValue.slice(8, 10));
+    const minutes = parseInt(tokenValue.slice(10, 12));
+    const sec = parseInt(tokenValue.slice(12, 14));
+    const tokenDate = `${year}-${month}-${date} ${hours}:${minutes}:${sec}`;
+
+    const dbTime = new Date(tokenDate);
+
+    const tokenDetail = {
+      valid : false,
+      time: 0
+    };
+
+    tokenDetail['valid'] = (this.isTimeValid(dbTime, currentTime) >= 10) ? false : true;
+    tokenDetail['time'] = this.isTimeValid(dbTime, currentTime);
+
+    return tokenDetail;
+
+  }
 }
