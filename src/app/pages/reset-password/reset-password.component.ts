@@ -47,10 +47,10 @@ export class ResetPasswordComponent implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(6), passwordMatchValidator('upass')]],
     });
 
-    const tokenDetails = this.us.checkMailLinkValidity(this.tokenValid);
-    this.isLinkExpired = tokenDetails['valid'];
-    this.ExpiredTime = tokenDetails['time'];
-
+    this.us.checkMailLinkValidity(this.tokenValid).subscribe((res) => {
+      this.isLinkExpired = res['valid'];
+      this.ExpiredTime = res['time'];
+    });
   }
 
   
