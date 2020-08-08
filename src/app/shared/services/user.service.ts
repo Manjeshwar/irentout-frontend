@@ -41,7 +41,7 @@ export class UserService {
   }
 
   public getUserDetailsByUid(id) {
-    return this.http.get(`${this.b_url}userdetails`, id);
+    return this.http.get(`${this.users_url}/getUserInfo/${id}`);
   }
 
   public getHash(paramVal) {
@@ -81,4 +81,16 @@ export class UserService {
     const uri = `${this.b_url}forgotpassword/check/${tokenValue}`;
     return this.http.get(uri);
   }
+
+  public getAddress(uid) {
+    const url = `${this.users_url}/address/${uid}`;
+    return this.http.get(url);
+  }
+
+  public addUpdateAddress(uid, address) {
+    const url = `${this.users_url}/updateaddress/${uid}`;
+    const data = {address}
+    return this.http.put(url, data);
+  }
+
 }

@@ -29,15 +29,17 @@
                             <div class="checkout-title">
                                 <h3>Billing Details</h3>
                             </div>
-                            <div class="row check-out" *ngIf="!address">
-                                <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
+                            <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
                                 <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
                                 <input hidden type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" />
                                 <input hidden type="text" formControlName="salt" id="salt" name="salt" placeholder="Merchant Salt" value="" />
                                 <input hidden type="text" formControlName="txnid" id="txnid" name="txnid" placeholder="Transaction ID" value="" />
-                                <input hidden type="text" formControlName="amount" id="amount" name="amount" placeholder="Amount" />
+                                <input hidden type="text" formControlName="amount" id="amount" (change)="generateHash()" name="amount" placeholder="Amount" />
                                 <input hidden type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" />
                                 <input hidden type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
+                                <input hidden type="text" name="email" formControlName="email" id="email" value="">
+                            <div class="row check-out" *ngIf="!defaultAddress">
+                                
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
                                     <input type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">
@@ -46,16 +48,6 @@
                                     </div>
                                     <div *ngIf="checkoutForm.controls.fname.touched && checkoutForm.controls.fname.errors?.pattern" class="text text-danger">
                                     First Name must be an alphabates.
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Last Name </div>
-                                    <input type="text" name="lname" formControlName="lname" id="lname" [formControl]="checkoutForm.controls['lname']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.lname.touched && checkoutForm.controls.lname.errors?.required" class="text text-danger">
-                                    Last Name is required.
-                                    </div>
-                                    <div *ngIf="checkoutForm.controls.lname.touched && checkoutForm.controls.lname.errors?.pattern" class="text text-danger">
-                                    Last Name must be an alphabates.
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -68,7 +60,7 @@
                                       Phone No is must be number.
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Email Address</div>
                                     <input type="text" name="email" formControlName="email" (change)="generateHash()"  id="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.required" class="text text-danger">
@@ -77,7 +69,7 @@
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
                                      Invalid Email
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Country</div>
                                     <select name="country" [formControl]="checkoutForm.controls['country']">
@@ -128,13 +120,15 @@
 
                                 
                             </div>
-                          <div class="row"  *ngIf="!address">
+                          <div class="row"  *ngIf="defaultAddress">
                             <div class="col-12">
                               <div class="stripe-section">
-                                <h5>Full Name</h5>
+                                <h5>{{defaultAddressFields.name}}</h5>
                                 <div class="content">
-                                  <h5>Delivery address</h5>
-                                  Adress
+                                  <h5>Delivery Address</h5>
+                                  <p>{{defaultAddressFields.address}}</p>
+                                  <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
+                                  <p>Phone: {{defaultAddressFields.phone}}</p>
                                 </div>
                                 <button>Change Address</button>
                               </div>
