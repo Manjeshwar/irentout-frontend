@@ -55,7 +55,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   changeCategory(route) {
-    // location.replace(`http://localhost:4200${route}`);
+    // location.replace(`http://irentout.com${route}`);
     this.emitS.emptyCurrentSelection(true);
     this.router.navigate([route]);
   }

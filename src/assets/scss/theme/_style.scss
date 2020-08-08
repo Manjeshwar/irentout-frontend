@@ -830,7 +830,7 @@ header {
   font-size: 14px;
 
   &:before {
-    content: "\f107";
+    // content: "\f107";
     font-family: $font-awesome;
     position: absolute;
     right: 3px;
@@ -852,7 +852,7 @@ header {
     visibility: hidden;
     right: 0;
     padding: 15px 20px;
-    border-right: 1px solid #ff4c3b;
+    border-right: 1px solid #f36f02;
     border-radius: 0 !important;
 
     &.product-page-full {
@@ -896,7 +896,7 @@ header {
     visibility: hidden;
     right: 0;
     padding: 15px 20px;
-    border-right: 1px solid #ff4c3b;
+    border-right: 1px solid #f36f02;
     border-radius: 0 !important;
 
     &.product-page-full {
@@ -1281,7 +1281,7 @@ header {
   z-index: 9;
   max-height: 60px;
   padding-top: 12px;
-  // border-bottom: 1px solid #ff4c3b;
+  // border-bottom: 1px solid #f36f02;
 
   &.product-full-page {
     z-index: 9999;
@@ -4476,6 +4476,8 @@ header {
   left:0;
   width: 100%;
   .sub-footer {
+    padding:0;
+    margin: 0;
     background-color: transparent;
     .container-fluid {
       padding-left: 60px;
@@ -4652,6 +4654,11 @@ footer {
   }
 }
 .footer-light {
+  // padding-top: 500px;
+  // padding-bottom: 0px;
+  // position:absolute;
+  // bottom:0;
+  // width:100%;
   .subscribe {
     display: flex;
     height: 100%;
@@ -4891,7 +4898,7 @@ footer {
 
   li {
     display: inline-block;
-    padding-right: 45px;
+    padding-right: 35px;
   }
 
   i {
@@ -5137,7 +5144,7 @@ footer {
     19.Color CSS start
     ==========================*/
 .color1 {
-  background: #ff4c3b;
+  background: #f36f02;
 }
 
 .color2 {
@@ -5391,7 +5398,7 @@ footer {
     font-size: 16px;
     font-weight: 600;
     text-transform: capitalize;
-    color: #ff4c3b;
+    color: #f36f02;
     cursor: context-menu;
   }
 
@@ -6824,14 +6831,14 @@ footer {
 
           i {
             font-size: 20px;
-            color: #ff4c3b;
+            color: #f36f02;
           }
 
           h6 {
             text-transform: uppercase;
             padding-top: 5px;
             font-weight: 600;
-            color: #ff4c3b;
+            color: #f36f02;
           }
         }
 
@@ -7053,7 +7060,7 @@ footer {
         padding-right: 63px;
         
         span i{
-          color:#ff4c3b;
+          color:#f36f02;
         }
 
         h2 {
@@ -7067,7 +7074,7 @@ footer {
           padding-right: 10px;
           text-transform: capitalize;
           font-weight: 700;
-          // color: #ff4c3b;
+          // color: #f36f02;
         }
 
         &:first-child {
@@ -12897,5 +12904,5 @@ footer {
 }
 .duration .product-date{
   height:70%;
-  // border-color: #ff4c3b!important;
+  // border-color: #f36f02!important;
 }

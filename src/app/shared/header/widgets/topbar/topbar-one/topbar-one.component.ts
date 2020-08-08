@@ -74,7 +74,7 @@ export class TopbarOneComponent implements OnInit {
     localStorage.removeItem('existinguser');
     document.querySelector('.cart_qty_cls').textContent = '0';
     this.display = false;
-    this.emitS.changeUserName('My Account');
+    this.emitS.changeUserName('Login/Signup');
     this.router.navigateByUrl(`/${city}`);
     location.reload();
   }

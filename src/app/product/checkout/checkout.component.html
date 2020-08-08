@@ -29,7 +29,7 @@
                             <div class="checkout-title">
                                 <h3>Billing Details</h3>
                             </div>
-                            <div class="row check-out">
+                            <div class="row check-out" *ngIf="!address">
                                 <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
                                 <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
                                 <input hidden type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" />
@@ -128,31 +128,19 @@
 
                                 
                             </div>
-                          <!-- <div class="row ">
+                          <div class="row"  *ngIf="!address">
                             <div class="col-12">
                               <div class="stripe-section">
-                                <h5>stripe js</h5>
+                                <h5>Full Name</h5>
                                 <div class="content">
-                                  <h5>dummy test</h5>
-                                  <table>
-                                    <tr>
-                                      <td>cart number</td>
-                                      <td>4242424242424242</td>
-                                    </tr>
-                                    <tr>
-                                      <td>mm/yy</td>
-                                      <td>2/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td>cvc</td>
-                                      <td>2222</td>
-                                    </tr>
-                                  </table>
+                                  <h5>Delivery address</h5>
+                                  Adress
                                 </div>
+                                <button>Change Address</button>
                               </div>
                             </div>
                           </div>
-                          <div class="row margin-cls">
+                          <!-- <div class="row margin-cls">
                             <div class="col-12">
                               <div class="stripe-section">
                                 <h5>paypal</h5>

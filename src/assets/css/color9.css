@@ -5136,7 +5136,7 @@ footer p {
     19.Color CSS start
     ==========================*/
 .color1 {
-  background: #ff4c3b;
+  background: #f36f02;
 }
 
 .color2 {
@@ -5386,7 +5386,7 @@ footer p {
   font-size: 16px;
   font-weight: 600;
   text-transform: capitalize;
-  color: #ff4c3b;
+  color: #f36f02;
   cursor: context-menu;
 }
 .product-right .la-square-spin,
@@ -6510,13 +6510,13 @@ footer p {
 }
 .contact-page .contact-right ul li .contact-icon i {
   font-size: 20px;
-  color: #ff4c3b;
+  color: #f36f02;
 }
 .contact-page .contact-right ul li .contact-icon h6 {
   text-transform: uppercase;
   padding-top: 5px;
   font-weight: 600;
-  color: #ff4c3b;
+  color: #f36f02;
 }
 .contact-page .contact-right ul li p {
   font-weight: 600;
@@ -10395,7 +10395,7 @@ footer.pet-layout-footer .social-white {
   background-color: #eeeeee;
 }
 .left-header .sidenav .pixelstrap > li .lable-nav:before {
-  border-top: 5px solid #ff4c3b;
+  border-top: 5px solid #f36f02;
 }
 .left-header .sidenav .pixelstrap > li .lable-nav.grey-lable {
   background-color: #4d6171;
@@ -10437,7 +10437,7 @@ footer.pet-layout-footer .social-white {
 .left-header .sidenav .bottom-section .icon_settings .shopping-cart .shopping-count {
   width: 18px;
   height: 18px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   color: white;
   position: absolute;
   border-radius: 100%;

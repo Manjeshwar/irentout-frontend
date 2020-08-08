@@ -36,6 +36,7 @@ grandTotal;
 getTenureVal;
 grandDeposit;
 cartProducts = [];
+address:boolean=false;
 
 
 pincodes = {

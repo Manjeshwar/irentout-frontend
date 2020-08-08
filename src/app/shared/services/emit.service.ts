@@ -9,7 +9,7 @@ export class EmitService {
   message:string = 'default title';
   emptyFilterSelection = false;
   cityChange = false;
-  displayName = 'My Account';
+  displayName = 'Login/Signup';
 
   private messageservice = new BehaviorSubject(this.message);
   currentMessage = this.messageservice.asObservable();

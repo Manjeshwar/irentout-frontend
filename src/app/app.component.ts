@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
             }
 
             localStorage.setItem('uname', res[0].uname);
-            this.emitS.changeUserName(localStorage.getItem('uname') || 'My Account');
+            this.emitS.changeUserName(localStorage.getItem('uname') || 'Login/Signup');
             this.cart.getItems();
          });
       }

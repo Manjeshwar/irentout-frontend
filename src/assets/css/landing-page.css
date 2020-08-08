@@ -78,25 +78,25 @@ section {
   display: flex;
   justify-content: center; }
   .btn:hover {
-    border: 1px solid #ff4c3b;
+    border: 1px solid #f36f02;
     color: white;
-    background-color: #ff4c3b; }
+    background-color: #f36f02; }
 
 .btn-primary {
   padding: 12px 40px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   font-size: 16px;
-  border: 1px solid #ff4c3b;
+  border: 1px solid #f36f02;
   color: white; }
   .btn-primary:active {
     background-color: transparent !important;
-    border: 1px solid #ff4c3b !important;
-    color: #ff4c3b !important;
+    border: 1px solid #f36f02 !important;
+    color: #f36f02 !important;
     box-shadow: none !important; }
   .btn-primary:focus {
     background-color: transparent !important;
-    border: 1px solid #ff4c3b !important;
-    color: #ff4c3b !important;
+    border: 1px solid #f36f02 !important;
+    color: #f36f02 !important;
     box-shadow: none !important; }
 
 .slider-section {
@@ -129,7 +129,7 @@ section {
       line-height: 1;
       font-weight: 500; }
       .slider-section .slider-content h3 span {
-        color: #ff4c3b; }
+        color: #f36f02; }
     .slider-section .slider-content p {
       color: white;
       max-width: 50%;
@@ -148,7 +148,7 @@ section {
 
 .title-text h2 {
   font-size: 60px;
-  color: #ff4c3b;
+  color: #f36f02;
   line-height: 1;
   margin-bottom: 15px;
   font-weight: 500; }
@@ -280,10 +280,10 @@ section {
         border: 1px solid #ddd;
         background-color: white;
         width: 90px;
-        color: #ff4c3b;
+        color: #f36f02;
         padding: 5px 10px; }
         .demo-section .demo-effects > div .demo-text .demo-btn .btn:hover {
-          background-color: #ff4c3b;
+          background-color: #f36f02;
           color: white; }
   .demo-section .demo-effects:last-child {
     margin-bottom: 0; }
@@ -388,7 +388,7 @@ section {
     text-align: center;
     justify-content: center; }
     .key-feature .theme-collection:hover h5 {
-      color: #ff4c3b; }
+      color: #f36f02; }
     .key-feature .theme-collection:hover .image-contain {
       box-shadow: 1.5px 17.33px 25px 0 #dddddd;
       transition: all 0.5s ease; }
@@ -1333,12 +1333,12 @@ section {
 .title-text hr {
   height: 3px;
   width: 80px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   margin-bottom: 30px; }
 
 .title-text1 h2 {
   font-size: 60px;
-  color: #ff4c3b;
+  color: #f36f02;
   line-height: 1;
   margin-bottom: 15px;
   font-weight: 500; }
@@ -1355,7 +1355,7 @@ section {
   position: absolute;
   height: 4px;
   width: 90px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1387,7 +1387,7 @@ section {
   padding: 5px 10px; }
 
 .demo-section .demo-effects > div .demo-text1 .demo-btn1 .btn:hover {
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   color: white; }
 
 .demo-section .demo-effects > div .demo-text1 h4 {
@@ -1417,7 +1417,7 @@ section {
   padding: 3px 7px; }
 
 h2 {
-  color: #ff4c3b;
+  color: #f36f02;
   font-size: 60px;
   line-height: 1;
   margin-bottom: 15px;
@@ -1468,7 +1468,7 @@ h3 {
 
 .special-feature-p-hr p {
   font-size: 30px;
-  color: #ff4c3b;
+  color: #f36f02;
   font-weight: 800;
   position: relative; }
 
@@ -1477,7 +1477,7 @@ h3 {
   position: absolute;
   height: 4px;
   width: 90px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   margin: 0 auto;
   top: 40px;
   left: 50%;
@@ -1550,7 +1550,7 @@ h3 {
   top: 0;
   right: 18px;
   padding: 5px 15px;
-  background-color: #ff4c3b;
+  background-color: #f36f02;
   font-size: 16px;
   text-transform: uppercase;
   color: #ffffff; }
