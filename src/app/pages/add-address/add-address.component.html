@@ -1,0 +1,101 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>cart</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+                        <li class="breadcrumb-item active">cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <form [formGroup]="addressForm">
+                    <div class="checkout-title">
+                        <h3>Add address</h3>
+                    </div>
+                    <div class="check-out">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">First Name</div>
+                            <input type="text" name="fname" formControlName="fname"  id="fname" [formControl]="addressForm.controls['fname']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="addressForm.controls.fname.touched && addressForm.controls.fname.errors?.required" class="text text-danger">
+                            Full Name is required.
+                            </div>
+                            <div *ngIf="addressForm.controls.fname.touched && addressForm.controls.fname.errors?.pattern" class="text text-danger">
+                            Full Name must be an alphabates.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Phone</div>
+                            <input type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="addressForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="addressForm.controls.mobile.touched && addressForm.controls.mobile.errors?.required" class="text text-danger">
+                              Phone No is required.
+                            </div>
+                            <div *ngIf="addressForm.controls.mobile.touched && addressForm.controls.mobile.errors?.pattern" class="text text-danger">
+                              Phone No is must be number.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="field-label">Address</div>
+                            <input type="text" name="address" formControlName="address"  id="address" [formControl]="addressForm.controls['address']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="addressForm.controls.address.touched && addressForm.controls.address.errors?.required" class="text text-danger">
+                             Address is required
+                            </div>
+                            <div *ngIf="addressForm.controls.address.touched && addressForm.controls.address.errors?.maxlength" class="text text-danger">
+                              Maximum 50 character
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Town/City</div>
+                            <input disabled type="text" name="town" formControlName="town"  id="town" [formControl]="addressForm.controls['town']" value="" placeholder="" autocomplete="off">
+                             <div *ngIf="addressForm.controls.town.touched && addressForm.controls.town.errors?.required" class="text text-danger">
+                             City is required
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">State</div>
+                            <input disabled type="text" name="state" formControlName="state"  id="state" [formControl]="addressForm.controls['state']" value="" placeholder="" autocomplete="off">
+                             <div *ngIf="addressForm.controls.state.touched && addressForm.controls.state.errors?.required" class="text text-danger">
+                             State is required
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                            <div class="field-label">Postal Code</div>
+                            <input type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="addressForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="addressForm.controls.pincode.touched && addressForm.controls.pincode.errors?.required" class="text text-danger">
+                                pincode is required
+                            </div>
+                            <div *ngIf="addressForm.controls.pincode.touched && addressForm.controls.pincode.errors?.minlength" class="text text-danger">
+                                Postal code should be of 6 digits
+                            </div>
+                            <div *ngIf="invalidPostal && !addressForm.controls.pincode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
+                        </div>
+
+                        <button class="btn-solid btn" type="submit">
+                            Save address
+                        </button>
+
+                        
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--section end-->
