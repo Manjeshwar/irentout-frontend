@@ -46,13 +46,13 @@ export class LoginComponent implements OnInit {
         this.us.checkmailidexists(email).subscribe((emailVal) => {
           this.emailExist = emailVal['status'];
           this.emailMessage = emailVal['message'];
-          if (this.emailExist) {
-            this.us.forgotMail(email, this.city).subscribe(success => {
-              console.log(success);
-            }, error => {
-              console.log('error mail');
-            });
-          }
+          // if (this.emailExist) {
+          //   this.us.forgotMail(email, this.city).subscribe(success => {
+          //     console.log(success);
+          //   }, error => {
+          //     console.log('error mail');
+          //   });
+          // }
         });
 
         if (res.authenticated) {
