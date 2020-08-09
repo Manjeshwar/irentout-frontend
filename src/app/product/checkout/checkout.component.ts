@@ -86,7 +86,7 @@ constructor(
     fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
     mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     email: ['', [Validators.required, Validators.email]],
-    address: ['', [Validators.required, Validators.maxLength(50)]],
+    address: ['', [Validators.required, Validators.maxLength(255)]],
     town: ['', Validators.required],
     state: ['', Validators.required],
     pincode: ['', [Validators.required, Validators.minLength(6)]],
@@ -316,6 +316,10 @@ setFirstJsonAddress() {
   };
 
   return addr;
+}
+
+changeAddress() {
+  this.router.navigate([`/${localStorage.getItem('city')}/add-address`]);
 }
 
 startPayment() {
