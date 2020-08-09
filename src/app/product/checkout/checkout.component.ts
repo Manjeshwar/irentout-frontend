@@ -37,6 +37,7 @@ grandDeposit;
 cartProducts = [];
 addressForm = false;
 defaultAddress = false;
+addAddress = false;
 
 defaultAddressFields = {
   name: '',
@@ -125,6 +126,7 @@ ngOnInit() {
     const addrFields = JSON.parse(dta[0].address);
     if (addrFields.length > 0) {
       this.defaultAddress = true;
+      this.addAddress = false;
       this.defaultAddressFields = {
         name: addrFields[0].firstname,
         phone: addrFields[0].phone,
@@ -146,13 +148,14 @@ ngOnInit() {
       this.generateHash();
     } else {
       this.defaultAddress = false;
+      this.addAddress = true;
     }
   });
 
   this.cartItems = this.cartService.getItems();
   this.cartItems.subscribe(products => this.checkOutItems = products);
   this.getTotal().subscribe(amount => this.amount = amount);
-  this.initConfig();
+
   this.patchCityState();
   this.getProducts();
   this.generateCheckoutDta();
@@ -276,39 +279,6 @@ delivery(evt) {
 }
 
 
-
-// Paypal payment gateway
-private initConfig(): void {
-    this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Sandbox, {
-      commit: true,
-      client: {
-        sandbox: 'CLIENT_ID', // client Id
-      },
-      button: {
-        label: 'paypal',
-        size:  'small',    // small | medium | large | responsive
-        shape: 'rect',     // pill | rect
-        // color: 'blue',   // gold | blue | silver | black
-        // tagline: false
-      },
-      onPaymentComplete: (data, actions) => {
-        this.orderService.createOrder(this.checkOutItems, this.checkoutForm.value, data.orderID, this.amount);
-      },
-      onCancel: (data, actions) => {
-        console.log('OnCancel');
-      },
-      onError: (err) => {
-        console.log('OnError');
-      },
-      transactions: [{
-        amount: {
-          currency: this.productsService.currency,
-          total: this.amount
-        }
-      }]
-    });
-}
-
 generateHash() {
   this.checkoutForm.patchValue({
     surl: 'http://localhost:3000/payments/response'
@@ -355,14 +325,16 @@ startPayment() {
     controls[key].markAsTouched();
   });
 
-  if (!this.defaultAddress) {
-    const addr = [this.setFirstJsonAddress()];
-    this.cityService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
-      console.log(addrs);
-    });
-  }
-
+  
   if (this.checkoutForm.valid) {
+    // save address 
+    if (!this.defaultAddress) {
+      const addr = [this.setFirstJsonAddress()];
+      this.cityService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
+        console.log(addrs);
+      });
+    }
+
     this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
       if (res) {
         this.launchBOLT();

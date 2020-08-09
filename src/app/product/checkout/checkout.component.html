@@ -38,7 +38,7 @@
                                 <input hidden type="text" formControlName="pinfo" id="pinfo" name="pinfo" placeholder="Product Info" />
                                 <input hidden type="text" formControlName="hash" id="hash" name="hash" placeholder="Hash" value="" />
                                 <input hidden type="text" name="email" formControlName="email" id="email" value="">
-                            <div class="row check-out" *ngIf="!defaultAddress">
+                            <div class="row check-out" *ngIf="addAddress">
                                 
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">First Name</div>
@@ -120,20 +120,20 @@
 
                                 
                             </div>
-                          <div class="row"  *ngIf="defaultAddress">
-                            <div class="col-12">
-                              <div class="stripe-section">
-                                <h5>{{defaultAddressFields.name}}</h5>
-                                <div class="content">
-                                  <h5>Delivery Address</h5>
-                                  <p>{{defaultAddressFields.address}}</p>
-                                  <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                                  <p>Phone: {{defaultAddressFields.phone}}</p>
+                            <div class="row" *ngIf="defaultAddress">
+                                <div class="col-12">
+                                <div class="stripe-section">
+                                    <h5>{{defaultAddressFields.name}}</h5>
+                                    <div class="content">
+                                    <h5>Delivery Address</h5>
+                                    <p>{{defaultAddressFields.address}}</p>
+                                    <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
+                                    <p>Phone: {{defaultAddressFields.phone}}</p>
+                                    </div>
+                                    <button>Change Address</button>
                                 </div>
-                                <button>Change Address</button>
-                              </div>
+                                </div>
                             </div>
-                          </div>
                           <!-- <div class="row margin-cls">
                             <div class="col-12">
                               <div class="stripe-section">
