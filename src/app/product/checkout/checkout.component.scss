@@ -19,3 +19,10 @@
 .line-break{
     display:block;
 }
+.modal-dialog{
+    min-width:80% !important;
+
+    .modal-body{
+        padding:2%;
+    }
+}
