@@ -1,25 +1,3 @@
-<!-- breadcrumb start -->
-<div class="breadcrumb-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="page-title">
-                    <h2>cart</h2>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
-                        <li class="breadcrumb-item active">cart</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb End -->
-
 <!-- section start -->
 <section class="cart-section section-b-space">
     <div class="container">
@@ -86,8 +64,8 @@
                             <div *ngIf="invalidPostal && !addressForm.controls.pincode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
                         </div>
 
-                        <button class="btn-solid btn" type="submit">
-                            Save address
+                        <button class="btn-solid btn" type="button" (click)="addAddress()">
+                            Add address
                         </button>
 
                         

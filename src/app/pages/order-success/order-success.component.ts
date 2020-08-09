@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-success',
@@ -13,15 +14,17 @@ export class OrderSuccessComponent implements OnInit {
     address: '',
     state: '',
     city: '',
-    pincode:'',
-    mobile:'',
-    orderId:'',
-    orderDate:'',
-    orderTotal:'',
-    deliveryDate:'',
+    pincode: '',
+    mobile: '',
+    orderId: '',
+    orderDate: '',
+    orderTotal: '',
+    deliveryDate: '',
   };
+  orderedProducts;
+  allOrderDetails;
 
-  constructor(private order: UserService) { }
+  constructor(private order: UserService, private http: HttpClient) { }
 
   ngOnInit() {
     const getid = window.location.search.split('=');
@@ -32,17 +35,19 @@ export class OrderSuccessComponent implements OnInit {
   getOrderDetails(ordid) {
     this.order.ordDetails(ordid).subscribe((res) => {
       const OrderDetails = res[0];
+      this.allOrderDetails = res[0];
       this.addressDta = {
         address: OrderDetails.address,
         state: OrderDetails.state,
         city: OrderDetails.city,
         pincode: OrderDetails.pincode,
-        mobile:OrderDetails.mobile,
-        orderId:OrderDetails.txnid,
-        orderDate:OrderDetails.orderdate[0],
-        orderTotal:OrderDetails.amount,
-        deliveryDate:'',
-      }
+        mobile: OrderDetails.mobile,
+        orderId: OrderDetails.txnid,
+        orderDate: OrderDetails.orderdate[0],
+        orderTotal: OrderDetails.amount,
+        deliveryDate: '',
+      };
+      this.orderedProducts = OrderDetails.checkoutItemData;
     });
   }
 

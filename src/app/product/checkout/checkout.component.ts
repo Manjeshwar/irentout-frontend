@@ -38,6 +38,7 @@ cartProducts = [];
 addressForm = false;
 defaultAddress = false;
 addAddress = false;
+allDelvAddress;
 
 defaultAddressFields = {
   name: '',
@@ -46,7 +47,7 @@ defaultAddressFields = {
   city: '',
   state: '',
   pincode: ''
-}
+};
 
 
 pincodes = {
@@ -123,29 +124,13 @@ ngOnInit() {
     this.checkoutForm.patchValue({
       email: dta[0].email
     });
-    const addrFields = JSON.parse(dta[0].address);
+    let addrFields = JSON.parse(dta[0].address);
+    this.allDelvAddress = addrFields;
+    addrFields = addrFields.filter(res => res.default);
     if (addrFields.length > 0) {
       this.defaultAddress = true;
       this.addAddress = false;
-      this.defaultAddressFields = {
-        name: addrFields[0].firstname,
-        phone: addrFields[0].phone,
-        address: addrFields[0].addr,
-        city: addrFields[0].city,
-        state: addrFields[0].state,
-        pincode: addrFields[0].postal
-      };
-
-      this.checkoutForm.patchValue({
-        fname: addrFields[0].firstname,
-        mobile: addrFields[0].phone,
-        address: addrFields[0].addr,
-        town: addrFields[0].city,
-        state: addrFields[0].state,
-        pincode: addrFields[0].postal,
-      });
-
-      this.generateHash();
+      this.patchFormValues(addrFields[0]);
     } else {
       this.defaultAddress = false;
       this.addAddress = true;
@@ -159,6 +144,42 @@ ngOnInit() {
   this.patchCityState();
   this.getProducts();
   this.generateCheckoutDta();
+}
+
+changeDefaultAddr(id) {
+  const addrFields = this.allDelvAddress.filter(res => res.id === id);
+  this.allDelvAddress.forEach(res => {
+    if (res.id === id) {
+      res.default = true;
+    } else {
+      res.default = false;
+    }
+  });
+  this.patchFormValues(addrFields[0]);
+  this.updateDefaultAddress(this.allDelvAddress);
+}
+
+patchFormValues(addrFields) {
+  this.defaultAddressFields = {
+    name: addrFields.firstname,
+    phone: addrFields.phone,
+    address: addrFields.addr,
+    city: addrFields.city,
+    state: addrFields.state,
+    pincode: addrFields.postal
+  };
+
+  this.checkoutForm.patchValue({
+    fname: addrFields.firstname,
+    mobile: addrFields.phone,
+    address: addrFields.addr,
+    town: addrFields.city,
+    state: addrFields.state,
+    pincode: addrFields.postal,
+  });
+
+  this.generateHash();
+  $('#changeAddressModal').modal('hide');
 }
 
 getProducts() {
@@ -322,6 +343,22 @@ changeAddress() {
   this.router.navigate([`/${localStorage.getItem('city')}/add-address`]);
 }
 
+updateDefaultAddress(addr) {
+  this.cityService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
+    console.log(addrs);
+  });
+}
+
+newAddressAdded() {
+  this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
+    let addrFields = JSON.parse(dta[0].address);
+    this.allDelvAddress = addrFields;
+    addrFields = addrFields.filter(res => res.default);
+
+    this.changeDefaultAddr(addrFields[0].id);
+  });
+}
+
 startPayment() {
   const controls = this.checkoutForm.controls;
 
@@ -329,14 +366,11 @@ startPayment() {
     controls[key].markAsTouched();
   });
 
-  
   if (this.checkoutForm.valid) {
-    // save address 
+    // save address
     if (!this.defaultAddress) {
       const addr = [this.setFirstJsonAddress()];
-      this.cityService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
-        console.log(addrs);
-      });
+      this.updateDefaultAddress(addr);
     }
 
     this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
@@ -393,10 +427,10 @@ launchBOLT() {
           <input type='hidden' name='status' value='${BOLT.response.status}' />
           <input type='hidden' name='hash' value='${BOLT.response.hash}' />
           </form>`;
+          localStorage.setItem('cartItem', '[]');
           const form = jQuery(fr);
           jQuery('body').append(form);
           form.submit();
-          console.log(BOLT.response.mihpayid );
       }
       }
     }, (error) => {

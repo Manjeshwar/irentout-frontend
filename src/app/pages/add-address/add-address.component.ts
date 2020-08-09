@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -8,6 +8,8 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./add-address.component.scss']
 })
 export class AddAddressComponent implements OnInit {
+
+  @Output() public addedAddress = new EventEmitter();
 
   public addressForm   :  FormGroup;
   pincodes = {
@@ -24,7 +26,7 @@ export class AddAddressComponent implements OnInit {
   
   invalidPostal = false;
 
-  constructor(private fb: FormBuilder, private cityService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.addressForm = this.fb.group({
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
@@ -64,6 +66,32 @@ export class AddAddressComponent implements OnInit {
     }
     this.addressForm.patchValue({
       pincode: this.addressForm.value.pincode
+    });
+  }
+
+  addAddress() {
+    this.userService.getAddress(localStorage.getItem('uid')).subscribe((dta) => {
+      const ids = ((1 + Math.random())).toString(32).substring(1).replace('.', '');
+      const formVal = this.addressForm.value;
+      const addr = {
+        id: ids,
+        firstname: formVal.fname,
+        phone: formVal.mobile,
+        addr: formVal.address,
+        city: formVal.town,
+        state: formVal.state,
+        postal: formVal.pincode,
+        default: true
+      };
+      const addrFields = JSON.parse(dta[0].address);
+      addrFields.forEach((res) => {
+        res.default = false;
+      });
+      addrFields.push(addr);
+
+      this.userService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
+        this.addedAddress.emit();
+      });
     });
   }
 

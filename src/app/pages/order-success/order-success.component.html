@@ -21,52 +21,30 @@
             <div class="col-lg-6">
                 <div class="product-order">
                     <h3>your order details</h3>
-                    <div class="row product-order-detail">
+                    <div class="row product-order-detail" *ngFor="let product of orderedProducts">
                         <div class="col-3">
-                            <img src="assets/images/pro3/1.jpg" alt="" class="img-fluid">
+                            <img src="http://localhost:3000/images/products/{{product.imgArr[0]}}" alt="" class="img-fluid">
                         </div>
                         <div class="col-3 order_detail">
                             <div>
-                                <h4>product name</h4>
-                                <h5>cotton shirt</h5>
+                                <h4>Product Name</h4>
+                                <h5>{{product.prodName}}</h5>
                             </div>
                         </div>
                         <div class="col-3 order_detail">
                             <div>
                                 <h4>quantity</h4>
-                                <h5>1</h5>
+                                <h5>{{product.qty}}</h5>
                             </div>
                         </div>
                         <div class="col-3 order_detail">
                             <div>
                                 <h4>price</h4>
-                                <h5>$555.00</h5>
+                                <h5>{{product.prodPrice}}</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="row product-order-detail">
-                        <div class="col-3">
-                            <img src="assets/images/pro3/1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="col-3 order_detail">
-                            <div>
-                                <h4>product name</h4>
-                                <h5>cotton shirt</h5>
-                            </div>
-                        </div>
-                        <div class="col-3 order_detail">
-                            <div>
-                                <h4>quantity</h4>
-                                <h5>1</h5>
-                            </div>
-                        </div>
-                        <div class="col-3 order_detail">
-                            <div>
-                                <h4>price</h4>
-                                <h5>$555.00</h5>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="total-sec">
                         <ul>
                             <li>subtotal <span>$55.00</span></li>
@@ -75,7 +53,7 @@
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3>total <span>$77.00</span></h3>
+                        <h3>total :<span>{{allOrderDetails.amount}}</span></h3>
                     </div>
                 </div>
             </div>

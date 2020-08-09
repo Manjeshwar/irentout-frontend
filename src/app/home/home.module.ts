@@ -61,6 +61,7 @@ import { StorageTypeComponent } from '../product/collection/filter/storage-type/
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddAddressComponent } from '../pages/add-address/add-address.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SuccessComponent,
     ExitPopupComponent,
     AgeVerificationComponent,
-    NewsletterComponent
+    NewsletterComponent,
+    AddAddressComponent
   ],
   imports: [
     CommonModule,

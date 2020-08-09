@@ -130,7 +130,7 @@
                                     <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
                                     <p>Phone: {{defaultAddressFields.phone}}</p>
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeAddressModal">Change/Add Address</button>
                                 </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
 </section>
 
 <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="changeAddressModal">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
@@ -246,65 +246,22 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="row" *ngIf="defaultAddress">
-                <div class="col-md-04">
-                    <div class="stripe-section">
-                        <h5>{{defaultAddressFields.name}}</h5>
-                        <div class="content">
-                        <h5>Delivery Address</h5>
-                        <p>{{defaultAddressFields.address}}</p>
-                        <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                        <p>Phone: {{defaultAddressFields.phone}}</p>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-add-address (addedAddress)="newAddressAdded()"></app-add-address>
                 </div>
-                <div class="col-md-04">
-                    <div class="stripe-section">
-                        <h5>{{defaultAddressFields.name}}</h5>
-                        <div class="content">
-                        <h5>Delivery Address</h5>
-                        <p>{{defaultAddressFields.address}}</p>
-                        <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                        <p>Phone: {{defaultAddressFields.phone}}</p>
+                <div class="col-md-6">
+                    <div class="col-md-12" *ngFor="let addr of allDelvAddress">
+                        <div class="stripe-section">
+                            <h5>{{addr.firstname}}</h5>
+                            <div class="content">
+                            <h5>Delivery Address</h5>
+                            <p>{{addr.addr}}</p>
+                            <p>{{addr.city}}, {{addr.state}}, {{addr.postal}}</p>
+                            <p>Phone: {{addr.phone}}</p>
+                            </div>
+                            <button type="button" (click)="changeDefaultAddr(addr.id)" class="btn btn-primary">Select</button>
                         </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
-                    </div>
-                </div>
-                <div class="col-md-04">
-                    <div class="stripe-section">
-                        <h5>{{defaultAddressFields.name}}</h5>
-                        <div class="content">
-                        <h5>Delivery Address</h5>
-                        <p>{{defaultAddressFields.address}}</p>
-                        <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                        <p>Phone: {{defaultAddressFields.phone}}</p>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
-                    </div>
-                </div>
-                <div class="col-md-04">
-                    <div class="stripe-section">
-                        <h5>{{defaultAddressFields.name}}</h5>
-                        <div class="content">
-                        <h5>Delivery Address</h5>
-                        <p>{{defaultAddressFields.address}}</p>
-                        <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                        <p>Phone: {{defaultAddressFields.phone}}</p>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
-                    </div>
-                </div>
-                <div class="col-md-04">
-                    <div class="stripe-section">
-                        <h5>{{defaultAddressFields.name}}</h5>
-                        <div class="content">
-                        <h5>Delivery Address</h5>
-                        <p>{{defaultAddressFields.address}}</p>
-                        <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                        <p>Phone: {{defaultAddressFields.phone}}</p>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change/Add Address</button>
                     </div>
                 </div>
             </div>
