@@ -30,8 +30,7 @@ import { MasonaryFourGridComponent } from './portfolio/masonary-four-grid/masona
 import { MasonaryFullwidthComponent } from './portfolio/masonary-fullwidth/masonary-fullwidth.component';
 import { FailureComponent } from './failure/failure.component';
 import { AddAddressComponent } from './add-address/add-address.component';
-import { AddBillingAddressComponent } from './add-billing-address/add-billing-address.component';
-import { AddressesComponent } from './addresses/addresses.component';
+
 
 const routes: Routes = [
   {
@@ -88,14 +87,6 @@ const routes: Routes = [
       {
         path: 'add-address',
         component: AddAddressComponent
-      },
-      {
-        path: 'add-billing-address',
-        component: AddBillingAddressComponent
-      },
-      {
-        path: 'addresses',
-        component: AddressesComponent
       },
       {
         path: 'checkout',

@@ -19,7 +19,7 @@ export class CapacityComponent implements OnInit {
 
   ngOnInit() {
       this.capacityFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
-      $('.collapse-block-title-capacity').on('click', function(e) {
+      $('.collapse-block-title').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
         var thisItem = $(this).parent(),

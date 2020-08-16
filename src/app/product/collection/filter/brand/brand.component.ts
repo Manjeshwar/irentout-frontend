@@ -21,7 +21,7 @@ export class BrandComponent implements OnInit {
 
   ngOnInit() {
       this.tagFilters.emit(this.checkedTagsArray);   // Pass value Using emit
-      $('.collapse-block-title-brand').on('click', function(e) {
+      $('.collapse-block-title').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
         var thisItem = $(this).parent(),

@@ -29,7 +29,6 @@ export class AddAddressComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.addressForm = this.fb.group({
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      addresstype:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       town: ['', Validators.required],
@@ -71,66 +70,29 @@ export class AddAddressComponent implements OnInit {
   }
 
   addAddress() {
-    const controls = this.addressForm.controls;
-
-    Object.keys(controls).forEach(key => {
-      controls[key].markAsTouched();
-    });
-
-    if(this.addressForm.valid){
-      this.userService.getAddress(localStorage.getItem('uid')).subscribe((dta) => {
-        const ids = ((1 + Math.random())).toString(32).substring(1).replace('.', '');
-        const formVal = this.addressForm.value;
-        const addr = {
-          id: ids,
-          firstname: formVal.fname,
-          addresstype:formVal.addresstype,
-          phone: formVal.mobile,
-          addr: formVal.address,
-          city: formVal.town,
-          state: formVal.state,
-          postal: formVal.pincode,
-          default: true
-        };
-        const addrFields = JSON.parse(dta[0].address);
-        addrFields.forEach((res) => {
-          res.default = false;
-        });
-        addrFields.push(addr);
-  
-        this.userService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
-          this.addedAddress.emit();
-          this.userService.getBillAddress(localStorage.getItem('uid')).subscribe((dta) => {
-            const addr = {
-              id: ids,
-              firstname: formVal.fname,
-              comapanyname:"",
-              gst:"",
-              phone: formVal.mobile,
-              addr: formVal.address,
-              city: formVal.town,
-              state: formVal.state,
-              postal: formVal.pincode,
-              default: false
-            };
-            const addrFields = JSON.parse(dta[0].billingaddress);
-            // addrFields.forEach((res) => {
-            //   res.default = false;
-            // });
-            addrFields.push(addr);
-      
-            this.userService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
-            });
-          });
-        });
+    this.userService.getAddress(localStorage.getItem('uid')).subscribe((dta) => {
+      const ids = ((1 + Math.random())).toString(32).substring(1).replace('.', '');
+      const formVal = this.addressForm.value;
+      const addr = {
+        id: ids,
+        firstname: formVal.fname,
+        phone: formVal.mobile,
+        addr: formVal.address,
+        city: formVal.town,
+        state: formVal.state,
+        postal: formVal.pincode,
+        default: true
+      };
+      const addrFields = JSON.parse(dta[0].address);
+      addrFields.forEach((res) => {
+        res.default = false;
       });
-      // let redirect = localStorage.getItem('redirectto');
-      // redirect = redirect ? localStorage.getItem('redirectto') : '/';
-      // window.location.href = redirect;
-    }
+      addrFields.push(addr);
 
+      this.userService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
+        this.addedAddress.emit();
+      });
+    });
   }
-
-  
 
 }

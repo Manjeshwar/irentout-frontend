@@ -62,7 +62,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddAddressComponent } from '../pages/add-address/add-address.component';
-import { AddBillingAddressComponent } from '../pages/add-billing-address/add-billing-address.component';
+
 
 @NgModule({
   declarations: [
@@ -114,8 +114,7 @@ import { AddBillingAddressComponent } from '../pages/add-billing-address/add-bil
     ExitPopupComponent,
     AgeVerificationComponent,
     NewsletterComponent,
-    AddAddressComponent,
-    AddBillingAddressComponent
+    AddAddressComponent
   ],
   imports: [
     CommonModule,
