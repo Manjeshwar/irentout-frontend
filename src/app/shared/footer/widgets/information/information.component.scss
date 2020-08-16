@@ -1,0 +1,15 @@
+.subscribe-form {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+
+    .form-control{
+        margin-left: 120px !important;
+        box-shadow: none !important;
+    }
+
+    button{
+        padding:3% 2% !important;
+    }
+}

@@ -21,6 +21,8 @@ export class CartComponent implements OnInit {
     currentCity= localStorage.getItem('city');
 
   ngOnInit() {
+    // const location = window.location.href;
+    // localStorage.setItem('redirectto', location);
   	this.cartItems = this.cartService.getItems();
     this.cartItems.subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
   }

@@ -93,4 +93,15 @@ export class UserService {
     return this.http.put(url, data);
   }
 
+  public getBillAddress(uid) {
+    const url = `${this.users_url}/billingaddress/${uid}`;
+    return this.http.get(url);
+  }
+
+  public addUpdateBillAddress(uid, address) {
+    const url = `${this.users_url}/updatebilladdress/${uid}`;
+    const data = {address}
+    return this.http.put(url, data);
+  }
+
 }

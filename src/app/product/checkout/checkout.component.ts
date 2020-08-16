@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
 // import {  IPayPalConfig,  ICreateOrderRequest } from 'ngx-paypal';
@@ -7,7 +7,7 @@ import { ProductsService } from '../../shared/services/products.service';
 import { CartService } from '../../shared/services/cart.service';
 import { OrderService } from '../../shared/services/order.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 declare const $ :any;
 declare const bolt :any;
@@ -20,6 +20,7 @@ declare const jQuery:any;
 })
 export class CheckoutComponent implements OnInit {
 
+countVal = 0;
 // form group
 public checkoutForm   :  FormGroup;
 public cartItems      :  Observable<CartItem[]> = of([]);
@@ -27,6 +28,7 @@ public checkOutItems  :  CartItem[] = [];
 public orderDetails   :  any[] = [];
 public amount         :  number;
 public payPalConfig ? : PayPalConfig;
+hashSubscription: Subscription;
 gst: number;
 totalprice;
 deliveryFee = 200;
@@ -37,11 +39,26 @@ grandDeposit;
 cartProducts = [];
 addressForm = false;
 defaultAddress = false;
+defaultBillAddress = false;
 addAddress = false;
+billAddress = false;
 allDelvAddress;
+allBillAddress;
 
 defaultAddressFields = {
   name: '',
+  addresstype:'',
+  phone: '',
+  address: '',
+  city: '',
+  state: '',
+  pincode: ''
+};
+
+defaultBillAddressFields = {
+  name: '',
+  companyName:'',
+  gst:'',
   phone: '',
   address: '',
   city: '',
@@ -63,7 +80,8 @@ cityStateMatch = [
 city = localStorage.getItem('city');
 
 invalidPostal = false;
-
+displayAddrForm=false;
+displayBillForm=false;
 
 // Form Validator
 constructor(
@@ -72,7 +90,8 @@ constructor(
   private cityService: UserService,
   public productsService: ProductsService,
   private orderService: OrderService,
-  public router: Router) {
+  public router: Router,
+  public cd: ChangeDetectorRef) {
   this.checkoutForm = this.fb.group({
     uid: localStorage.getItem('uid'),
     udf5: 'BOLT_KIT_NODE_JS',
@@ -96,6 +115,7 @@ constructor(
     city: ''
   });
 }
+
 
 ngOnInit() {
   this.cityService.getAllCities().subscribe((res: any) => {
@@ -125,15 +145,30 @@ ngOnInit() {
       email: dta[0].email
     });
     let addrFields = JSON.parse(dta[0].address);
+    let billAddrsFields = JSON.parse(dta[0].billingaddress);
     this.allDelvAddress = addrFields;
+    this.allBillAddress = billAddrsFields;
     addrFields = addrFields.filter(res => res.default);
     if (addrFields.length > 0) {
       this.defaultAddress = true;
       this.addAddress = false;
-      this.patchFormValues(addrFields[0]);
+      this.patchFormValues(addrFields[0]);      
     } else {
       this.defaultAddress = false;
       this.addAddress = true;
+      const location = window.location.href;
+      localStorage.setItem('redirectto', location);
+      this.router.navigate([this.city,`addresses`]); 
+    }
+    billAddrsFields = billAddrsFields.filter(res => res.default);
+    if (billAddrsFields.length > 0) {
+      this.defaultBillAddress = true;
+      this.billAddress = false;
+      this.patchBillForm(billAddrsFields[0]);
+    } else {
+      this.defaultBillAddress = false;
+      this.billAddress = true;
+      // this.router.navigate([this.city,`add-address`]); 
     }
   });
 
@@ -144,6 +179,11 @@ ngOnInit() {
   this.patchCityState();
   this.getProducts();
   this.generateCheckoutDta();
+
+  if(localStorage.getItem('redirectto').includes('checkout')) {
+    localStorage.removeItem('redirectto');
+    location.reload();
+  }
 }
 
 changeDefaultAddr(id) {
@@ -157,20 +197,37 @@ changeDefaultAddr(id) {
   });
   this.patchFormValues(addrFields[0]);
   this.updateDefaultAddress(this.allDelvAddress);
+  this.displayBillForm=false;
+}
+
+changeDefaultBillAddr(id) {
+  const addrFields = this.allBillAddress.filter(res => res.id === id);
+  this.allBillAddress.forEach(res => {
+    if (res.id === id) {
+      res.default = true;
+    } else {
+      res.default = false;
+    }
+  });
+  this.patchBillForm(addrFields[0])
+  this.updateDefaultBillAddress(this.allBillAddress);
+  this.displayAddrForm=false;
 }
 
 patchFormValues(addrFields) {
   this.defaultAddressFields = {
     name: addrFields.firstname,
+    addresstype: addrFields.addresstype,
     phone: addrFields.phone,
     address: addrFields.addr,
     city: addrFields.city,
     state: addrFields.state,
     pincode: addrFields.postal
-  };
+  };  
 
   this.checkoutForm.patchValue({
     fname: addrFields.firstname,
+    addresstype:addrFields.addresstype,
     mobile: addrFields.phone,
     address: addrFields.addr,
     town: addrFields.city,
@@ -180,6 +237,21 @@ patchFormValues(addrFields) {
 
   this.generateHash();
   $('#changeAddressModal').modal('hide');
+}
+
+patchBillForm(billAddressFields){
+  this.defaultBillAddressFields = {
+    name: billAddressFields.firstname,
+    companyName:billAddressFields.companyName,
+    gst:billAddressFields.gst,
+    phone: billAddressFields.phone,
+    address: billAddressFields.addr,
+    city: billAddressFields.city,
+    state: billAddressFields.state,
+    pincode: billAddressFields.postal
+  };
+  // this.generateHash();
+  $('#billAddressModal').modal('hide');
 }
 
 getProducts() {
@@ -301,10 +373,13 @@ delivery(evt) {
 
 
 generateHash() {
+  if(this.hashSubscription) {
+    this.hashSubscription.unsubscribe();
+  }
   this.checkoutForm.patchValue({
     surl: 'http://localhost:3000/payments/response'
   });
-  this.cityService.getHash(this.checkoutForm.value).subscribe((res) => {
+  this.hashSubscription = this.cityService.getHash(this.checkoutForm.value).subscribe((res) => {
     this.checkoutForm.patchValue({
       hash: res
     });
@@ -328,6 +403,7 @@ setFirstJsonAddress() {
   const addr = {
     id: ids,
     firstname: formVal.fname,
+    addresstype:formVal.addresstype,
     phone: formVal.mobile,
     addr: formVal.address,
     city: formVal.town,
@@ -349,6 +425,12 @@ updateDefaultAddress(addr) {
   });
 }
 
+updateDefaultBillAddress(addr) {
+  this.cityService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
+    console.log(addrs);
+  });
+}
+
 newAddressAdded() {
   this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
     let addrFields = JSON.parse(dta[0].address);
@@ -356,6 +438,16 @@ newAddressAdded() {
     addrFields = addrFields.filter(res => res.default);
 
     this.changeDefaultAddr(addrFields[0].id);
+  });
+}
+
+newBillAddressAdded() {
+  this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
+    let addrFields = JSON.parse(dta[0].billingaddress);
+    this.allBillAddress = addrFields;
+    addrFields = addrFields.filter(res => res.default);
+
+    this.changeDefaultBillAddr(addrFields[0].id);
   });
 }
 

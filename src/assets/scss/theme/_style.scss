@@ -170,7 +170,8 @@ section,
 }
 
 .section-b-space {
-  padding-bottom: 70px;
+  // padding-bottom: 70px;
+  padding:  20px 0 !important;
 }
 
 .p-t-0 {
@@ -341,6 +342,8 @@ del {
 }
 
 .sticky {
+  // border:1px solid black;
+  border-bottom: 1px solid #f36f02;
   &.fixed {
     position: fixed;
     width: 100%;
@@ -366,6 +369,7 @@ del {
       }
 
       .main-menu {
+        border:1px solid black;
         .brand-logo {
           padding-top: 26px;
           padding-bottom: 26px;
@@ -453,7 +457,7 @@ del {
     ==========================*/
 button {
   cursor: pointer;
-
+  border-radius: 7px;
   &.btn {
 
     &.btn-solid,
@@ -473,6 +477,7 @@ button {
     color: #aaa !important;
     background-color: #ffffff !important;
     border-color: #ffffff !important;
+    border-radius: 7px;
   }
 }
 
@@ -481,7 +486,7 @@ button {
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 700;
-  border-radius: 0;
+  border-radius: 7px;
   transition: .3s ease-in-out;
 
   &:hover {
@@ -505,7 +510,7 @@ button {
   background-position: 0;
   -webkit-transition: background 300ms ease-in-out;
   transition: background 300ms ease-in-out;
-
+  border-radius: 7px;
   &:hover {
     background-position: 100%;
     color: $black;
@@ -516,6 +521,7 @@ button {
     background-image: -webkit-linear-gradient(30deg, $dark-font 50%, transparent 50%);
     background-image: linear-gradient(30deg, $dark-font 50%, transparent 50%);
     border: 2px solid $dark-font;
+    border-radius: 7px;
   }
 
   &:focus {
@@ -528,6 +534,7 @@ button {
   padding: 13px 29px;
   letter-spacing: 0.05em;
   border: 2px solid $theme-deafult;
+  border-radius: 7px;
   position: relative;
   color: $black;
 
@@ -852,7 +859,7 @@ header {
     visibility: hidden;
     right: 0;
     padding: 15px 20px;
-    border-right: 1px solid #f36f02;
+    border-left: 1px solid #f36f02;
     border-radius: 0 !important;
 
     &.product-page-full {
@@ -881,12 +888,12 @@ header {
   }
 
   .onhover-show-div1 {
-    top: 50px;
+    top: 30px;
     position: absolute;
     z-index: 10;
     background-color: $white;
     transition: all linear 0.3s;
-    min-width: 160px;
+    width: 100px;
     text-align: left;
     -webkit-box-shadow: 0 0 1px 0 #ebebeb;
     -moz-box-shadow: 0 0 1px 0 #ebebeb;
@@ -895,8 +902,9 @@ header {
     opacity: 0;
     visibility: hidden;
     right: 0;
-    padding: 15px 20px;
-    border-right: 1px solid #f36f02;
+    left:27px;
+    padding: 10px 5px;
+    border-left: 1px solid #f36f02;
     border-radius: 0 !important;
 
     &.product-page-full {
@@ -907,7 +915,7 @@ header {
   &:hover {
     .onhover-show-div1 {
       opacity: 1;
-      transform: translateY(0px);
+      transform: translateY(20px);
       visibility: visible;
     }
   }
@@ -983,7 +991,7 @@ header {
         background-color: transparent;
         border: 0;
         border-bottom: 2px solid lighten($black, 46.5%);
-        border-radius: 0;
+        border-radius: 7px;
         padding: 20px 0;
 
         &::-webkit-input-placeholder {
@@ -1195,6 +1203,7 @@ header {
   }
   .layout3-menu {
     .main-menu {
+      border:1px solid black;
       .menu-left {
         .navbar {
           i {
@@ -1274,6 +1283,7 @@ header {
 }
 
 .main-menu {
+  // border:1px solid black;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -1289,7 +1299,7 @@ header {
 
   .brand-logo {
     display: inline-block;
-    padding-top: 35px;
+    padding-top: 24px;
     padding-bottom: 35px;
   }
 
@@ -1341,6 +1351,7 @@ header {
   }
 
   .menu-right {
+    // border:1px solid black;
     display: flex;
     float: right;
 
@@ -1354,7 +1365,7 @@ header {
       .onhover-div {
         .show-div {
           &.shopping-cart {
-            padding: 15px 15px;
+            padding: 15px 14px;
             min-width: 270px;
             left: unset;
             right: 0;
@@ -2322,6 +2333,7 @@ header {
   }
   .category-wrapper {
     border: 1px solid $border;
+    border-radius: 7px;
     margin: 0 auto;
     text-align: center;
     justify-content: center;
@@ -3249,6 +3261,7 @@ header {
       content: "";
       position: absolute;
       border: 1px solid $border-grey;
+      border-radius: 7px;
       width: 100%;
       left: 0;
       top: 17px;
@@ -3632,6 +3645,7 @@ header {
 
   &.card-border {
     border: 1px solid $round-border;
+    border-radius: 7px;
 
     h5 {
       padding-top: 20px;
@@ -4663,7 +4677,7 @@ footer {
     display: flex;
     height: 100%;
     align-items: center;
-    border-right: 1px solid $round-border;
+    // border-right: 1px solid $round-border;
     text-align: left;
 
     p {
@@ -4868,7 +4882,7 @@ footer {
   .form-control {
     padding: 13px;
     width: 345px;
-    border-radius: 0;
+    border-radius: 7px;
     border: 1px solid $white-dark;
 
     &.name-cls {
@@ -5216,6 +5230,7 @@ footer {
     background: white;
     padding: 10px;
     border: 1px solid #f3f3f3;
+    border-radius: 7px;
     overflow: auto;
 
     i {
@@ -5719,7 +5734,7 @@ footer {
   }
 
   .banner-section {
-    border-radius: 5px;
+    border-radius: 7px;
     overflow: hidden;
   }
 
@@ -5844,7 +5859,7 @@ footer {
 // category page //
 .collection-filter-block {
   margin-bottom: 30px;
-  padding: 0 30px;
+  padding: 0 20px;
   border: 1px solid lighten($black, 86.5%);
   background-color: $white;
 
@@ -5905,6 +5920,26 @@ footer {
     }
   }
 
+  .collapse-block-title-brand {
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 16px;
+    color: lighten($black, 26.5%);
+    font-weight: 600;
+    margin: 25px 0 0 0;
+
+    &:after {
+      position: absolute;
+      display: block;
+      top: 0;
+      right: -3px;
+      content: "\f0d7";
+      font-family: $font-awesome;
+      color: lighten($black, 26.5%);
+    }
+  }
+
   .collection-collapse-block-content {
     .color-selector {
       margin-top: 30px;
@@ -5936,10 +5971,10 @@ footer {
       }
 
       .collection-filter-checkbox {
-        margin-bottom: 12px;
+        margin-bottom: 5px;
 
         &:first-child {
-          margin-top: 30px;
+          margin-top: 10px;
         }
 
         &:last-child {
@@ -6655,6 +6690,7 @@ footer {
       margin-bottom: 15px;
       height: inherit;
       text-align: center;
+      border-radius: 7px;
     }
 
     .btn-solid {
@@ -6676,6 +6712,7 @@ footer {
   .theme-card {
     padding: 30px;
     border: 1px solid $round-border;
+    border-radius: 7px;
     line-height: 1;
 
     .theme-form {
@@ -6692,6 +6729,7 @@ footer {
         padding: 17px 25px;
         margin-bottom: 30px;
         height: inherit;
+        border-radius: 7px;
       }
     }
   }
@@ -6767,7 +6805,7 @@ footer {
         background-color: transparent;
         border: 0;
         border-bottom: 2px solid #aaaaaa;
-        border-radius: 0;
+        border-radius: 7px;
         padding: 20px 0;
 
         &:focus {
@@ -6865,6 +6903,7 @@ footer {
       padding: 17px 25px;
       margin-bottom: 30px;
       height: inherit;
+      border-radius: 7px;
     }
 
     textarea {
@@ -6873,6 +6912,7 @@ footer {
       padding: 17px 25px;
       margin-bottom: 30px;
       height: inherit;
+      border-radius: 7px;
     }
 
   }
@@ -6886,11 +6926,12 @@ footer {
 .qty-box {
   .input-group {
     justify-content: center;
-
+    
     span {
       button {
         background: $white !important;
         border: 1px solid #ced4da;
+        border-radius: 7px;
       }
     }
 
@@ -6907,6 +6948,7 @@ footer {
     button {
       background-color: transparent;
       border: 0;
+      border-radius: 7px;
       color: $grey;
       cursor: pointer;
       padding-left: 12px;
@@ -7021,7 +7063,7 @@ footer {
 
           .qty-box {
             border-right: 1px solid $round-border;
-            border-radius: 5px;
+            border-radius: 7px;
 
             .input-group {
               .form-control {
@@ -7219,6 +7261,7 @@ footer {
       input,
       textarea {
         border-color: $round-border;
+        border-radius: 7px;
         font-size: 14px;
         padding: 17px 25px;
         margin-bottom: 30px;
@@ -7657,10 +7700,11 @@ footer {
     top:10px; 
     margin-bottom: 10px;
 
-    input { height: 40px; }
+    input { height: 40px; border-radius: 7px;}
     .btn-solid,
     .btn-outline {
       padding: 8px 25px;
+      border-radius: 7px;
     }
 
     a {
@@ -7980,6 +8024,7 @@ footer {
   .theme-form {
     input {
       border-color: $round-border;
+      border-radius: 7px;
       font-size: 15px;
       padding: 15px 25px;
       margin-bottom: 15px;
@@ -7993,6 +8038,7 @@ footer {
 
     textarea {
       border-color: $round-border;
+      border-radius: 7px;
       font-size: 15px;
       padding: 17px 25px;
       margin-bottom: 15px;
@@ -8300,7 +8346,7 @@ footer {
         padding: 0 22px;
         height: 45px;
         border: 1px solid #dddddd;
-        border-radius: 4px!important;
+        border-radius: 7px!important;
       }
     }
 
@@ -10498,6 +10544,15 @@ body.rtl {
     }
   }
 
+  .collection-collapse-block {
+    .collapse-block-title-brand {
+      &:after {
+        left: -3px;
+        right: unset;
+      }
+    }
+  }
+
   .collection-filter-block {
     .product-service {
       .media {
@@ -10710,9 +10765,15 @@ body.rtl {
     }
 
     .footer-contant {
-      p {
-        text-align: center;
+      .subscribe-form {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
       }
+      // p {
+      //   text-align: center;
+      // }
     }
   }
 
@@ -11464,6 +11525,7 @@ footer {
     font-size: 16px;
     color:darkgrey;
     border: none;
+    border-radius: 7px;
     outline: none;
     background: none;
     padding: 0 10px;
@@ -11479,7 +11541,7 @@ footer {
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    border-radius: 5px;
+    border-radius: 7px;
     i {
       font-size: 18px;
       color: $theme-deafult;
@@ -12032,6 +12094,7 @@ footer {
         right: 10px;
         top: 20px;
         border: none;
+        border-radius: 7px;
         background-color: transparent;
       }
     }
@@ -12217,6 +12280,7 @@ footer {
     outline: none;
     background: none;
     padding: 0 10px;
+    border-radius: 7px;
   }
   button {
     position: absolute;
@@ -12229,7 +12293,7 @@ footer {
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    border-radius: 5px;
+    border-radius: 7px;
     i {
       font-size: 18px;
       color: $theme-deafult;
@@ -12439,7 +12503,7 @@ footer {
       }
       a {
         background-color: #eef0f1;
-        border-radius: 5px;
+        border-radius: 7px;
         i {
           color: $grey2;
         }
@@ -12456,7 +12520,7 @@ footer {
         width: 55%;
         background-color: #eef0f1;
         color: $grey2;
-        border-radius: 5px;
+        border-radius: 7px;
         margin: 0 5px;
         transition: all 0.5s ease;
         i {

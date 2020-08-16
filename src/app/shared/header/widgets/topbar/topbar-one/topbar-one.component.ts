@@ -32,8 +32,8 @@ export class TopbarOneComponent implements OnInit {
     });
     this.cityService.getAllCities().subscribe((res) => {
          this.citiesList = res;
-   });
-   }
+    });
+  }
 
    getByCity(cityname) {
     localStorage.setItem('city', cityname);
@@ -41,11 +41,11 @@ export class TopbarOneComponent implements OnInit {
     this.router.navigate([`/${cityname}`]);
    }
 
- emitsearch(val) {
-  val = val === '' ? 'all' : val;
-  const url = `${localStorage.getItem('city')}/category/${val}`;
-  this.router.navigate([url]);
-}
+  emitsearch(val) {
+    val = val === '' ? 'all' : val;
+    const url = `${localStorage.getItem('city')}/category/${val}`;
+    this.router.navigate([url]);
+  }
 
   checkIfLogged() {
     if (localStorage.getItem('token') && localStorage.getItem('token') !== 'undefined') {

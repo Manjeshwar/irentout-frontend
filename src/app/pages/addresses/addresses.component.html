@@ -1,0 +1,101 @@
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        
+        <h3>Address</h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="billingAddressForm">
+                    <div class="checkout-title">
+                        <h3>Billing address</h3><br>
+                    </div>
+                    <div class="check-out">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">First Name</div>
+                            <input class="form-control" type="text" name="fname" formControlName="fname"  id="fname" [formControl]="billingAddressForm.controls['fname']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.fname.touched && billingAddressForm.controls.fname.errors?.required" class="text text-danger">
+                            Full Name is required.
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.fname.touched && billingAddressForm.controls.fname.errors?.pattern" class="text text-danger">
+                            Full Name must be an alphabates.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Comapny Name</div>
+                            <input class="form-control" type="text" name="companyName" formControlName="companyName"  id="companyName" [formControl]="billingAddressForm.controls['companyName']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.companyName.touched && billingAddressForm.controls.companyName.errors?.required" class="text text-danger">
+                            company Name is required.
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.companyName.touched && billingAddressForm.controls.companyName.errors?.pattern" class="text text-danger">
+                            Company Name must be an alphabates.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">GST No</div>
+                            <input class="form-control" type="text" name="gst" formControlName="gst"  id="gst" [formControl]="billingAddressForm.controls['gst']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.gst.touched && billingAddressForm.controls.gst.errors?.required" class="text text-danger">
+                            GST is required.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Phone</div>
+                            <input class="form-control" type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="billingAddressForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.mobile.touched && billingAddressForm.controls.mobile.errors?.required" class="text text-danger">
+                              Phone No is required.
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.mobile.touched && billingAddressForm.controls.mobile.errors?.pattern" class="text text-danger">
+                              Phone No is must be number.
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-label">Address</div>
+                            <input class="form-control" type="text" name="address" formControlName="address"  id="address" [formControl]="billingAddressForm.controls['address']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.address.touched && billingAddressForm.controls.address.errors?.required" class="text text-danger">
+                             Address is required
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.address.touched && billingAddressForm.controls.address.errors?.maxlength" class="text text-danger">
+                              Maximum 50 character
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Town/City</div>
+                            <input class="form-control" disabled type="text" name="town" formControlName="town"  id="town" [formControl]="billingAddressForm.controls['town']" value="" placeholder="" autocomplete="off">
+                             <div *ngIf="billingAddressForm.controls.town.touched && billingAddressForm.controls.town.errors?.required" class="text text-danger">
+                             City is required
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">State</div>
+                            <input class="form-control" disabled type="text" name="state" formControlName="state"  id="state" [formControl]="billingAddressForm.controls['state']" value="" placeholder="" autocomplete="off">
+                             <div *ngIf="billingAddressForm.controls.state.touched && billingAddressForm.controls.state.errors?.required" class="text text-danger">
+                             State is required
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Postal Code</div>
+                            <input class="form-control" type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="billingAddressForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.pincode.touched && billingAddressForm.controls.pincode.errors?.required" class="text text-danger">
+                                pincode is required
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.pincode.touched && billingAddressForm.controls.pincode.errors?.minlength" class="text text-danger">
+                                Postal code should be of 6 digits
+                            </div>
+                            <div *ngIf="invalidPostal && !billingAddressForm.controls.pincode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <input type="checkbox" formControlName="shipAddress"  [(ngModel)]="shipAddress"/> Shipping address same as billing address
+                        </div>
+
+                        <button class="btn-solid btn" type="button" (click)="addBillAddress()">
+                            Add Billing address
+                        </button>                        
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--section end-->
