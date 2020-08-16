@@ -2,15 +2,15 @@
 <section class="cart-section section-b-space">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <form [formGroup]="addressForm">
                     <div class="checkout-title">
-                        <h3>Add address</h3>
+                        <h3>Add your shipping address</h3>
                     </div>
                     <div class="check-out">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">First Name</div>
-                            <input type="text" name="fname" formControlName="fname"  id="fname" [formControl]="addressForm.controls['fname']" value="" placeholder="" autocomplete="off">
+                            <input type="text" class="form-control" name="fname" formControlName="fname"  id="fname"  value="" placeholder="" autocomplete="off">
                             <div *ngIf="addressForm.controls.fname.touched && addressForm.controls.fname.errors?.required" class="text text-danger">
                             Full Name is required.
                             </div>
@@ -19,8 +19,17 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Address type</div>
+                            <select class="form-control" formControlName="addresstype">
+                                <option selected>Select an address type</option>
+                                <option>Home</option>
+                                <option>Work</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">Phone</div>
-                            <input type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="addressForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                            <input class="form-control" type="text" name="mobile" formControlName="mobile" id="mobile"  value="" placeholder="" autocomplete="off">
                             <div *ngIf="addressForm.controls.mobile.touched && addressForm.controls.mobile.errors?.required" class="text text-danger">
                               Phone No is required.
                             </div>
@@ -28,9 +37,9 @@
                               Phone No is must be number.
                             </div>
                         </div>
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-12 col-xs-12">
                             <div class="field-label">Address</div>
-                            <input type="text" name="address" formControlName="address"  id="address" [formControl]="addressForm.controls['address']" value="" placeholder="" autocomplete="off">
+                            <input class="form-control" type="text" name="address" formControlName="address"  id="address" value="" placeholder="" autocomplete="off">
                             <div *ngIf="addressForm.controls.address.touched && addressForm.controls.address.errors?.required" class="text text-danger">
                              Address is required
                             </div>
@@ -40,21 +49,21 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">Town/City</div>
-                            <input disabled type="text" name="town" formControlName="town"  id="town" [formControl]="addressForm.controls['town']" value="" placeholder="" autocomplete="off">
+                            <input class="form-control" disabled type="text" name="town" formControlName="town"  id="town"  value="" placeholder="" autocomplete="off">
                              <div *ngIf="addressForm.controls.town.touched && addressForm.controls.town.errors?.required" class="text text-danger">
                              City is required
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">State</div>
-                            <input disabled type="text" name="state" formControlName="state"  id="state" [formControl]="addressForm.controls['state']" value="" placeholder="" autocomplete="off">
+                            <input class="form-control" disabled type="text" name="state" formControlName="state"  id="state" value="" placeholder="" autocomplete="off">
                              <div *ngIf="addressForm.controls.state.touched && addressForm.controls.state.errors?.required" class="text text-danger">
                              State is required
                             </div>
                         </div>
-                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">Postal Code</div>
-                            <input type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="addressForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                            <input class="form-control" type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" value="" placeholder="" autocomplete="off">
                             <div *ngIf="addressForm.controls.pincode.touched && addressForm.controls.pincode.errors?.required" class="text text-danger">
                                 pincode is required
                             </div>
@@ -73,6 +82,10 @@
 
                 </form>
             </div>
+
+            <!-- <div class="col-md-6">
+                <app-add-billing-address (addedBillAddress)="newBillAddressAdded()"></app-add-billing-address>
+            </div> -->
         </div>
     </div>
 </section>

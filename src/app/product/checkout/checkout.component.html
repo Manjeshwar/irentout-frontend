@@ -41,8 +41,8 @@
                             <div class="row check-out" *ngIf="addAddress">
                                 
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">First Name</div>
-                                    <input type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">First Name</div> -->
+                                    <input hidden type="text" name="fname" formControlName="fname" (change)="generateHash()" id="fname" [formControl]="checkoutForm.controls['fname']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.fname.touched && checkoutForm.controls.fname.errors?.required" class="text text-danger">
                                     First Name is required.
                                     </div>
@@ -51,8 +51,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Phone</div>
-                                    <input type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="checkoutForm.controls['mobile']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">Phone</div> -->
+                                    <input hidden type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="checkoutForm.controls['mobile']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.mobile.touched && checkoutForm.controls.mobile.errors?.required" class="text text-danger">
                                      Phone No is required.
                                     </div>
@@ -83,8 +83,8 @@
                                     </div>
                                 </div> -->
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <div class="field-label">Address</div>
-                                    <input type="text" name="address" formControlName="address"  id="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">Address</div> -->
+                                    <input hidden type="text" name="address" formControlName="address"  id="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
                                      Address is required
                                     </div>
@@ -93,22 +93,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Town/City</div>
-                                    <input disabled type="text" name="town" formControlName="town"  id="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">Town/City</div> -->
+                                    <input hidden disabled type="text" name="town" formControlName="town"  id="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
                                      City is required
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">State</div>
-                                    <input disabled type="text" name="state" formControlName="state"  id="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">State</div> -->
+                                    <input hidden disabled type="text" name="state" formControlName="state"  id="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.state.touched && checkoutForm.controls.state.errors?.required" class="text text-danger">
                                      State is required
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                    <div class="field-label">Postal Code</div>
-                                    <input type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['pincode']" value="" placeholder="" autocomplete="off">
+                                    <!-- <div class="field-label">Postal Code</div> -->
+                                    <input hidden type="text" name="pincode" formControlName="pincode" id="pincode" (keyup)="validatePostal()" [formControl]="checkoutForm.controls['pincode']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.pincode.touched && checkoutForm.controls.pincode.errors?.required" class="text text-danger">
                                         pincode is required
                                     </div>
@@ -123,14 +123,28 @@
                             <div class="row" *ngIf="defaultAddress">
                                 <div class="col-12">
                                 <div class="stripe-section">
-                                    <h5>{{defaultAddressFields.name}}</h5>
+                                    <h5>Shipping address</h5>
                                     <div class="content">
-                                    <h5>Delivery Address</h5>
+                                    <h5>{{defaultAddressFields.name}} <span *ngIf="defaultAddressFields.addresstype">({{defaultAddressFields.addresstype}})</span></h5>
                                     <p>{{defaultAddressFields.address}}</p>
                                     <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
                                     <p>Phone: {{defaultAddressFields.phone}}</p>
                                     </div>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeAddressModal">Change/Add Address</button>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="defaultBillAddress">
+                                <div class="col-12">
+                                <div class="stripe-section">
+                                    <h5>Billing address</h5>
+                                    <div class="content">
+                                    <h5>{{defaultBillAddressFields.name}} <span *ngIf="defaultBillAddressFields.addresstype">({{defaultBillAddressFields.addresstype}})</span></h5>
+                                    <p>{{defaultBillAddressFields.address}}</p>
+                                    <p>{{defaultBillAddressFields.city}}, {{defaultBillAddressFields.state}}, {{defaultBillAddressFields.pincode}}</p>
+                                    <p>Phone: {{defaultBillAddressFields.phone}}</p>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#billAddressModal">Change/Add Billing Address</button>
                                 </div>
                                 </div>
                             </div>
@@ -219,8 +233,6 @@
                                     <button class="btn-solid btn" type="submit" value="Pay" (click)="startPayment()">
                                        Place Order
                                     </button>
-                                    <!-- <ngx-paypal [config]="payPalConfig" [ngClass]="{'btn disabled': !checkoutForm.valid}" *ngIf="payment">
-                                    </ngx-paypal> -->
                                 </div>
                                 
                             </div>
@@ -233,7 +245,7 @@
     </div>
 </section>
 
-<!-- The Modal -->
+<!-- The delivery address Modal -->
 <div class="modal" id="changeAddressModal">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
@@ -248,19 +260,61 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">
-                    <app-add-address (addedAddress)="newAddressAdded()"></app-add-address>
+                    <button (click)="displayBillForm=!displayBillForm" type="button" class="btn btn-primary">add address</button>
+                    <app-add-address *ngIf="displayBillForm" (addedAddress)="newAddressAdded()"></app-add-address>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-12" *ngFor="let addr of allDelvAddress">
                         <div class="stripe-section">
-                            <h5>{{addr.firstname}}</h5>
+                            <h5>Shipping address</h5>
                             <div class="content">
-                            <h5>Delivery Address</h5>
+                            <h5>{{addr.firstname}} <span *ngIf="addr.addresstype">({{addr.addresstype}})</span></h5>
                             <p>{{addr.addr}}</p>
                             <p>{{addr.city}}, {{addr.state}}, {{addr.postal}}</p>
                             <p>Phone: {{addr.phone}}</p>
                             </div>
                             <button type="button" (click)="changeDefaultAddr(addr.id)" class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>       
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- The billing address Modal -->
+<div class="modal" id="billAddressModal">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">Change your Billing address</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <button (click)="displayAddrForm=!displayAddrForm" type="button" class="btn btn-primary">add address</button>
+                    <app-add-billing-address *ngIf="displayAddrForm" (addedBillAddress)="newBillAddressAdded()"></app-add-billing-address>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12" *ngFor="let addr of allBillAddress">
+                        <div class="stripe-section">
+                            <h5>Billing address</h5>
+                            <div class="content">
+                            <h5>{{addr.firstname}}</h5>
+                            <p>Company name: {{addr.comapanyname}}</p>
+                            <p>{{addr.addr}}</p>
+                            <p>{{addr.city}}, {{addr.state}}, {{addr.postal}}</p>
+                            <p>Phone: {{addr.phone}}</p>
+                            </div>
+                            <button type="button" (click)="changeDefaultBillAddr(addr.id)" class="btn btn-primary">Select</button>
                         </div>
                     </div>
                 </div>
