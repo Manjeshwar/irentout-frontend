@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
 // import {  IPayPalConfig,  ICreateOrderRequest } from 'ngx-paypal';
@@ -90,8 +90,7 @@ constructor(
   private cityService: UserService,
   public productsService: ProductsService,
   private orderService: OrderService,
-  public router: Router,
-  public cd: ChangeDetectorRef) {
+  public router: Router) {
   this.checkoutForm = this.fb.group({
     uid: localStorage.getItem('uid'),
     udf5: 'BOLT_KIT_NODE_JS',
