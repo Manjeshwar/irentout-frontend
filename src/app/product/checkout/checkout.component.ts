@@ -138,7 +138,7 @@ ngOnInit() {
       localStorage.setItem('redirectto', location);
       this.router.navigate([this.city, 'login']);
     }
- });
+  });
 
   this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
     this.checkoutForm.patchValue({
@@ -148,6 +148,18 @@ ngOnInit() {
     let billAddrsFields = JSON.parse(dta[0].billingaddress);
     this.allDelvAddress = addrFields;
     this.allBillAddress = billAddrsFields;
+    
+    billAddrsFields = billAddrsFields.filter(bill => bill.default);
+    if (billAddrsFields.length > 0) {
+      this.defaultBillAddress = true;
+      this.billAddress = false;
+      this.patchBillForm(billAddrsFields[0]);
+    } else {
+      this.defaultBillAddress = false;
+      this.billAddress = true;
+      // this.router.navigate([this.city,`add-address`]); 
+    }
+    
     addrFields = addrFields.filter(res => res.default);
     if (addrFields.length > 0) {
       this.defaultAddress = true;
@@ -159,16 +171,6 @@ ngOnInit() {
       const location = window.location.href;
       localStorage.setItem('redirectto', location);
       this.router.navigate([this.city,`addresses`]); 
-    }
-    billAddrsFields = billAddrsFields.filter(res => res.default);
-    if (billAddrsFields.length > 0) {
-      this.defaultBillAddress = true;
-      this.billAddress = false;
-      this.patchBillForm(billAddrsFields[0]);
-    } else {
-      this.defaultBillAddress = false;
-      this.billAddress = true;
-      // this.router.navigate([this.city,`add-address`]); 
     }
   });
 
