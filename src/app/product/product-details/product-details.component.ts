@@ -4,7 +4,7 @@ import { Product } from '../../shared/classes/product';
 import { ProductsService } from '../../shared/services/products.service';
 import { WishlistService } from '../../shared/services/wishlist.service';
 import { CartService } from '../../shared/services/cart.service';
-import {NgbDateStruct, NgbDatepickerConfig, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbDatepickerConfig, NgbDateParserFormatter, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -45,7 +45,7 @@ export class ProductDetailsComponent implements OnInit {
   public products:   Product[] = [];
   public counter = 1;
   public selectedSize:   any = '';
-  model2: NgbDateStruct;
+  model2=this.calendar.getToday();
 
   tenures = 3;
   tenure_price;
@@ -57,7 +57,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
     public productsService: ProductsService, private wishlistService: WishlistService,
     private cityService: UserService,
-    private cartService: CartService, private config: NgbDatepickerConfig) {
+    private cartService: CartService, private config: NgbDatepickerConfig, private calendar: NgbCalendar) {
       this.route.params.subscribe(params => {
         const id: string = params['id'];
         this.productsService.getProduct(id).subscribe(product => {
@@ -85,6 +85,7 @@ export class ProductDetailsComponent implements OnInit {
       }
    });
      this.productsService.getProducts().subscribe(product => this.products = product);
+     this.getDate();
   }
 
   calcPrice(price,deposit, month){

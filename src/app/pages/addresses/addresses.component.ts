@@ -80,7 +80,6 @@ export class AddressesComponent implements OnInit {
     });
 
     if(this.billingAddressForm.valid){
-      this.userService.getBillAddress(localStorage.getItem('uid')).subscribe((dta) => {
         const ids = ((1 + Math.random())).toString(32).substring(1).replace('.', '');
         const formVal = this.billingAddressForm.value;
         const billAddr = {
@@ -95,10 +94,8 @@ export class AddressesComponent implements OnInit {
           postal: formVal.pincode,
           default: true
         };
-        const addrFields = JSON.parse(dta[0].billingaddress);
-        addrFields.forEach((res) => {
-          res.default = false;
-        });
+        const addrFields = [];
+        
         addrFields.push(billAddr);
   
         this.userService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
@@ -133,7 +130,6 @@ export class AddressesComponent implements OnInit {
             this.router.navigate([`/${localStorage.getItem('city')}/add-address`]);
           }          
         });
-      });
     }    
   }
 

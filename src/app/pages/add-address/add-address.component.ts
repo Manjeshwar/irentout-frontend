@@ -124,9 +124,9 @@ export class AddAddressComponent implements OnInit {
           });
         });
       });
-      // let redirect = localStorage.getItem('redirectto');
-      // redirect = redirect ? localStorage.getItem('redirectto') : '/';
-      // window.location.href = redirect;
+      let redirect = localStorage.getItem('redirectto');
+      redirect = redirect ? localStorage.getItem('redirectto') : '/';
+      window.location.href = redirect;
     }
 
   }

@@ -20,7 +20,7 @@ export class RamComponent implements OnInit {
 
   ngOnInit() {  
       this.ramFilters.emit(this.checkedTagsArray);   // Pass value Using emit 
-      $('.collapse-block-title').on('click', function(e) {
+      $('.collapse-block-title-ram').on('click', function(e) {
         e.preventDefault;
         var speed = 300;
         var thisItem = $(this).parent(),

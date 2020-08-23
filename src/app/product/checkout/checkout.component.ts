@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
 // import {  IPayPalConfig,  ICreateOrderRequest } from 'ngx-paypal';
@@ -87,10 +87,11 @@ displayBillForm=false;
 constructor(
   private fb: FormBuilder,
   private cartService: CartService,
-  private cityService: UserService,
+  private us: UserService,
   public productsService: ProductsService,
   private orderService: OrderService,
-  public router: Router) {
+  public router: Router,
+  private cd: ChangeDetectorRef) {
   this.checkoutForm = this.fb.group({
     uid: localStorage.getItem('uid'),
     udf5: 'BOLT_KIT_NODE_JS',
@@ -110,6 +111,7 @@ constructor(
     state: ['', Validators.required],
     pincode: ['', [Validators.required, Validators.minLength(6)]],
     selfPickup: false,
+    addresstype: 'home',
     hash: '',
     city: ''
   });
@@ -117,7 +119,7 @@ constructor(
 
 
 ngOnInit() {
-  this.cityService.getAllCities().subscribe((res: any) => {
+  this.us.getAllCities().subscribe((res: any) => {
     if (res) {
       const a = res.filter((city) => {
         if (city.cityname === localStorage.getItem('city')) {
@@ -139,37 +141,39 @@ ngOnInit() {
     }
   });
 
-  this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
-    this.checkoutForm.patchValue({
-      email: dta[0].email
-    });
-    let addrFields = JSON.parse(dta[0].address);
-    let billAddrsFields = JSON.parse(dta[0].billingaddress);
-    this.allDelvAddress = addrFields;
-    this.allBillAddress = billAddrsFields;
-    
-    billAddrsFields = billAddrsFields.filter(bill => bill.default);
-    if (billAddrsFields.length > 0) {
-      this.defaultBillAddress = true;
-      this.billAddress = false;
-      this.patchBillForm(billAddrsFields[0]);
-    } else {
-      this.defaultBillAddress = false;
-      this.billAddress = true;
-      // this.router.navigate([this.city,`add-address`]); 
-    }
-    
-    addrFields = addrFields.filter(res => res.default);
-    if (addrFields.length > 0) {
-      this.defaultAddress = true;
-      this.addAddress = false;
-      this.patchFormValues(addrFields[0]);      
-    } else {
-      this.defaultAddress = false;
-      this.addAddress = true;
-      const location = window.location.href;
-      localStorage.setItem('redirectto', location);
-      this.router.navigate([this.city,`addresses`]); 
+  this.us.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
+    if(dta[0]) {
+      this.checkoutForm.patchValue({
+        email: dta[0].email
+      });
+      let addrFields = JSON.parse(dta[0].address);
+      let billAddrsFields = JSON.parse(dta[0].billingaddress);
+      this.allDelvAddress = addrFields;
+      this.allBillAddress = billAddrsFields;
+      
+      billAddrsFields = billAddrsFields.filter(bill => bill.default);
+      if (billAddrsFields.length > 0) {
+        this.defaultBillAddress = true;
+        this.billAddress = false;
+        this.patchBillForm(billAddrsFields[0]);
+      } else {
+        this.defaultBillAddress = false;
+        this.billAddress = true;
+        // this.router.navigate([this.city,`add-address`]); 
+      }
+      
+      addrFields = addrFields.filter(res => res.default);
+      if (addrFields.length > 0) {
+        this.defaultAddress = true;
+        this.addAddress = false;
+        this.patchFormValues(addrFields[0]);      
+      } else {
+        this.defaultAddress = false;
+        this.addAddress = true;
+        const location = window.location.href;
+        localStorage.setItem('redirectto', location);
+        this.router.navigate([this.city,`addresses`]); 
+      }
     }
   });
 
@@ -180,14 +184,23 @@ ngOnInit() {
   this.patchCityState();
   this.getProducts();
   this.generateCheckoutDta();
-
-  if(localStorage.getItem('redirectto').includes('checkout')) {
-    localStorage.removeItem('redirectto');
-    location.reload();
-  }
 }
 
 changeDefaultAddr(id) {
+  const addrFields = this.allDelvAddress.filter(res => res.id === id);
+  // this.allDelvAddress.forEach(res => {
+  //   if (res.id === id) {
+  //     res.default = true;
+  //   } else {
+  //     res.default = false;
+  //   }
+  // });
+  this.patchFormValues(addrFields[0]);
+  // this.updateDefaultAddress(this.allDelvAddress);
+  this.displayAddrForm=false;
+}
+
+setDefaultAddr(id){
   const addrFields = this.allDelvAddress.filter(res => res.id === id);
   this.allDelvAddress.forEach(res => {
     if (res.id === id) {
@@ -198,11 +211,24 @@ changeDefaultAddr(id) {
   });
   this.patchFormValues(addrFields[0]);
   this.updateDefaultAddress(this.allDelvAddress);
-  this.displayBillForm=false;
 }
 
 changeDefaultBillAddr(id) {
-  const addrFields = this.allBillAddress.filter(res => res.id === id);
+  const billAddrFields = this.allBillAddress.filter(res => res.id === id);
+  // this.allBillAddress.forEach(res => {
+  //   if (res.id === id) {
+  //     res.default = true;
+  //   } else {
+  //     res.default = false;
+  //   }
+  // });
+  this.patchBillForm(billAddrFields[0]);
+  // this.updateDefaultBillAddress(this.allBillAddress);
+  this.displayBillForm=false;
+}
+
+setDefaultBillAddr(id){
+  const billAddrFields = this.allBillAddress.filter(res => res.id === id);
   this.allBillAddress.forEach(res => {
     if (res.id === id) {
       res.default = true;
@@ -210,9 +236,8 @@ changeDefaultBillAddr(id) {
       res.default = false;
     }
   });
-  this.patchBillForm(addrFields[0])
+  this.patchBillForm(billAddrFields[0]);
   this.updateDefaultBillAddress(this.allBillAddress);
-  this.displayAddrForm=false;
 }
 
 patchFormValues(addrFields) {
@@ -374,13 +399,13 @@ delivery(evt) {
 
 
 generateHash() {
-  if(this.hashSubscription) {
-    this.hashSubscription.unsubscribe();
-  }
+  // if(this.hashSubscription) {
+  //   this.hashSubscription.unsubscribe();
+  // }
   this.checkoutForm.patchValue({
     surl: 'http://localhost:3000/payments/response'
   });
-  this.hashSubscription = this.cityService.getHash(this.checkoutForm.value).subscribe((res) => {
+  this.us.getHash(this.checkoutForm.value).subscribe((res) => {
     this.checkoutForm.patchValue({
       hash: res
     });
@@ -421,19 +446,23 @@ changeAddress() {
 }
 
 updateDefaultAddress(addr) {
-  this.cityService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
+  this.us.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
     console.log(addrs);
   });
 }
 
 updateDefaultBillAddress(addr) {
-  this.cityService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
+  this.us.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addr)).subscribe((addrs) => {
     console.log(addrs);
   });
 }
 
+deleteAddress(id){
+  this.us.deleteAddress(id).subscribe();
+}
+
 newAddressAdded() {
-  this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
+  this.us.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
     let addrFields = JSON.parse(dta[0].address);
     this.allDelvAddress = addrFields;
     addrFields = addrFields.filter(res => res.default);
@@ -443,12 +472,12 @@ newAddressAdded() {
 }
 
 newBillAddressAdded() {
-  this.cityService.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
-    let addrFields = JSON.parse(dta[0].billingaddress);
-    this.allBillAddress = addrFields;
-    addrFields = addrFields.filter(res => res.default);
+  this.us.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
+    let billAddrFields = JSON.parse(dta[0].billingaddress);
+    this.allBillAddress = billAddrFields;
+    billAddrFields = billAddrFields.filter(bill => bill.default);
 
-    this.changeDefaultBillAddr(addrFields[0].id);
+    this.changeDefaultBillAddr(billAddrFields[0].id);
   });
 }
 
@@ -466,7 +495,7 @@ startPayment() {
       this.updateDefaultAddress(addr);
     }
 
-    this.cityService.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
+    this.us.initiateTransaction(this.checkoutForm.value).subscribe((res) => {
       if (res) {
         this.launchBOLT();
       }
@@ -477,7 +506,7 @@ startPayment() {
 }
 
 launchBOLT() {
-  const cityServiceBk = this.cityService;
+  const usBk = this.us;
 
   bolt.launch({
     key: $('#key').val(),
@@ -498,12 +527,12 @@ launchBOLT() {
       let status = BOLT.response.txnStatus;
       if (BOLT.response.txnStatus === 'CANCEL') {
         status = 'Payment cancelled';
-        cityServiceBk.deleteTransaction({txnid: $('#txnid').val()}).subscribe((res) => {
+        usBk.deleteTransaction({txnid: $('#txnid').val()}).subscribe((res) => {
           alert('Transaction cancelled');
         });
       }
 
-    cityServiceBk.updateTransaction({txnid: $('#txnid').val(), status: status}).subscribe((res) => {
+    usBk.updateTransaction({txnid: $('#txnid').val(), status: status}).subscribe((res) => {
       if (res) {
         if (BOLT.response.txnStatus !== 'CANCEL') {
           const fr = `<form action='${$('#surl').val()}' method='post'>

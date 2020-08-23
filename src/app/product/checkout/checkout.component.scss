@@ -1,14 +1,3 @@
-.sub-total{
-    i{
-        color: #f36f02;
-    }
-    // .self-pickup{
-    //     display: flex;
-    //     input{
-    //         width:4%;
-    //     }
-    // }
-}
 .checkout-details{
     .rm-glow{
         // outline: none;
@@ -24,5 +13,39 @@
 
     .modal-body{
         padding:2%;
+    }
+}
+// .billAddress{
+//     margin-top: 10px;
+// }
+
+.stripe-section{
+    border-radius: 7px !important;
+    button{margin-right: 10px; padding: 5px 4px; font-weight: 100;}    
+}
+
+.checkout-details{
+    border-radius: 7px !important;
+    padding:15px !important;
+
+    .order-box{
+        margin:0px !important;
+        .title-box{
+            padding:0px !important;
+            margin-bottom: 5px !important;
+        }
+    
+        .qty{
+            padding: 0px !important;
+            margin-bottom: 5px !important;
+        }
+    
+        .sub-total{
+            padding: 0px !important;
+            margin-bottom: 5px !important;
+            i{
+                color: #f36f02;
+            }
+        }
     }
 }

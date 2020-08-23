@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 
       const social = ['google', 'facebook', 'web'];
       if (social.includes(localStorage.getItem('logintype'))) {
-         this.cart.getCartDetails(localStorage.getItem('token')).subscribe((res) => {
+         this.cart.getCartDetails(localStorage.getItem('uid')).subscribe((res) => {
             if(localStorage.getItem('cartItem')) {
                this.pushLocalCartToLogin(res[0].cart, localStorage.getItem('uid'));
             } else {

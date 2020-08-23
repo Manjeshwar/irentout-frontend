@@ -26,9 +26,9 @@
                 <form [formGroup]="checkoutForm">
                     <div class="row">
                         <div class="col-lg-6 col-sm-12 col-xs-12">
-                            <div class="checkout-title">
+                            <!-- <div class="checkout-title">
                                 <h3>Billing Details</h3>
-                            </div>
+                            </div> -->
                             <input type="hidden" id="udf5" name="udf5" value="BOLT_KIT_NODE_JS" />
                                 <input type="hidden" id="surl" name="surl" value="http://localhost:3000/payments/response" />
                                 <input hidden type="text" formControlName="key" id="key" name="key" placeholder="Merchant Key" value="" />
@@ -121,32 +121,29 @@
 
                                 
                             </div>
-                            <div class="row" *ngIf="defaultAddress">
-                                <div class="col-12">
-                                <div class="stripe-section">
-                                    <h5>Shipping address</h5>
-                                    <div class="content">
-                                    <h5>{{defaultAddressFields.name}} <span *ngIf="defaultAddressFields.addresstype">({{defaultAddressFields.addresstype}})</span></h5>
-                                    <p>{{defaultAddressFields.address}}</p>
-                                    <p>{{defaultAddressFields.city}}, {{defaultAddressFields.state}}, {{defaultAddressFields.pincode}}</p>
-                                    <p>Phone: {{defaultAddressFields.phone}}</p>
+                            <div class="row">
+                                <div class="col-12" *ngIf="defaultAddress">
+                                    <div class="stripe-section shadow-sm p-3 mb-2 rounded">
+                                        <h5>Shipping address</h5>
+                                        <div class="content">
+                                        <h5>{{defaultAddressFields.name}} <span *ngIf="defaultAddressFields.addresstype">({{defaultAddressFields.addresstype}})</span></h5>
+                                        <p>{{defaultAddressFields.address}}, {{defaultAddressFields.city}}-{{defaultAddressFields.pincode}}</p>
+                                        <p>Phone: {{defaultAddressFields.phone}}</p>
+                                        </div>
+                                        <button type="button" class="btn btn-solid" data-toggle="modal" data-target="#changeAddressModal">Change/Add Address</button>
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeAddressModal">Change/Add Address</button>
                                 </div>
-                                </div>
-                            </div>
-                            <div class="row" *ngIf="defaultBillAddress">
-                                <div class="col-12">
-                                <div class="stripe-section">
-                                    <h5>Billing address</h5>
-                                    <div class="content">
-                                    <h5>{{defaultBillAddressFields.name}} <span *ngIf="defaultBillAddressFields.addresstype">({{defaultBillAddressFields.addresstype}})</span></h5>
-                                    <p>{{defaultBillAddressFields.address}}</p>
-                                    <p>{{defaultBillAddressFields.city}}, {{defaultBillAddressFields.state}}, {{defaultBillAddressFields.pincode}}</p>
-                                    <p>Phone: {{defaultBillAddressFields.phone}}</p>
+
+                                <div class="col-12" *ngIf="defaultBillAddress">
+                                    <div class="stripe-section shadow-sm p-3 mb-2 rounded">
+                                        <h5>Billing address</h5>
+                                        <div class="content">
+                                        <h5>{{defaultBillAddressFields.name}} <span *ngIf="defaultBillAddressFields.addresstype">({{defaultBillAddressFields.addresstype}})</span></h5>
+                                        <p>{{defaultBillAddressFields.address}}, {{defaultBillAddressFields.city}}-{{defaultBillAddressFields.pincode}}</p>
+                                        <p>Phone: {{defaultBillAddressFields.phone}}</p>
+                                        </div>
+                                        <button class="btn-solid btn" data-toggle="modal" data-target="#billAddressModal">Change/Add Billing Address</button>
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#billAddressModal">Change/Add Billing Address</button>
-                                </div>
                                 </div>
                             </div>
                           <!-- <div class="row margin-cls">
@@ -176,7 +173,7 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12 col-xs-12">
-                            <div class="checkout-details">
+                            <div class="checkout-details shadow-sm p-3 mb-2 rounded">
                                 <div class="order-box">
                                     <!-- <div class="title-box">
                                         <div>Coupon Code <span>  <input type="text" name="coupon" [formControl]="" value="" placeholder="" autocomplete="off"></span></div>
@@ -194,7 +191,7 @@
                                         </li>
                                     </ul>
                                     <ul class="qty" *ngIf='!checkOutItems.length'>
-                                     <li class="empty-checkout"> There are no products in cart </li>
+                                        <li class="empty-checkout"> There are no products in cart </li>
                                     </ul>
                                     <ul class="sub-total">
                                         <li>
@@ -246,36 +243,45 @@
     </div>
 </section>
 
-<!-- The delivery address Modal -->
+<!-- The shipping address Modal -->
 <div class="modal" id="changeAddressModal">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h3 class="modal-title">Change your delivery address</h3>
+          <h3 class="modal-title">Change your shipping address</h3>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-6">
-                    <button (click)="displayBillForm=!displayBillForm" type="button" class="btn btn-primary">add address</button>
-                    <app-add-address *ngIf="displayBillForm" (addedAddress)="newAddressAdded()"></app-add-address>
+                <div class="col-md-12">
+                    <button *ngIf="!displayAddrForm" (click)="displayAddrForm=!displayAddrForm" type="button" class="btn btn-solid">add address</button>                    
+                    <app-add-address *ngIf="displayAddrForm" (addedAddress)="newAddressAdded()"></app-add-address>
                 </div>
-                <div class="col-md-6">
-                    <div class="col-md-12" *ngFor="let addr of allDelvAddress">
-                        <div class="stripe-section">
-                            <h5>Shipping address</h5>
-                            <div class="content">
-                            <h5>{{addr.firstname}} <span *ngIf="addr.addresstype">({{addr.addresstype}})</span></h5>
-                            <p>{{addr.addr}}</p>
-                            <p>{{addr.city}}, {{addr.state}}, {{addr.postal}}</p>
-                            <p>Phone: {{addr.phone}}</p>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let addr of allDelvAddress">
+                            <div class="stripe-section">
+                                <!-- <h5>Shipping address</h5> -->
+                                <div class="content">
+                                <h5>{{addr.firstname}} <span *ngIf="addr.addresstype">({{addr.addresstype}})</span></h5>
+                                <p>{{addr.addr}}, {{addr.city}}-{{addr.postal}}</p>
+                                <p>Phone: {{addr.phone}}</p>
+                                </div>
+                                <button type="button" (click)="changeDefaultAddr(addr.id)" class="btn btn-solid">Select</button>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="addr" (change)="setDefaultAddr(addr.id)" [checked]="addr.default === true">Set as default
+                                    </label>
+                                </div>
+                                <!-- <button (click)="deleteAddress(addr.id)" class="btn btn-solid">Delete</button> -->
                             </div>
-                            <button type="button" (click)="changeDefaultAddr(addr.id)" class="btn btn-primary">Select</button>
                         </div>
+                        <div class="col-md-12"><hr></div>
                     </div>
                 </div>
             </div>
@@ -291,31 +297,35 @@
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
-        <!-- Modal Header -->
         <div class="modal-header">
           <h3 class="modal-title">Change your Billing address</h3>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
-        <!-- Modal body -->
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-6">
-                    <button (click)="displayAddrForm=!displayAddrForm" type="button" class="btn btn-primary">add address</button>
-                    <app-add-billing-address *ngIf="displayAddrForm" (addedBillAddress)="newBillAddressAdded()"></app-add-billing-address>
+                <div class="col-md-12">
+                    <button *ngIf="!displayBillForm" (click)="displayBillForm=!displayBillForm" type="button" class="btn btn-solid">add address</button>
+                    <app-add-billing-address *ngIf="displayBillForm" (addedBillAddress)="newBillAddressAdded()"></app-add-billing-address>
                 </div>
-                <div class="col-md-6">
-                    <div class="col-md-12" *ngFor="let addr of allBillAddress">
-                        <div class="stripe-section">
-                            <h5>Billing address</h5>
-                            <div class="content">
-                            <h5>{{addr.firstname}}</h5>
-                            <p>Company name: {{addr.comapanyname}}</p>
-                            <p>{{addr.addr}}</p>
-                            <p>{{addr.city}}, {{addr.state}}, {{addr.postal}}</p>
-                            <p>Phone: {{addr.phone}}</p>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let addr of allBillAddress">
+                            <div class="stripe-section">
+                                <div class="content">
+                                <h5>{{addr.firstname}}</h5>
+                                <p>Company name: {{addr.comapanyname}}</p>
+                                <p>{{addr.addr}}, {{addr.city}}-{{addr.postal}}</p>
+                                <p>Phone: {{addr.phone}}</p>
+                                </div>
+                                <button type="button" (click)="changeDefaultBillAddr(addr.id)" class="btn btn-solid">Select</button>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="billAddr" (change)="setDefaultBillAddr(addr.id)" [checked]="addr.default === true">Set as default
+                                    </label>
+                                </div>
                             </div>
-                            <button type="button" (click)="changeDefaultBillAddr(addr.id)" class="btn btn-primary">Select</button>
                         </div>
                     </div>
                 </div>

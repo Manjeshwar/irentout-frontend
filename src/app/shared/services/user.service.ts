@@ -104,4 +104,8 @@ export class UserService {
     return this.http.put(url, data);
   }
 
+  public deleteAddress(id){
+    const url = `${this.users_url}/deleteaddress/${id}`;
+    return this.http.delete(url);
+  }
 }

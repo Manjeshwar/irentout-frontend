@@ -154,7 +154,7 @@ export class CartService {
     );
   }
 
-  getCartDetails(token) {
-    return this.http.get(`${users_url}/cart/${token}`);
+  getCartDetails(uid) {
+    return this.http.get(`${users_url}/cart/${uid}`);
   }
 }
