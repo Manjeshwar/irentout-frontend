@@ -39,13 +39,13 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <div class="field-label">Phone</div>
+                            <div class="field-label">Mobile</div>
                             <input class="form-control" type="text" name="mobile" formControlName="mobile" id="mobile" [formControl]="billingAddressForm.controls['mobile']" value="" placeholder="" autocomplete="off">
                             <div *ngIf="billingAddressForm.controls.mobile.touched && billingAddressForm.controls.mobile.errors?.required" class="text text-danger">
-                              Phone No is required.
+                              Mobile No is required.
                             </div>
                             <div *ngIf="billingAddressForm.controls.mobile.touched && billingAddressForm.controls.mobile.errors?.pattern" class="text text-danger">
-                              Phone No is must be number.
+                              Mobile No is must be number.
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12 col-xs-12">
@@ -89,7 +89,7 @@
                         </div>
 
                         <button class="btn-solid btn" type="button" (click)="addBillAddress()">
-                            Add Billing address
+                            Submit
                         </button>                        
                     </div>
                     

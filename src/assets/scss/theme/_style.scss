@@ -6861,6 +6861,7 @@ footer {
         padding: 17px 25px;
         margin-bottom: 30px;
         height: inherit;
+        border-radius: 7px;
       }
     }
   }
@@ -8357,7 +8358,7 @@ footer {
   .checkout-form {
     .checkout-details {
       position: relative;
-      background-color: $grey-lighter;
+      // background-color: $grey-lighter;
       border: 1px solid $round-border;
       padding: 40px;
     }
@@ -8647,8 +8648,8 @@ footer {
 }
 
 .stripe-section {
-  text-transform: uppercase;
-  background-color: #f9f9f9;
+  // text-transform: uppercase;
+  // background-color: #f9f9f9;
   padding: 15px;
   border: 1px solid #dddddd;
 
