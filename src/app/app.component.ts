@@ -103,8 +103,8 @@ export class AppComponent implements OnInit {
 
    getByCity(cityname) {
       localStorage.setItem('city', cityname);
-      const modalClose: HTMLElement = document.querySelector("#citiesModalTrigger .btn-danger");
-      modalClose.click();
+      // const modalClose: HTMLElement = document.querySelector("#citiesModalTrigger .btn-danger");
+      // modalClose.click();
       this.emitS.changeCitySelection(cityname);
       const modal: HTMLElement = document.querySelector(".citiesModal");
       const pathName=location.pathname;

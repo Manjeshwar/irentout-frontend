@@ -99,11 +99,12 @@ export class ProductDetailsComponent implements OnInit {
     slidesToScroll: 1,
     arrows: true,
     fade: true,
+    autoplay: true,
   };
 
   public slideNavConfig = {
     vertical: false,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     asNavFor: '.product-slick',
     arrows: false,

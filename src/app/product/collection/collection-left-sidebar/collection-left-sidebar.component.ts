@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit, OnChanges, SimpleChanges, AfterViewInit } from "@angular/core";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { trigger, transition, style, animate } from "@angular/animations";
 import {
   Product,
@@ -28,9 +28,14 @@ import * as $ from 'jquery';
     ]),
   ],
 })
-export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
+export class CollectionLeftSidebarComponent implements OnInit, OnChanges, AfterViewInit {
   public products: Product[] = [];
   public items: Product[] = [];
+
+  url;
+
+  breadcrum;
+
   public allItems: Product[] = [];
   public colorFilters: ColorFilter[] = [];
 
@@ -66,10 +71,25 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
     this.getProductsByParam();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.events.subscribe(event =>{
+      if (event instanceof NavigationEnd){
+        this.url=event.url;
+        this.breadcrum = this.url.match(/[^\/]+$/)[0];
+      }
+    });
+   this.url=window.location.href;
+   this.breadcrum = this.url.match(/[^\/]+$/)[0];
+   
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
+    // this.result = this.url.match(/[^\/]+$/)[0];
+  }
+
+  ngAfterViewInit(){    
+    $.this.twoCol();
   }
 
 
@@ -176,7 +196,7 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
     let allStorage = Array.from(new Set(uniqueStorage));
     const itemStorage = Array();
     allStorage.forEach((i) => {
-      let name = (i === '0') ? 'HDD' : 'SSD';
+      let name = (i === '0') ? 'SSD' : 'HDD';
       itemStorage.push({storage: i, dispName: name});
     });
     this.storage = itemStorage;
@@ -216,7 +236,7 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
   // Initialize filetr Items
   public filterItems(): Product[] {
     let filteredProducts = [];
-    filteredProducts = this.items.filter((item: Product) => {
+    filteredProducts = this.allItems.filter((item: Product) => {
 
       if (this.tagsFilters.length === 0) {
         return true;

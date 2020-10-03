@@ -1,3 +1,5 @@
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="GjRZ2irO"></script>
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
     <div class="container">
@@ -29,10 +31,11 @@
                         <div ngxSlickItem *ngFor="let image of product.prod_img">
                           <div>
                             <img src='http://localhost:3000/images/products/{{image}}' alt="" class="img-fluid">
+                            <a class="wishlist-btn wishLt" (click)="addToWishlist(product)"><i class="fa fa-heart"></i></a>
                           </div>
                         </div>
                     </ngx-slick-carousel>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12 p-0">
                             <ngx-slick-carousel class="slider-nav" #slickModal="slick-carousel" 
                                      [config]="slideNavConfig">
@@ -43,7 +46,7 @@
                                     </div>
                             </ngx-slick-carousel>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-6 rtl-text">
                                 <div class="product-right">
@@ -64,8 +67,8 @@
                                             </li>
                                           </ul>
                                         </div> -->
-                                        <!-- <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
-                                        <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5> -->
+                                        <h5 class="avalibility" *ngIf="counter <= product.prod_qty"><span>In Stock</span></h5>
+                                        <h5 class="avalibility" *ngIf="counter > product.prod_qty"><span>Out of Stock</span></h5>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <h6 class="product-title">Tenure</h6>
@@ -145,7 +148,7 @@
                                                         </span>
                                                             <input type="text" name="quantity" class="form-control input-number" value="{{counter}}">
                                                         <span class="input-group-prepend">
-                                                            <button type="button" (click)="increment()" class="btn quantity-right-plus" data-type="plus" data-field="">
+                                                            <button type="button" (click)="increment()" [class.disabled]="counter > product.prod_qty" class="btn quantity-right-plus" data-type="plus" data-field="">
                                                             <i class="ti-plus"></i>
                                                             </button>
                                                         </span>
@@ -164,8 +167,8 @@
 
 
                                     <div class="product-buttons" *ngIf="!productsService?.catalogMode">
-                                        <a [routerLink]="" (click)="addToCart(product, counter, tenures, tenure_price,deliveryDate)" class="btn btn-solid" [class.disabled]="counter > product.stock">add to cart</a>
-                                        <a [routerLink]="" (click)="buyNow(product, counter,tenures, tenure_price, deliveryDate)" class="btn btn-solid" [class.disabled]="counter > product.stock">Check out</a>
+                                        <a [routerLink]="" (click)="addToCart(product, counter, tenures, tenure_price,deliveryDate)" class="btn btn-solid" [class.disabled]="counter > product.prod_qty">add to cart</a>
+                                        <a [routerLink]="" (click)="buyNow(product, counter,tenures, tenure_price, deliveryDate)" class="btn btn-solid" [class.disabled]="counter > product.prod_qty">Check out</a>
                                     </div>
                                     <div class="border-product">
                                         <h6 class="product-title">product details</h6>
@@ -175,8 +178,8 @@
                                         <h6 class="product-title">share it</h6>
                                         <div class="product-icon">
                                             <ul class="product-social">
-                                              <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                                              <li><a href="https://plus.google.com/discover"><i class="fa fa-google-plus"></i></a></li>
+                                              <li><div class="fb-share-button" data-href="http://irentout.com/Bangalore/product/fci1669-21:9:2020-22-45-2-410" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Firentout.com%2FBangalore%2Fproduct%2Ffci1669-21%3A9%3A2020-22-45-2-410&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fa fa-facebook"></i></a></div></li>
+                                              <li><a href="https://plus.google.com/discover"><i class="fa fa-youtube"></i></a></li>
                                               <li><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
                                               <li><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
                                             </ul>
@@ -192,7 +195,49 @@
     </div>
 </section>
 <!-- Section ends -->
-<section class="tab-product m-0 vertical-tab">
+
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        
+        <div class="p-5 bg-white rounded shadow mb-5">
+            <!-- Lined tabs-->
+            <ul id="myTab2" role="tablist" class="nav nav-tabs nav-pills with-arrow lined flex-column flex-sm-row text-center">
+              <li class="nav-item flex-sm-fill">
+                <a id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0 active">Description</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="wishlists-tab" data-toggle="tab" href="#wishlists" role="tab" aria-controls="wishlists" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Whats included?</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="addresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="addresses" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Why Irentout?</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Reviews</a>
+              </li>
+            </ul>
+            <div id="myTab2Content" class="tab-content">
+              <div id="orders" role="tabpanel" [innerHtml]="product.prod_specification" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+                
+              </div>
+              <div id="wishlists" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
+                {{product.prod_specification}}
+              </div>
+              <div id="addresses" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+                {{product.prod_specification}}
+              </div>
+              <div id="settings" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+                {{product.prod_specification}}
+              </div>
+            </div>
+            <!-- End lined tabs -->
+          </div>
+
+    </div>
+</section>
+
+
+<!-- <section class="tab-product m-0 vertical-tab">
     <div class="container">
         <div class="row tab-border">
             <div class="col-xl-2 p-0">
@@ -227,5 +272,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <app-related-products></app-related-products>
+
+<app-faq></app-faq>

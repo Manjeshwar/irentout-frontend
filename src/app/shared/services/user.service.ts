@@ -17,6 +17,30 @@ export class UserService {
     return this.http.post(`${this.b_url}register`, regform);
   }
 
+  updateUser(id: string, data) {
+    const url = `${this.users_url}/updateuser`;
+    data['id'] = id;
+    return this.http.put(url, data);
+  }
+
+  updateEmail(id: string, data) {
+    const url = `${this.users_url}/updateemail`;
+    data['id'] = id;
+    return this.http.put(url, data);
+  }
+
+  updateMobile(id: string, data) {
+    const url = `${this.users_url}/updatemobile`;
+    data['id'] = id;
+    return this.http.put(url, data);
+  }
+
+  updateProfilePassword(id: string, data) {
+    const url = `${this.users_url}/updatepassword`;
+    data['id'] = id;
+    return this.http.put(url, data);
+  }
+
   updatePassword(id: string, data) {
     const url = `${this.users_url}/update`;
     data['id'] = id;
@@ -104,8 +128,4 @@ export class UserService {
     return this.http.put(url, data);
   }
 
-  public deleteAddress(id){
-    const url = `${this.users_url}/deleteaddress/${id}`;
-    return this.http.delete(url);
-  }
 }

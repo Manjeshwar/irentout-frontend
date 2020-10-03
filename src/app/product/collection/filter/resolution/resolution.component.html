@@ -1,0 +1,13 @@
+
+<div class="collection-collapse-block open">
+    <h4 class="collapse-block-title-ram">Resolution</h4>
+    <div class="collection-collapse-block-content">
+      <div class="collection-brand-filter">
+        <div class="custom-control custom-checkbox collection-filter-checkbox" *ngFor="let filter of ramsFilters">
+          <input type="checkbox" class="custom-control-input" [value]="filter.ram" (change)=checkedFilter($event) id="{{filter.ram}}">
+          <label class="custom-control-label" for="{{filter.ram}}">{{filter.ram}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  

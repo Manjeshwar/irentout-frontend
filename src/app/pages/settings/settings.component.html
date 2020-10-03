@@ -1,0 +1,189 @@
+<table class="table" *ngFor="let data of userData">    
+    <tbody>
+      <tr>
+        <td><h4>Name: <span>{{data.uname}}</span></h4></td>
+        <td><button class="btn btn-solid" data-toggle="modal" data-target="#nameChange">Edit</button></td>
+      </tr>
+      <tr>
+        <td><h4>Email: <span>{{data.email}}</span></h4></td>
+        <td><button class="btn btn-solid" data-toggle="modal" data-target="#emailChange">Edit</button></td>
+      </tr>
+      <tr>
+        <td><h4>Phone Number: <span>{{data.phone}}</span></h4></td>
+        <td><button class="btn btn-solid" data-toggle="modal" data-target="#mobileChange">Edit</button></td>
+      </tr>
+      <tr>
+        <td><h4>password: <span>**********</span></h4></td>
+        <td><button class="btn btn-solid" data-toggle="modal" data-target="#passwordChange">Edit</button></td>
+      </tr>
+    </tbody>
+</table>
+
+
+
+  <!-- The Name change Modal -->
+  <div class="modal" id="nameChange" #nameChange>
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h3 class="modal-title">Change your name</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                  <form class="theme-form" [formGroup]="editName" (ngSubmit)="updateName()">
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="email">First Name</label>
+                          <input type="text" class="form-control" formControlName="firstName" id="fname" [formControl]="editName.controls['firstName']" placeholder="First Name" required="">
+                          <div *ngIf="editName.controls.firstName.touched && editName.controls.firstName.errors?.required" class="text text-danger">
+                              First Name is required.
+                          </div>
+                          <div *ngIf="editName.controls.firstName.touched && editName.controls.firstName.errors?.pattern" class="text text-danger">
+                              First Name must be an alphabates.
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="review">Last Name</label>
+                          <input type="text" class="form-control" formControlName="lastName" id="lname" placeholder="Last Name" required="">
+                          <div *ngIf="editName.controls.lastName.touched && editName.controls.lastName.errors?.required" class="text text-danger">
+                              Last Name is required.
+                          </div>
+                          <div *ngIf="editName.controls.lastName.touched && editName.controls.lastName.errors?.pattern" class="text text-danger">
+                              Last Name must be an alphabates.
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-solid" (click)="updateName()">Submit</button>
+                  </form>
+                </div>
+            </div>
+
+        </div>       
+        
+      </div>
+    </div>
+  </div>
+
+    <!-- The Email change Modal -->
+    <div class="modal" id="emailChange" #emailChange>
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+        
+          <div class="modal-header">
+            <h3 class="modal-title">Change your name</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-12">
+                    <form class="theme-form" [formGroup]="editEmail">
+                      <div class="form-group col-md-6">
+                        <label for="email">email</label>
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="Email" required="">
+                        <div *ngIf="editEmail.controls.email.touched && editEmail.controls.email.errors?.required" class="text text-danger">
+                            Email is required
+                        </div>
+                        <div *ngIf="editEmail.controls.email.touched && editEmail.controls.email.errors?.email" class="text text-danger">
+                            Invalid Email
+                        </div>
+                      </div>
+                        <button class="btn btn-solid" (click)="updateEmail()">Submit</button>
+                    </form>
+                  </div>
+              </div>
+  
+          </div>       
+          
+        </div>
+      </div>
+  </div>
+
+  <!-- The Email change Modal -->
+  <div class="modal" id="mobileChange" #mobileChange>
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h3 class="modal-title">Change your Mobile Number</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                  <form class="theme-form" [formGroup]="editMobile">
+                    <div class="form-group col-md-6">
+                            <div class="field-label">Mobile</div>
+                            <input class="form-control" type="text" name="mobile" formControlName="mobile" id="mobile"  value="" placeholder="" autocomplete="off">
+                            <div *ngIf="editMobile.controls.mobile.touched && editMobile.controls.mobile.errors?.required" class="text text-danger">
+                              Mobile No is required.
+                            </div>
+                            <div *ngIf="editMobile.controls.mobile.touched && editMobile.controls.mobile.errors?.pattern" class="text text-danger">
+                              Mobile No is must be number.
+                            </div>
+                    </div>
+                      <button class="btn btn-solid" (click)="updateMobile()">Submit</button>
+                  </form>
+                </div>
+            </div>
+
+        </div>       
+        
+      </div>
+    </div>
+</div>
+
+  <!-- The Email change Modal -->
+  <div class="modal" id="passwordChange" #passwordChange>
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h3 class="modal-title">Change your name</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                  <form class="theme-form" [formGroup]="editPassword">
+                      <div class="row">
+                        <div class="input-group col-md-6">
+                            <input [type]="show ? 'text' : 'password'" class="form-control" formControlName="upass" placeholder="Enter your password" required="">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                <a (click)="passwordVisibility()"><i class="fa {{fa}}"></i></a>
+                                </span>
+                            </div>
+                            <div *ngIf="editPassword.controls.upass.valid && editPassword.controls.upass.errors?.minlength" class="text text-danger">
+                                Password minimum length must be atleast 6 characters.
+                            </div>
+                        </div>
+                        <div class="input-group col-md-6">
+                            <input type="password" class="form-control" formControlName="confirmPassword" placeholder="ReEnter your password" required="">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                <a (click)="passwordVisibility()"><i class="fa {{fa}}"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="editPassword.controls.confirmPassword.touched && editPassword.controls.confirmPassword.errors?.mismatch" class="text text-danger">
+                            password does'nt match
+                        </div>
+
+                      </div>
+                      <button class="btn btn-solid" (click)="updatePassword()">Submit</button>
+                  </form>
+                </div>
+            </div>
+
+        </div>       
+        
+      </div>
+    </div>
+</div>

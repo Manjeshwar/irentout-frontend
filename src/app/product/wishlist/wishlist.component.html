@@ -34,8 +34,8 @@
               <tr class="table-head">
                 <th scope="col">image</th>
                 <th scope="col">product name</th>
-                <th scope="col">price</th>
-                <th scope="col">availability</th>
+                <th scope="col">Rent</th>
+                <th scope="col">Security deposit</th>
                 <th scope="col">action</th>
               </tr>
             </thead>
@@ -43,17 +43,17 @@
               <tr>
                 <td>
                   <a [routerLink]="['/category/product', item.prod_id]">
-                    <img [src]="item.prod_img[0]" alt="">
+                    <img src="http://localhost:3000/images/products/{{item.prod_img[0]}}" alt="">
                   </a>
                 </td>
                 <td>
                   <a [routerLink]="['/categories/product', item.prod_id]">{{ item.prod_name }}</a>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
-                      <p>in stock</p>
+                      <p>{{ item.prod_price}}</p>
                     </div>
                     <div class="col-xs-3">
-                      <h2 class="td-color">{{ item.tenure_price | currency:productsService?.currency:'symbol' }}</h2>
+                      <h2 class="td-color">{{ item.prod_price | currency:productsService?.currency:'symbol' }}/ mo</h2>
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
@@ -68,10 +68,10 @@
                   </div>
                 </td>
                 <td>
-                  <h2>{{ item.tenure_price | currency:productsService?.currency:'symbol' }}</h2>
+                  <p>₹ {{ item.prod_tenure[0][1] }} / mo</p>
                 </td>
                 <td>
-                  <p>in stock</p>
+                  <p>₹ {{ item.prod_price}}</p>
                 </td>
                 <td>
                   <a [routerLink]="" (click)="removeItem(item)" class="icon mr-3">

@@ -58,11 +58,17 @@ import { RamComponent } from '../product/collection/filter/ram/ram.component';
 import { CapacityComponent } from '../product/collection/filter/capacity/capacity.component';
 import { ProcessorComponent } from '../product/collection/filter/processor/processor.component';
 import { StorageTypeComponent } from '../product/collection/filter/storage-type/storage-type.component';
+
+
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddAddressComponent } from '../pages/add-address/add-address.component';
-import { AddBillingAddressComponent } from '../pages/add-billing-address/add-billing-address.component';
+import { PagesModule } from '../pages/pages.module';
+import { ResolutionComponent } from '../product/collection/filter/resolution/resolution.component';
+import { ZoomComponent } from '../product/collection/filter/zoom/zoom.component';
+import { DisplaySizeComponent } from '../product/collection/filter/display-size/display-size.component';
+import { SensorTypeComponent } from '../product/collection/filter/sensor-type/sensor-type.component';
+
 
 @NgModule({
   declarations: [
@@ -88,6 +94,10 @@ import { AddBillingAddressComponent } from '../pages/add-billing-address/add-bil
     ProcessorComponent,
     StorageTypeComponent,
     PriceComponent,
+    SensorTypeComponent,
+    ResolutionComponent,
+    ZoomComponent,
+    DisplaySizeComponent,
     // ProductLeftSidebarComponent,
     // ProductRightSidebarComponent,
     // ProductNoSidebarComponent,
@@ -114,8 +124,6 @@ import { AddBillingAddressComponent } from '../pages/add-billing-address/add-bil
     ExitPopupComponent,
     AgeVerificationComponent,
     NewsletterComponent,
-    AddAddressComponent,
-    AddBillingAddressComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +137,8 @@ import { AddBillingAddressComponent } from '../pages/add-billing-address/add-bil
     InfiniteScrollModule,
     NgxPayPalModule,
     NgxImgZoomModule,
-    NgbModule
+    NgbModule,
+    PagesModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })

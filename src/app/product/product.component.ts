@@ -16,6 +16,10 @@ export class ProductComponent implements OnInit {
 
   @Input() product : Product;
 
+  public url;
+
+  city=localStorage.getItem('city');
+
   public variantImage  :  any = ''; 
   public selectedItem  :  any = '';
 
@@ -23,7 +27,14 @@ export class ProductComponent implements OnInit {
     private wishlistService: WishlistService, private cartService: CartService) { 
   }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    if(this.router.url.includes("category")){
+      this.url="../../product";
+    }
+    else{
+      this.url="product";
+    }
+   }
 
   // Add to cart
   public addToCart(product: Product,  quantity: number = 1,tenures, tenure_price, deliveryDate:Date) {

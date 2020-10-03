@@ -4,7 +4,8 @@
       <span class="lable4" *ngIf='product.sale'>on sale</span>
     </div> -->
     <div class="front">
-      <a [routerLink]="['../../product', product.prod_id]"><img src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
+      <a [routerLink]="[url,product.prod_id]"><img [ngClass]="{'oos': product.prod_qty<=0}" src="http://localhost:3000/images/products/{{product.prod_img[0]}}" class="img-fluid" alt=""></a>
+      <div class="stock" *ngIf="product.prod_qty<=0">Out of stock</div>
     </div>
     <!-- <ul class="product-thumb-list">
       <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}" *ngFor="let variant of product.variants">
@@ -14,15 +15,15 @@
       </li>
     </ul> -->
     <div class="cart-info cart-wrap" *ngIf="!productsService?.catalogMode">
-      <a [routerLink]="" [attr.data-target]="'#addtocart'+product.prod_id" data-toggle="modal" (click)="addToCart(product, 1, 3, product.prod_tenure[0][1])" data-placement="left" title="Add to cart">
+      <a *ngIf="product.prod_qty>0" [routerLink]="" [attr.data-target]="'#addtocart'+product.prod_id" data-toggle="modal" (click)="addToCart(product, 1, 3, product.prod_tenure[0][1])" data-placement="left" title="Add to cart">
          <i class="ti-shopping-cart" ></i>
       </a>
       <a [routerLink]="" (click)="addToWishlist(product)" title="Add to Wishlist">
          <i class="ti-heart" aria-hidden="true"></i>
       </a>
-      <a [routerLink]="" [attr.data-target]="'#quick-view'+product.id" data-toggle="modal" title="Quick View">
+      <!-- <a [routerLink]="" [attr.data-target]="'#quick-view'+product.id" data-toggle="modal" title="Quick View">
          <i class="ti-search" aria-hidden="true"></i>
-      </a>
+      </a> -->
       <!-- <a [routerLink]="['/categories/compare']" (click)="addToCompare(product)" title="Compare">
          <i class="ti-reload" aria-hidden="true"></i>
       </a> -->
@@ -32,7 +33,7 @@
     <div>
       <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
       <a [routerLink]="['../../product', product.prod_id]"><h6>{{product.prod_name | titlecase }}</h6></a>
-      <h4 *ngIf="!productsService?.catalogMode">{{product.prod_price | currency:productsService?.currency:'symbol'}} / Month 
+      <h4 *ngIf="!productsService?.catalogMode">{{product.prod_tenure[0][1] | currency:productsService?.currency:'symbol'}} / Month 
         <del><span class="money">{{product.salePrice | currency:productsService?.currency:'symbol'}}</span></del> 
       </h4>
       <h5>{{product.prod_ram}} Ram</h5>

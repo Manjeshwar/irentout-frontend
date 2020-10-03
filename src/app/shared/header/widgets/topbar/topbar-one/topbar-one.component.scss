@@ -1,6 +1,7 @@
 .header-search{
     left:20px;
 }
+
 .search-all{
     margin-top:10px; 
     width:100%;
@@ -16,4 +17,10 @@
     color: #f36f02;
     background-color: none;
     border-radius: 15px;
+}
+
+.onhover-dropdown{
+    button{
+        padding:3% 3%;
+    }
 }

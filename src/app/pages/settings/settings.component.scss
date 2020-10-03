@@ -1,0 +1,13 @@
+input, select {
+    font-size: 15px;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    height: inherit;
+    border-radius: 7px;
+  }
+
+.custom-radio{
+    input{
+        display: flex;
+    }
+}

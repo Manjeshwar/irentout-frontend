@@ -42,6 +42,7 @@ export const MENUITEMS: Menu[] = [
 	{
 		title: 'Computers', city: 'Bangalore', type: 'sub', children: [
 				{ path: `/${localStorage.getItem('city')}/category/Laptop`, title: 'Laptops',type: 'link' },
+				{ path: `/${localStorage.getItem('city')}/category/Camera`, title: 'Cameras',type: 'link' },
 				{ path: `/${localStorage.getItem('city')}/category/Monitor`, title: 'Desktops',type: 'link' }
 	    ]
 	},

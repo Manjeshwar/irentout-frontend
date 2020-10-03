@@ -26,7 +26,7 @@
     <div class="col-lg-5 text-right" *ngIf="!productsService?.catalogMode">
       <ul class="header-dropdown">
         <li class="onhover-dropdown1 mobile-location">
-          <i class="fa fa-map-marker" aria-hidden="true"></i> {{ currentCity }}
+          <i class="fa fa-map-marker" aria-hidden="true"></i> <a>{{ currentCity }}</a>
           <ul class="onhover-show-div1">
             <li *ngFor="let city of citiesList">
               <a (click)='getByCity(city.cityname)'>{{city.cityname}}</a>
@@ -37,21 +37,24 @@
           <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
         </li>
         <li class="onhover-dropdown mobile-account">
-          <i class="fa fa-user" aria-hidden="true"></i>
-           <a (click)="login()" data-lng="en">{{ accountName }} </a>
-           <i *ngIf="display" class="fa fa-chevron-down"></i>
+          <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
+           <button *ngIf="!display" class="btn btn-solid" (click)="login()" data-lng="en">{{ accountName }} </button>
+           <a *ngIf="display" (click)="login()" data-lng="en">{{ accountName }} </a>
+           <i *ngIf="display" class="fa fa-chevron-down right-text"></i>
           <ul class="onhover-show-div" *ngIf="display">
             <!-- <li *ngIf="!display">
               <a (click)="login()" data-lng="en">
                   {{ 'login' | translate }}
               </a>
             </li> -->
+            <li *ngIf="display"><a [routerLink]="['/',currentCity,'profile']">orders</a></li>
+            <li *ngIf="display"><a [routerLink]="['/',currentCity,'profile']">Profile</a></li>
             <li *ngIf="display">
               <a (click)="logout()" data-lng="es">
                   {{ 'logout' | translate }}
               </a>
             </li>
-            <li *ngIf="display"><a [routerLink]="['/',currentCity,'your-orders']">Your orders</a></li>
+            
           </ul>
         </li>
         <!-- <li>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../shared/classes/product';
 import * as $ from 'jquery';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'app-product-tab',
@@ -10,8 +11,12 @@ import * as $ from 'jquery';
 export class ProductTabComponent implements OnInit {
 
   @Input() products: Product;
+  featured='featured';
+  bestSeller='bestSeller';
+  newProducts='newProducts';
+  public allItems: Product[] = [];
   
-  constructor() { }
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
   	// tab js
@@ -25,6 +30,15 @@ export class ProductTabComponent implements OnInit {
 	    $('#' + currunt_href).show();
 	    $(this).parent().parent().parent().find(".tab-content").not('#' + currunt_href).css("display", "none");
 	  });
+	  this.getProductsByParam(); 
+  }
+
+  getProductsByParam() {
+    this.productsService
+        .getProductByCategory('Laptop')
+        .subscribe((products) => {
+          this.allItems = products; // all products
+        });
   }
 
 }

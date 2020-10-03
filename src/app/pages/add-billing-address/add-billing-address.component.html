@@ -4,10 +4,46 @@
         <div class="row"> -->
             <div class="col-md-12">
                 <form [formGroup]="billingAddressForm">
-                    <div class="checkout-title">
+                    <!-- <div class="checkout-title">
                         <h3>Add Billing address</h3>
+                    </div> -->
+                    <div class="form-group form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" (click)="user('company')" class="form-check-input" value="company" name="user" formControlName="user">Company
+                        </label>
+                    </div> 
+                    <div class="form-group form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" (click)="user('individual')" class="form-check-input" value="individual" name="user" formControlName="user">Individual
+                        </label>
                     </div>
-                    <div class="check-out">
+                    <div class="row">
+                           
+                        <div class="col-md-12 col-sm-12 col-xs-12"></div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Address type</div>
+                            <select class="form-control" [(ngModel)]="otherAddress" formControlName="addresstype">
+                                <option value="">Select an address type</option>
+                                <option>Home</option>
+                                <option>Work</option>
+                                <option value='Other'>Other</option>
+                            </select>
+                        </div>
+                        <div *ngIf="otherAddress=='Other'" class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Nickname</div>
+                            <input  class="form-control" type="text" name="nickname" formControlName="nickname"  value="" placeholder="Dad's home or Sister's home..." autocomplete="off">
+                            <div *ngIf="addressForm.controls.nickname.touched && addressForm.controls.nickname.errors?.required" class="text text-danger">
+                                nickname  is required.
+                            </div>
+                            <div *ngIf="addressForm.controls.nickname.touched && addressForm.controls.nickname.errors?.pattern" class="text text-danger">
+                                nickname No is must be alphabets.
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <hr>
+                    <div class="row">                        
+                        
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">First Name</div>
                             <input class="form-control" type="text" name="fname" formControlName="fname"  id="fname" [formControl]="billingAddressForm.controls['fname']" value="" placeholder="" autocomplete="off">
@@ -19,7 +55,17 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <div class="field-label">Comapny Name</div>
+                            <div class="field-label">Last Name</div>
+                            <input class="form-control" type="text" name="lname" formControlName="lname"  id="lname" [formControl]="billingAddressForm.controls['lname']" value="" placeholder="" autocomplete="off">
+                            <div *ngIf="billingAddressForm.controls.lname.touched && billingAddressForm.controls.lname.errors?.required" class="text text-danger">
+                                Last Name is required.
+                            </div>
+                            <div *ngIf="billingAddressForm.controls.lname.touched && billingAddressForm.controls.lname.errors?.pattern" class="text text-danger">
+                                Last Name must be an alphabates.
+                            </div>
+                        </div>
+                        <div *ngIf="ifUser=='company'" class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Comapany Name</div>
                             <input class="form-control" type="text" name="companyName" formControlName="companyName"  id="companyName" [formControl]="billingAddressForm.controls['companyName']" value="" placeholder="" autocomplete="off">
                             <div *ngIf="billingAddressForm.controls.companyName.touched && billingAddressForm.controls.companyName.errors?.required" class="text text-danger">
                             company Name is required.
@@ -28,7 +74,7 @@
                             Company Name must be an alphabates.
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                        <div *ngIf="ifUser=='company'" class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">GST No</div>
                             <input class="form-control" type="text" name="gst" formControlName="gst"  id="gst" [formControl]="billingAddressForm.controls['gst']" value="" placeholder="" autocomplete="off">
                             <div *ngIf="billingAddressForm.controls.gst.touched && billingAddressForm.controls.gst.errors?.required" class="text text-danger">
@@ -52,7 +98,7 @@
                              Address is required
                             </div>
                             <div *ngIf="billingAddressForm.controls.address.touched && billingAddressForm.controls.address.errors?.maxlength" class="text text-danger">
-                              Maximum 50 character
+                              Maximum 250 character
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -80,10 +126,12 @@
                             </div>
                             <div *ngIf="invalidPostal && !billingAddressForm.controls.pincode.errors?.minlength" class="text text-danger">We don't deliver to this postal code</div>
                         </div>
-
-                        <button class="btn-solid btn" type="button" (click)="addBillAddress()">
-                            Submit
-                        </button>                        
+                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                            <div class="field-label"></div>
+                            <button class="btn-solid btn" type="button" (click)="addBillAddress()">
+                                Submit
+                            </button>  
+                        </div>                      
                     </div>
 
                 </form>

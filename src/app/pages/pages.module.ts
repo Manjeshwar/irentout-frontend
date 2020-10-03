@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { IsotopeModule } from 'ngx-isotope';
+import { SharedModule } from '../shared/shared.module';
 
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -34,6 +35,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FailureComponent } from './failure/failure.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AddressesComponent } from './addresses/addresses.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileAddressComponent } from './profile-address/profile-address.component';
+import { AddAddressComponent } from '../pages/add-address/add-address.component';
+import { AddBillingAddressComponent } from '../pages/add-billing-address/add-billing-address.component';
+import { EditAddressComponent } from './edit-address/edit-address.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   imports: [
@@ -42,8 +49,13 @@ import { AddressesComponent } from './addresses/addresses.component';
     SlickCarouselModule,
     IsotopeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
+  exports:[
+    AddAddressComponent,
+    AddBillingAddressComponent,
+    FaqComponent],
   declarations: [
     AboutUsComponent,
     ErrorPageComponent,
@@ -72,7 +84,13 @@ import { AddressesComponent } from './addresses/addresses.component';
     FailureComponent,
     ResetPasswordComponent,
     OrdersComponent,
-    AddressesComponent
+    AddressesComponent,
+    AddAddressComponent,
+    AddBillingAddressComponent,
+    ProfileComponent,
+    ProfileAddressComponent,
+    EditAddressComponent,
+    SettingsComponent
   ]
 })
 export class PagesModule { }

@@ -1,0 +1,61 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Profile</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        
+        <div class="p-5 bg-white rounded shadow mb-5">
+            <!-- Lined tabs-->
+            <ul id="myTab2" role="tablist" class="nav nav-tabs nav-pills with-arrow lined flex-column flex-sm-row text-center">
+              <li class="nav-item flex-sm-fill">
+                <a id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0 active">Orders</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="wishlists-tab" data-toggle="tab" href="#wishlists" role="tab" aria-controls="wishlists" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Wishlists</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="addresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="addresses" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Addresses</a>
+              </li>
+              <li class="nav-item flex-sm-fill">
+                <a id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Settings</a>
+              </li>
+            </ul>
+            <div id="myTab2Content" class="tab-content">
+              <div id="orders" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+                    <app-orders></app-orders>
+              </div>
+              <div id="wishlists" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
+                    <app-wishlists></app-wishlists>
+              </div>
+              <div id="addresses" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+                    <app-profile-address></app-profile-address>
+              </div>
+              <div id="settings" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+                    <app-settings></app-settings>
+              </div>
+            </div>
+            <!-- End lined tabs -->
+          </div>
+
+    </div>
+</section>

@@ -1,0 +1,30 @@
+// .modal-dialog{
+//     min-width:70% !important;
+
+//     .modal-body{
+//         padding:2%;
+//     }
+// }
+#deleteModal{
+    button{
+        padding: 7px;
+    }
+}
+.stripe-section{
+    border-radius: 7px !important;
+    margin-bottom: 15px;
+    button{margin-right: 10px; padding: 5px 4px; font-weight: 100;} 
+    
+    .content{
+        min-height: 170px;
+        max-height: 170px;
+        h5{
+            font-weight: 700; 
+        }
+        h2{
+            margin: 50px;
+        }
+    }
+
+    
+}

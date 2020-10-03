@@ -20,6 +20,7 @@ export interface Product {
   prod_available_cities?: string;
   prod_status?: string;
   prod_name?: string;
+  prod_qty?:number;
   prod_price?: string;
   prod_img?;
   prod_description?: string;
@@ -30,6 +31,9 @@ export interface Product {
   prod_processor?: string; 
   prod_screensize?: string;
   prod_tenure?: string;
+  prod_featured?:string;
+  prod_bestseller?:string;
+  prod_newproducts?:string;
   brand_id?: string;
   brand_name?: string;
   brand_description?: string;

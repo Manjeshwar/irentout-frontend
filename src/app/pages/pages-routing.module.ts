@@ -32,6 +32,7 @@ import { FailureComponent } from './failure/failure.component';
 import { AddAddressComponent } from './add-address/add-address.component';
 import { AddBillingAddressComponent } from './add-billing-address/add-billing-address.component';
 import { AddressesComponent } from './addresses/addresses.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -102,8 +103,12 @@ const routes: Routes = [
         component: CheckoutComponent
       },
       {
-        path: 'your-orders',
+        path: 'orders',
         component: OrdersComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       },
       {
         path: 'compare',

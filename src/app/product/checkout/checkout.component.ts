@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef,ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
 // import {  IPayPalConfig,  ICreateOrderRequest } from 'ngx-paypal';
@@ -19,6 +19,8 @@ declare const jQuery:any;
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+
+  @ViewChild('changeAddressModal') changeAddressModal: ElementRef;
 
 countVal = 0;
 // form group
@@ -47,6 +49,7 @@ allBillAddress;
 
 defaultAddressFields = {
   name: '',
+  lname:'',
   addresstype:'',
   phone: '',
   address: '',
@@ -57,6 +60,7 @@ defaultAddressFields = {
 
 defaultBillAddressFields = {
   name: '',
+  lname:'',
   companyName:'',
   gst:'',
   phone: '',
@@ -119,6 +123,11 @@ constructor(
 
 
 ngOnInit() {
+  if (!localStorage.getItem('uid')) {
+    const location = window.location.href;
+    localStorage.setItem('redirectto', location);
+    this.router.navigate([this.city, 'login']);
+  }
   this.us.getAllCities().subscribe((res: any) => {
     if (res) {
       const a = res.filter((city) => {
@@ -134,11 +143,7 @@ ngOnInit() {
     this.calculateTotal();
     this.transactionId();
     }
-    if (!localStorage.getItem('uid')) {
-      const location = window.location.href;
-      localStorage.setItem('redirectto', location);
-      this.router.navigate([this.city, 'login']);
-    }
+    
   });
 
   this.us.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
@@ -243,6 +248,7 @@ setDefaultBillAddr(id){
 patchFormValues(addrFields) {
   this.defaultAddressFields = {
     name: addrFields.firstname,
+    lname: addrFields.lastname,
     addresstype: addrFields.addresstype,
     phone: addrFields.phone,
     address: addrFields.addr,
@@ -268,6 +274,7 @@ patchFormValues(addrFields) {
 patchBillForm(billAddressFields){
   this.defaultBillAddressFields = {
     name: billAddressFields.firstname,
+    lname: billAddressFields.lastname,
     companyName:billAddressFields.companyName,
     gst:billAddressFields.gst,
     phone: billAddressFields.phone,
@@ -457,9 +464,9 @@ updateDefaultBillAddress(addr) {
   });
 }
 
-deleteAddress(id){
-  this.us.deleteAddress(id).subscribe();
-}
+// deleteAddress(id){
+//   this.us.deleteAddress(id).subscribe();
+// }
 
 newAddressAdded() {
   this.us.getUserDetailsByUid(localStorage.getItem('uid')).subscribe((dta) => {
@@ -468,6 +475,7 @@ newAddressAdded() {
     addrFields = addrFields.filter(res => res.default);
 
     this.changeDefaultAddr(addrFields[0].id);
+    // this.changeAddressModal.nativeElement.click();
   });
 }
 

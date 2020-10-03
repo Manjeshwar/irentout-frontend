@@ -274,7 +274,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
       font-weight: 400;
       line-height: $theme-deafult__line-height;
       text-decoration: none;
-      text-transform: uppercase;
+      text-transform: none;
       padding-top: 42px;
       padding-bottom: 42px;
       letter-spacing: 0.07em;
@@ -443,7 +443,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
   .link-section {
     h5 {
       font-weight: 700;
-      text-transform: uppercase;
+      text-transform: none;
       font-size: 14px;
     }
     ul {
@@ -514,7 +514,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
     padding: 2px 7px;
     color:$white;
     top: 20px;
-    text-transform: uppercase;
+    text-transform: none;
     font-size: 9px;
     left: 0;
     line-height: 1.3;
@@ -548,7 +548,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
     font-size: 18px;
     color: $dark-font;
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform: none;
     border-bottom: 1px solid $grey3;
     margin-bottom: 20px;
     cursor: pointer;
@@ -793,7 +793,6 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
     ul {
       width: 30px !important;
       margin-top: 2px!important;
-      border: none;
       border-left: 1px solid #f36f02;
       padding: 1px;
       background: $theme-deafult__desktop-sub-bg;
@@ -1180,7 +1179,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
       font-size: 18px;
       color: $dark-font;
       font-weight: 700;
-      text-transform: uppercase;
+      text-transform: none;
       border-bottom: 1px solid $grey3;
       cursor: pointer;
       display: flex;
@@ -1359,7 +1358,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
           .sidebar-name {
             font-size: 18px;
             padding-left: 5px;
-            text-transform: uppercase;
+            text-transform: none;
           }
         }
       }
@@ -1495,7 +1494,7 @@ $theme-deafult__toggle-spacing: floor($theme-deafult__item-height * 0.1);
   }
   .top-header {
     .header-dropdown {
-      .mobile-account, .mobile-wishlist {
+      .mobile-account, .mobile-wishlist, .mobile-location {
         position: fixed;
         bottom: 20px;
         right: 19%;

@@ -5,6 +5,7 @@ import { Http, HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ShopModule } from "./shop/shop.module";
 import { HomeModule } from "./home/home.module";
+import { PagesModule } from './pages/pages.module';
 import { SharedModule } from "./shared/shared.module";
 import { ToastrModule } from 'ngx-toastr';
 import { rootRouterConfig } from './app.routes';
@@ -21,6 +22,7 @@ import * as $ from 'jquery';
 
 
 
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -29,7 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
+    MainComponent
     // DemoComponent
   ],
   imports: [
@@ -38,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     // ShopModule,
     HomeModule,
+    PagesModule,
     SharedModule,
     HttpClientModule,
     NgbModule,

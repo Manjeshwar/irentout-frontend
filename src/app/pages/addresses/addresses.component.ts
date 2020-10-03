@@ -29,6 +29,7 @@ export class AddressesComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService, public router:Router) {
     this.billingAddressForm = this.fb.group({
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      lname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       companyName:[''],
       gst:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
@@ -85,6 +86,7 @@ export class AddressesComponent implements OnInit {
         const billAddr = {
           id: ids,
           firstname: formVal.fname,
+          lastname: formVal.lname,
           comapanyname:formVal.companyName,
           gst:formVal.gst,
           phone: formVal.mobile,
@@ -105,6 +107,7 @@ export class AddressesComponent implements OnInit {
               const shipAddr = {
                 id: ids,
                 firstname: formVal.fname,
+                lastname: formVal.lname,
                 phone: formVal.mobile,
                 addr: formVal.address,
                 city: formVal.town,

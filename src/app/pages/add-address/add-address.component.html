@@ -20,21 +20,31 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <div class="field-label">Address type</div>
-                            <select class="form-control" formControlName="addresstype">
-                                <option selected>Select an address type</option>
+                            <select class="form-control" [(ngModel)]="otherAddress" formControlName="addresstype">
+                                <option value="">Select an address type</option>
                                 <option>Home</option>
                                 <option>Work</option>
-                                <option>Other</option>
+                                <option value='Other'>Other</option>
                             </select>
                         </div>
+                        <div *ngIf="otherAddress=='Other'" class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <div class="field-label">Nickname</div>
+                            <input class="form-control" type="text" name="addresstype" formControlName="addresstype"  value="" placeholder="Dad's home or Sister's home..." autocomplete="off">
+                            <div *ngIf="addressForm.controls.addresstype.touched && addressForm.controls.addresstype.errors?.required" class="text text-danger">
+                                nickname No is required.
+                            </div>
+                            <div *ngIf="addressForm.controls.addresstype.touched && addressForm.controls.addresstype.errors?.pattern" class="text text-danger">
+                                nickname No is must be number.
+                            </div>
+                        </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <div class="field-label">Phone</div>
+                            <div class="field-label">Mobile</div>
                             <input class="form-control" type="text" name="mobile" formControlName="mobile" id="mobile"  value="" placeholder="" autocomplete="off">
                             <div *ngIf="addressForm.controls.mobile.touched && addressForm.controls.mobile.errors?.required" class="text text-danger">
-                              Phone No is required.
+                              Mobile No is required.
                             </div>
                             <div *ngIf="addressForm.controls.mobile.touched && addressForm.controls.mobile.errors?.pattern" class="text text-danger">
-                              Phone No is must be number.
+                              Mobile No is must be number.
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12 col-xs-12">
@@ -74,7 +84,7 @@
                         </div>
 
                         <button class="btn-solid btn" type="button" (click)="addAddress()">
-                            Add address
+                            Submit
                         </button>
 
                         

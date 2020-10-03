@@ -126,11 +126,11 @@
                                     <div class="stripe-section shadow-sm p-3 mb-3 rounded">
                                         <h5>Shipping address</h5>
                                         <div class="content">
-                                        <h5>{{defaultAddressFields.name}} <span *ngIf="defaultAddressFields.addresstype">({{defaultAddressFields.addresstype}})</span></h5>
+                                        <h5>{{defaultAddressFields.name}} {{defaultAddressFields.lname}} <span *ngIf="defaultAddressFields.addresstype">({{defaultAddressFields.addresstype}})</span></h5>
                                         <p>{{defaultAddressFields.address}}, {{defaultAddressFields.city}}-{{defaultAddressFields.pincode}}</p>
                                         <p>Phone: {{defaultAddressFields.phone}}</p>
                                         </div>
-                                        <button type="button" class="btn btn-solid" data-toggle="modal" data-target="#changeAddressModal">Change/Add Address</button>
+                                        <button type="button" class="btn btn-solid" data-toggle="modal" data-target="#changeAddressModal">Change Address</button>
                                     </div>
                                 </div>
 
@@ -138,11 +138,11 @@
                                     <div class="stripe-section shadow-sm p-3 mb-3 rounded">
                                         <h5>Billing address</h5>
                                         <div class="content">
-                                        <h5>{{defaultBillAddressFields.name}}</h5>
+                                        <h5>{{defaultBillAddressFields.name}} {{defaultBillAddressFields.lname}}</h5>
                                         <p>{{defaultBillAddressFields.address}}, {{defaultBillAddressFields.city}}-{{defaultBillAddressFields.pincode}}</p>
                                         <p>Phone: {{defaultBillAddressFields.phone}}</p>
                                         </div>
-                                        <button class="btn-solid btn" data-toggle="modal" data-target="#billAddressModal">Change/Add Billing Address</button>
+                                        <button class="btn-solid btn" data-toggle="modal" data-target="#billAddressModal">Change Address</button>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                                     </ul>
                                 </div>
                                 <div class="text-right">
-                                    <button  class="btn-solid btn" type="submit" [routerLink]="['/',city,'cart']" >
+                                    <button  class="btn-solid btn mr-10" type="submit" [routerLink]="['/',city,'cart']" >
                                         <i class="fa fa-arrow-left"></i> Cart
                                     </button>
                                     <button class="btn-solid btn" type="submit" value="Pay" (click)="startPayment()">
@@ -247,14 +247,14 @@
 </section>
 
 <!-- The shipping address Modal -->
-<div class="modal" id="changeAddressModal">
+<div class="modal" id="changeAddressModal" #changeAddressModal>
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h3 class="modal-title">Change your shipping address</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3 class="modal-title">Change your Delivery address</h3>
+          <button (click)="displayAddrForm=false" type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
         <!-- Modal body -->
@@ -262,16 +262,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <button *ngIf="!displayAddrForm" (click)="displayAddrForm=!displayAddrForm" type="button" class="btn btn-solid">add address</button>                    
-                    <app-add-address *ngIf="displayAddrForm" (addedAddress)="newAddressAdded()"></app-add-address>
+                    <app-add-billing-address *ngIf="displayAddrForm" (addedAddress)="newAddressAdded()"></app-add-billing-address>
                 </div>
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4" *ngFor="let addr of allDelvAddress">
-                            <div class="stripe-section">
+                            <div class="stripe-section  mb-3">
                                 <!-- <h5>Shipping address</h5> -->
                                 <div class="content">
-                                <h5>{{addr.firstname}} <span *ngIf="addr.addresstype">({{addr.addresstype}})</span></h5>
+                                <h5>{{addr.firstname}} {{addr.lastname}} <span *ngIf="addr.nickname">({{addr.nickname}})</span></h5>
                                 <p>{{addr.addr}}, {{addr.city}}-{{addr.postal}}</p>
                                 <p>Phone: {{addr.phone}}</p>
                                 </div>
@@ -302,7 +302,7 @@
       
         <div class="modal-header">
           <h3 class="modal-title">Change your Billing address</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <button (click)="displayBillForm=false" type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
         <div class="modal-body">
@@ -313,11 +313,11 @@
                 </div>
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-md-4" *ngFor="let addr of allBillAddress">
-                            <div class="stripe-section">
+                            <div class="stripe-section mb-3">
                                 <div class="content">
-                                <h5>{{addr.firstname}}</h5>
+                                <h5>{{addr.firstname}} {{addr.lastname}}</h5>
                                 <p>Company name: {{addr.comapanyname}}</p>
                                 <p>{{addr.addr}}, {{addr.city}}-{{addr.postal}}</p>
                                 <p>Phone: {{addr.phone}}</p>

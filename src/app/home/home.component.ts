@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     $.getScript('assets/js/script.js');
   	this.productsService.getProducts().subscribe(product => { 
   	  product.filter((item: Product) => {
-         if(item.category == 'furniture')
+        //  if(item.cat_name == 'laptop')
          	this.products.push(item)
       })
     });

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class AddBillingAddressComponent implements OnInit {
 
   @Output() public addedBillAddress = new EventEmitter();
+  @Output() public addedAddress = new EventEmitter();  
 
   public billingAddressForm   :  FormGroup;
   pincodes = {
@@ -23,16 +24,20 @@ export class AddBillingAddressComponent implements OnInit {
   ]
   
   city = localStorage.getItem('city');
-  
+  ifUser;
   invalidPostal = false;
-
+  otherAddress;
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.billingAddressForm = this.fb.group({
+      user:['company'],
+      addresstype:[''],
+      nickname:[''],
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      lname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       companyName:[''],
       gst:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      address: ['', [Validators.required, Validators.maxLength(50)]],
+      address: ['', [Validators.required, Validators.maxLength(250)]],
       town: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.minLength(6)]],
@@ -41,6 +46,11 @@ export class AddBillingAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.patchCityState();
+    this.user('company');
+  }
+
+  user(val){
+    this.ifUser=val;
   }
 
   patchCityState() {
@@ -84,6 +94,9 @@ export class AddBillingAddressComponent implements OnInit {
         const addr = {
           id: ids,
           firstname: formVal.fname,
+          lastname: formVal.lname,
+          addresstype:formVal.addresstype,
+          nickname:formVal.nickname,
           comapanyname:formVal.companyName,
           gst:formVal.gst,
           phone: formVal.mobile,
@@ -105,6 +118,7 @@ export class AddBillingAddressComponent implements OnInit {
             const addr = {
               id: ids,
               firstname: formVal.fname,
+              lastname: formVal.lname,
               addresstype:formVal.addresstype,
               phone: formVal.mobile,
               addr: formVal.address,
@@ -120,7 +134,8 @@ export class AddBillingAddressComponent implements OnInit {
             addrFields.push(addr);
       
             this.userService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
-              // this.addedAddress.emit();
+              this.addedAddress.emit();
+              this.billingAddressForm.reset();
             });
           });
         });
