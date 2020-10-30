@@ -31,11 +31,27 @@ export const rootRouterConfig: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
+        path: 'Pune',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'Hyderabad',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
         path: 'Bangalore',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
       },
       {
         path: 'Mumbai',
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+      },
+      {
+        path: 'Pune',
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+      },
+      {
+        path: 'Hyderabad',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
       },
       {

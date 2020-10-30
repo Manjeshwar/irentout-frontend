@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { trigger, transition, style, animate } from "@angular/animations";
 import {
@@ -28,7 +28,7 @@ import * as $ from 'jquery';
     ]),
   ],
 })
-export class CollectionLeftSidebarComponent implements OnInit, OnChanges, AfterViewInit {
+export class CollectionLeftSidebarComponent implements OnInit, OnChanges {
   public products: Product[] = [];
   public items: Product[] = [];
 
@@ -59,7 +59,7 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges, AfterV
   public animation: any; // Animation
 
   category: string;
-
+  productId;
   lastKey = ''; // key to offset next query from
   finished = false; // boolean when end of data is reached
 
@@ -80,16 +80,17 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges, AfterV
     });
    this.url=window.location.href;
    this.breadcrum = this.url.match(/[^\/]+$/)[0];
+   this.onChangeSorting('latest');
+
+   this.route.params.subscribe(params => {
+     this.productId=params['id'];
+   });
    
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
     // this.result = this.url.match(/[^\/]+$/)[0];
-  }
-
-  ngAfterViewInit(){    
-    $.this.twoCol();
   }
 
 
@@ -332,15 +333,24 @@ export class CollectionLeftSidebarComponent implements OnInit, OnChanges, AfterV
   }
 
   // Update price filter
-  public updatePriceFilters(price: any) {
-    let items: any[] = [];
-    this.products.filter((item: Product) => {
-      if (parseInt(item.prod_price) >= price[0] && parseInt(item.prod_price) <= price[1]) {
-        items.push(item); // push in array
-      }
-    });
-    this.items = items;
-  }
+  // public updatePriceFilters(price: any) {
+  //   let items: any[] = [];
+  //   this.products.filter((item: Product) => {
+  //     if (parseInt(item.prod_price) >= price[0] && parseInt(item.prod_price) <= price[1]) {
+  //       items.push(item); // push in array
+  //     }
+  //   });
+  //   this.items = items;
+  // }
+
+    public updatePriceFilters(price: any) {
+      let items: any[] = [];    
+      this.productsService.getProduct(this.productId).subscribe(product => {
+        if(price==3){
+
+        }
+      });
+    }
 
   public twoCol() {
     if ($(".product-wrapper-grid").hasClass("list-view")) {

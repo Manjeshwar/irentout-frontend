@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
       });
       const categories = Array.from(new Set(this.categories));
       categories.forEach((res) => {
-        this.uniqCategories.push({'href': `${cty}/category/${res}`, 'name': res});
+        this.uniqCategories.push({'href': `${cty}/${res}`, 'name': res});
       });
 
     });

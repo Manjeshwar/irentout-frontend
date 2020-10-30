@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-address',
@@ -12,23 +12,24 @@ export class ProfileAddressComponent implements OnInit {
 
   allBillAddress;
   displayForm;
-  public editAddressForm   :  FormGroup;
-  userId=localStorage.getItem('uid');
+  public editAddressForm: FormGroup;
+  userId = localStorage.getItem('uid');
   addrId;
+  delAddrId;
 
   @ViewChild('billAddressModal') billAddressModal: ElementRef;
   @ViewChild('editAddressModal') editAddressModal: ElementRef;
-  @ViewChild('deleteModal') deleteModal : ElementRef;
+  @ViewChild('deleteModal') deleteModal: ElementRef;
 
-  constructor(public us:UserService,private fb: FormBuilder) { 
+  constructor(public us: UserService, private fb: FormBuilder) {
     this.editAddressForm = this.fb.group({
-      user:['company'],
-      addresstype:[''],
-      nickname:[''],
+      user: ['company'],
+      addresstype: [''],
+      nickname: [''],
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      companyName:[''],
-      gst:[''],
+      companyName: [''],
+      gst: [''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       address: ['', [Validators.required, Validators.maxLength(250)]],
       town: ['', Validators.required],
@@ -40,14 +41,14 @@ export class ProfileAddressComponent implements OnInit {
   ngOnInit(): void {
     this.getUserDetails();
   }
-  getUserDetails(){
-    this.us.getUserDetailsByUid(this.userId).subscribe((dta) => {    
+  getUserDetails() {
+    this.us.getUserDetailsByUid(this.userId).subscribe((dta) => {
       let billAddrsFields = JSON.parse(dta[0].billingaddress);
-      this.allBillAddress = billAddrsFields;        
-  });
+      this.allBillAddress = billAddrsFields;
+    });
   }
 
-  setDefaultBillAddr(id){
+  setDefaultBillAddr(id) {
     const billAddrFields = this.allBillAddress.filter(res => res.id === id);
     this.allBillAddress.forEach(res => {
       if (res.id === id) {
@@ -62,14 +63,29 @@ export class ProfileAddressComponent implements OnInit {
   updateDefaultBillAddress(addr) {
     this.us.addUpdateBillAddress(this.userId, JSON.stringify(addr)).subscribe((addrs) => {
       // console.log(addrs);
+      this.us.addUpdateAddress(this.userId, JSON.stringify(addr)).subscribe((addr) => {
+
+      });
     });
   }
 
-  deleteAddress(id){
-      let deleteAddress = this.allBillAddress.filter(deleteId => {
-        return deleteId.id != id;
-      });
-      // console.log(deleteAddress);
+  setAddrDeleteId(id) {
+    this.delAddrId = id;
+  }
+
+  deleteAddress() {
+    let isDefaultSet = false;
+    let deleteAddress = this.allBillAddress.filter(deleteId => {
+      return deleteId.id != this.delAddrId;
+    });
+    deleteAddress.forEach((res) => {
+      if (res.default) {
+        isDefaultSet = true;
+      }
+    });
+    if (!isDefaultSet) {
+      deleteAddress[0].default = true;
+    }
     this.us.addUpdateBillAddress(this.userId, JSON.stringify(deleteAddress)).subscribe((addrs) => {
       this.getUserDetails();
       this.deleteModal.nativeElement.click();
@@ -82,19 +98,19 @@ export class ProfileAddressComponent implements OnInit {
       this.allBillAddress = billAddrFields;
       billAddrFields = billAddrFields.filter(bill => bill.default);
       this.billAddressModal.nativeElement.click();
-      this.editAddressForm.reset();
-    });
-  }
-  
-  getAddress(id){
-    this.allBillAddress.filter((res) => {
-      if(res.id === id){
-        this.addrId=res;
-      }      
+      // this.editAddressForm.reset();
     });
   }
 
-  changeAddress(){
+  getAddress(id) {
+    this.allBillAddress.filter((res) => {
+      if (res.id === id) {
+        this.addrId = res;
+      }
+    });
+  }
+
+  changeAddress() {
     this.getUserDetails();
     this.editAddressModal.nativeElement.click();
   }

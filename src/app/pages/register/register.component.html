@@ -95,10 +95,10 @@
                             <div class="form-group col-md-6">
                                 <label for="review">Confirm Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="ReEnter your password" required="">
+                                    <input [type]="show1 ? 'text' : 'password'" class="form-control" formControlName="confirmPassword" placeholder="ReEnter your password" required="">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                        <a (click)="passwordVisibility()"><i class="fa {{fa}}"></i></a>
+                                        <a (click)="passwordVisibility1()"><i class="fa {{fa1}}"></i></a>
                                         </span>
                                     </div>
                                 </div>

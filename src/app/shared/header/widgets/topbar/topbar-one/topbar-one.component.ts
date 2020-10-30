@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../classes/product';
 import { WishlistService } from '../../../../services/wishlist.service';
 import { ProductsService } from '../../../../../shared/services/products.service';
@@ -14,6 +14,8 @@ import { UserService } from '../../../../../shared/services/user.service';
   styleUrls: ['./topbar-one.component.scss']
 })
 export class TopbarOneComponent implements OnInit {
+
+  @Input() shoppingCartItems  :   Product[] = [];
   
   constructor(public productsService: ProductsService, private router: Router, private emitS: EmitService, private cityService: UserService,) { }
 
@@ -43,7 +45,7 @@ export class TopbarOneComponent implements OnInit {
 
   emitsearch(val) {
     val = val === '' ? 'all' : val;
-    const url = `${localStorage.getItem('city')}/category/${val}`;
+    const url = `${localStorage.getItem('city')}/${val}`;
     this.router.navigate([url]);
   }
 

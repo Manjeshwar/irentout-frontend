@@ -1,19 +1,18 @@
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="GjRZ2irO"></script>
+
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
                 <div class="page-title">
-                    <h2>product</h2>
+                    <h2>Product</h2>
                 </div>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb" class="theme-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">product</li>
+                        <li class="breadcrumb-item active" aria-current="page">Product</li>
                     </ol>
                 </nav>
             </div>
@@ -31,7 +30,7 @@
                         <div ngxSlickItem *ngFor="let image of product.prod_img">
                           <div>
                             <img src='http://localhost:3000/images/products/{{image}}' alt="" class="img-fluid">
-                            <a class="wishlist-btn wishLt" (click)="addToWishlist(product)"><i class="fa fa-heart"></i></a>
+                            <a class="wishlist-btn wishLt" (click)="addToWishlist(product); mySolidWishlist=!mySolidWishlist;"><i [ngClass]="(mySolidWishlist==true)?'fa fa-heart':'fa fa-heart-o'" ></i></a>
                           </div>
                         </div>
                     </ngx-slick-carousel>
@@ -71,11 +70,11 @@
                                         <h5 class="avalibility" *ngIf="counter > product.prod_qty"><span>Out of Stock</span></h5>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h6 class="product-title">Tenure</h6>
+                                                <p>Tenure</p>
                                                 <div class="qty-box tenure">
                                                     <!-- Button to Open the Modal -->
                                                     <button type="button" class="btn btn-solid" data-toggle="modal" data-target="#myModal">
-                                                        {{tenures}} Months <i class="ti-angle-down"></i>
+                                                        {{tenures}} <span *ngIf="product.cat_name=='Laptop'">Months </span> <span *ngIf="product.cat_name=='Camera'">Days </span> <i class="ti-angle-down"></i>
                                                     </button>
                                                     
                                                     <!-- The Modal -->
@@ -85,8 +84,8 @@
                                                                 
                                                                 <!-- Modal Header -->
                                                                 <div class="modal-header">
-                                                                <h4 class="modal-title">Change Tenure</h4>
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title">Change Tenure</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                 </div>
                                                         
                                                                 <!-- Modal body -->
@@ -104,7 +103,9 @@
                                                                             <td>
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input type="radio" name="tenure" (change)="calcPrice(tenure[1], security_deposit, tenure[0])" value="{{tenure[1]}}"> {{tenure[0]}} Months
+                                                                                        <input type="radio" name="tenure" (change)="calcPrice(tenure[1], security_deposit, tenure[0])" value="{{tenure[1]}}"> 
+                                                                                        {{tenure[0]}} <span *ngIf="product.cat_name=='Laptop'">Months </span>
+                                                                                        <span *ngIf="product.cat_name=='Camera'">Days </span>
                                                                                     </label>
                                                                                 </div>
                                                                             </td>
@@ -128,7 +129,7 @@
                                             </div>
 
                                             <div class="col-md-6 form-group ">
-                                                <h6 class="product-title">Required Date</h6>
+                                                <p>Delivery Date</p>
                                                 <div class="input-group date-picker">
                                                     <input class="form-control" name="dp" (click)="d.toggle()" autocomplete="off"  (dateSelect)="getDate()" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
                                                     <div class="input-group-prepend date-picker">
@@ -138,17 +139,17 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <h6 class="product-title">quantity</h6>
+                                                <p>Quantity</p>
                                                 <div class="qty-box">
                                                     <div class="input-group">
                                                         <span class="input-group-prepend">
-                                                            <button type="button" (click)="decrement()" class="btn quantity-left-minus" data-type="minus" data-field="">
+                                                            <button type="button" (click)="decrement()" class="btn quantity-left-minus rounded-left" data-type="minus" data-field="">
                                                             <i class="ti-minus"></i>
                                                             </button>
                                                         </span>
                                                             <input type="text" name="quantity" class="form-control input-number" value="{{counter}}">
                                                         <span class="input-group-prepend">
-                                                            <button type="button" (click)="increment()" [class.disabled]="counter > product.prod_qty" class="btn quantity-right-plus" data-type="plus" data-field="">
+                                                            <button type="button" (click)="increment()" [class.disabled]="counter > product.prod_qty" class="btn quantity-right-plus rounded-right" data-type="plus" data-field="">
                                                             <i class="ti-plus"></i>
                                                             </button>
                                                         </span>
@@ -157,8 +158,8 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <h4 class="product-title">Rent : <span>₹{{tenure_price}}/Month</span> </h4>
-                                                <h4 class="product-title">Security Deposit : <span>₹{{security_deposit}}</span></h4>
+                                                <p>Rent : <span class="pull-right">₹{{tenure_price}}/Month</span> </p>
+                                                <p>Security Deposit : <span class="pull-right">₹{{security_deposit}}</span></p>
                                                 <!-- <h4 class="product-title">Tentative delivery date: <span>{{addDays}}</span></h4> -->
                                                 <!-- <h4 class="product-title">Date : <span>{{model2 | json}}</span></h4> -->
                                             </div>
@@ -178,14 +179,14 @@
                                         <h6 class="product-title">share it</h6>
                                         <div class="product-icon">
                                             <ul class="product-social">
-                                              <li><div class="fb-share-button" data-href="http://irentout.com/Bangalore/product/fci1669-21:9:2020-22-45-2-410" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Firentout.com%2FBangalore%2Fproduct%2Ffci1669-21%3A9%3A2020-22-45-2-410&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fa fa-facebook"></i></a></div></li>
+                                              <li><div class="fb-share-button" data-href="http://irentout.com/Bangalore/product/fci1669-21:9:2020-22-45-2-410" data-layout="button_count" data-size="small"></div></li>
                                               <li><a href="https://plus.google.com/discover"><i class="fa fa-youtube"></i></a></li>
                                               <li><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
                                               <li><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
                                             </ul>
-                                            <form class="d-inline-block" *ngIf="!productsService?.catalogMode">
+                                            <!-- <form class="d-inline-block" *ngIf="!productsService?.catalogMode">
                                                 <button class="wishlist-btn" (click)="addToWishlist(product)"><i class="fa fa-heart"></i><span class="title-font">Add To WishList</span></button>
-                                            </form>
+                                            </form> -->
                                         </div>
                                     </div>                                    
                                 </div>

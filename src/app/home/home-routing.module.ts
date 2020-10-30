@@ -81,7 +81,16 @@ const routes: Routes = [
   // },
   {
     path: 'product/:id',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    data: {
+      title: 'Laptops for rent',
+      description:'Best Laptops for rent',
+      ogUrl: 'http://irentout.com/Bangalore/product/fci1669-21:9:2020-22-45-2-410',
+      ogType: 'website',
+      ogTitle:'Laptops for rent',
+      ogDescription:'Best laptops for rent',
+      ogImage:'http://localhost:3000/images/products/1600708502384-lappy.jpg'
+    }
   },
   // {
   //   path: 'vertical/product/:id',

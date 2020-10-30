@@ -11,6 +11,7 @@ export class ZoomComponent implements OnInit {
 // Using Input nad Output EventEmitter
 @Input()  processorsHFilters : any[] = [];
 @Output() processorFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
+togglePM:boolean;
 
 // Array
 public checkedTagsArray: any[] = [];

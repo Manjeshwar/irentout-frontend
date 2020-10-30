@@ -13,7 +13,8 @@ export class ColorComponent implements OnInit {
   // Using Input and Output EventEmitter
   @Input()  colorsFilters  :  ColorFilter[] = [];
   @Output() colorFilters   :  EventEmitter<ColorFilter[]> = new EventEmitter<ColorFilter[]>();
-
+  togglePM:boolean;
+  
   constructor() { }
   
   ngOnInit() {  }

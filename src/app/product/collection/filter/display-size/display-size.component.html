@@ -1,6 +1,6 @@
 <!-- brand filter start -->
 <div class="collection-collapse-block open">
-    <h4 class="collapse-block-title-storage">Storage Type</h4>
+    <h4 class="collapse-block-title-storage" (click)="togglePM=!togglePM">Storage Type <i class="float-right" *ngIf="togglePM">+</i><i class="float-right" *ngIf="!togglePM">-</i></h4>
     <div class="collection-collapse-block-content">
       <div class="collection-brand-filter">
         <div class="custom-control custom-checkbox collection-filter-checkbox" *ngFor="let filter of storageHFilters">

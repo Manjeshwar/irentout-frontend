@@ -3,6 +3,8 @@ input{
     border-radius: 4px;
 }
 
-input:focus{
+select:focus, textarea:focus, input:focus{
+    border: 1px solid #c9c2c1 !important;
+    // outline: none;
     box-shadow: none;
-}
+  }

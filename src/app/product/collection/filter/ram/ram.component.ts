@@ -12,7 +12,8 @@ export class RamComponent implements OnInit {
   // Using Input nad Output EventEmitter
   @Input()  ramsFilters : any[] = [];
   @Output() ramFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
-
+  togglePM:boolean;
+  
   // Array
   public checkedTagsArray: any[] = [];
 

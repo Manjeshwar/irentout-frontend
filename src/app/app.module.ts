@@ -17,8 +17,10 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 // components
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
+
 // import { DemoComponent } from './demo/demo.component';
 import * as $ from 'jquery';
+import { SeoService } from './shared/services/seo.service';
 
 
 
@@ -58,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     RouterModule.forRoot(rootRouterConfig, { useHash: false, anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })
   ],
-  providers: [],
+  providers: [SeoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

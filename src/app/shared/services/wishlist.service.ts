@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
 import { map, filter } from 'rxjs/operators';
 
 // Get product from Localstorage
 let products = JSON.parse(localStorage.getItem("wishlistItem")) || [];
+let users_url = `http://localhost:3000/users`;
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +19,13 @@ export class WishlistService {
   public observer   :  Subscriber<{}>;
 
   // Initialize 
-  constructor(private toastrService: ToastrService) { 
+  constructor(private toastrService: ToastrService, private http: HttpClient) { 
     this.wishlistProducts.subscribe(products => products = products);
   }
 
   // Get  wishlist Products
   public getProducts(): Observable<Product[]> {
+    products = JSON.parse(localStorage.getItem("wishlistItem")) || [];
     const itemsStream = new Observable(observer => {
       observer.next(products);
       observer.complete();
@@ -32,21 +35,27 @@ export class WishlistService {
 
   // If item is aleready added In wishlist
   public hasProduct(product: Product): boolean {
-    const item = products.find(item => item.id === product.id);
+    const item = products.find(item => item.prod_id === product.prod_id);
     return item !== undefined;
   }
 
   // Add to wishlist
   public addToWishlist(product: Product): Product | boolean {
-    var item: Product | boolean = false;
+    let item: Product | boolean = false;
     if (this.hasProduct(product)) {
-      item = products.filter(item => item.id === product.id)[0];
+      item = products.filter(item => item.prod_id === product.prod_id)[0];
       const index = products.indexOf(item);
     } else {
       products.push(product);
     }
+    
+      const allAddedProducts = JSON.stringify(products);
+      const uid = localStorage.getItem("uid");
       this.toastrService.success('This product added to Wishlist.'); // toasr services
-      localStorage.setItem("wishlistItem", JSON.stringify(products));
+      this.http.put(`${users_url}/wishlist/${uid}`, { wishlist: allAddedProducts }).subscribe((res) => {
+        console.log(res);
+      });
+      localStorage.setItem("wishlistItem", allAddedProducts);
       return item;
   }
 
@@ -55,7 +64,16 @@ export class WishlistService {
     if (product === undefined) { return; }
     const index = products.indexOf(product);
     products.splice(index, 1);
-    localStorage.setItem("wishlistItem", JSON.stringify(products));
+    const allAddedProducts = JSON.stringify(products);
+    const uid = localStorage.getItem("uid");
+    this.http.put(`${users_url}/wishlist/${uid}`, { wishlist: allAddedProducts }).subscribe((res) => {
+      console.log(res);
+    });
+    localStorage.setItem("wishlistItem", allAddedProducts);
+  }
+
+  getwishlistDetails(uid) {
+    return this.http.get(`${users_url}/wishlist/${uid}`);
   }
   
 

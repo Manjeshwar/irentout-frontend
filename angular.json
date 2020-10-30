@@ -43,7 +43,8 @@
               "node_modules/masonry-layout/dist/masonry.pkgd.min.js",
               "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
               "node_modules/imagesloaded/imagesloaded.pkgd.js",
-              "src/assets/js/footer-reveal.min.js"
+              "src/assets/js/footer-reveal.min.js",
+              "node_modules/jspdf/dist/jspdf.min.js"
             ]
           },
           "configurations": {

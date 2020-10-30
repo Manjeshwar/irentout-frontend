@@ -13,7 +13,7 @@ export class BrandComponent implements OnInit {
   // Using Input nad Output EventEmitter
   @Input()  tagsFilters : ProductTags[] = [];
   @Output() tagFilters  : EventEmitter<ProductTags[]> = new EventEmitter<ProductTags[]>();
-
+  togglePM:boolean;
   // Array
   public checkedTagsArray: any[] = [];
 

@@ -22,7 +22,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   fa:string="fa-eye-slash";
+  fa1:string="fa-eye-slash";
   show: boolean=false;
+  show1: boolean=false;
   constructor(private formBuilder: FormBuilder, private rs: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -66,6 +68,15 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  passwordVisibility1(){
+    this.show1 = !this.show1;
+    if(this.show1){
+      this.fa1="fa-eye";
+    }
+    else{
+      this.fa1="fa-eye-slash";
+    }
+  }
   
 
 }

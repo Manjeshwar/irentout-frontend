@@ -22,6 +22,7 @@ export interface Product {
   prod_name?: string;
   prod_qty?:number;
   prod_price?: string;
+  prod_deliveryDate?: number;
   prod_img?;
   prod_description?: string;
   prod_ram?: string;

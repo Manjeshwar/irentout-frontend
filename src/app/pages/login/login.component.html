@@ -26,14 +26,14 @@
             <div class="col-lg-6">
                 <h3>Login</h3>
                 <div class="theme-card">
-                    <form class="theme-form" [formGroup]="loginForm" (ngSubmit)="loginUserForm()">
+                    <form class="theme-form" [formGroup]="loginForm" >
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" formControlName="email" id="email" placeholder="Email" required="">
-                            <div *ngIf="submitted && !loginForm.valid && loginForm.controls.email.errors?.required" class="text text-danger">
+                            <div *ngIf="loginForm.controls.email.touched && !loginForm.valid && loginForm.controls.email.errors?.required" class="text text-danger">
                                 Please enter your email and password to login
                             </div>
-                            <div *ngIf="!loginForm.valid && loginForm.controls.email.errors?.email" class="text text-danger">
+                            <div *ngIf="loginForm.controls.email.touched && !loginForm.valid && loginForm.controls.email.errors?.email" class="text text-danger">
                                 Invalid Email
                             </div>
                             <div class="text text-danger">
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label for="review">Password</label>
                             <input type="password" class="form-control" formControlName="password" id="review" placeholder="Enter your password" required="">
-                            <div *ngIf="submitted && !loginForm.valid && loginForm.controls.password.errors?.required" class="text text-danger">
+                            <div *ngIf="loginForm.controls.password.touched && !loginForm.valid && loginForm.controls.password.errors?.required" class="text text-danger">
                                 Please enter password.
                             </div>
                             <div *ngIf="dbVerifiedPassword" class="text text-danger">
@@ -51,15 +51,22 @@
                             </div>
                             <a [routerLink]="['/',city,'forgotpassword']">Forgot password?</a>
                         </div>
-                        <button class="btn btn-solid">Login</button>
+                        <div class="loginAll">
+                            <div class="webLogin mr-2">
+                                <button class="btn btn-solid mr-2" (click)="loginUserForm()">Login</button>
+                            </div>
+                            <div class="socialLogin">                                
+                                <a href="http://localhost:3000/auth/google">Or login with <img src="assets/images/google.png"></a>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <!-- <div class="col-lg-6">
                     <a href="http://localhost:3000/auth/facebook">Login with Facebook</a>
                 </div> -->
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <a href="http://localhost:3000/auth/google">Login with Google</a>
-                </div>
+                </div> -->
                 
             </div>
             <div class="col-lg-6 right-login">

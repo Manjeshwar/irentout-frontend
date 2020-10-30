@@ -134,14 +134,14 @@ ngOnInit() {
         if (city.cityname === localStorage.getItem('city')) {
           return city;
         }
-    });
-    this.gst = parseFloat(a[0].taxes);
-    this.taxInfoDisp(a[0].cityname);
+      });
+      this.gst = parseFloat(a[0].taxes);
+      this.taxInfoDisp(a[0].cityname);
 
-    this.getDeposit();
-    this.getTenure();
-    this.calculateTotal();
-    this.transactionId();
+      this.getDeposit();
+      this.getTenure();
+      this.calculateTotal();
+      this.transactionId();
     }
     
   });
@@ -191,7 +191,7 @@ ngOnInit() {
   this.generateCheckoutDta();
 }
 
-changeDefaultAddr(id) {
+changeAddr(id) {
   const addrFields = this.allDelvAddress.filter(res => res.id === id);
   // this.allDelvAddress.forEach(res => {
   //   if (res.id === id) {
@@ -474,7 +474,7 @@ newAddressAdded() {
     this.allDelvAddress = addrFields;
     addrFields = addrFields.filter(res => res.default);
 
-    this.changeDefaultAddr(addrFields[0].id);
+    this.changeAddr(addrFields[0].id);
     // this.changeAddressModal.nativeElement.click();
   });
 }

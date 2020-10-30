@@ -33,6 +33,7 @@ import { AddAddressComponent } from './add-address/add-address.component';
 import { AddBillingAddressComponent } from './add-billing-address/add-billing-address.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'about-us',
         component: AboutUsComponent
+      },
+      {
+        path: 'coming-soon',
+        component: ComingSoonComponent
       },
       {
         path: '404',

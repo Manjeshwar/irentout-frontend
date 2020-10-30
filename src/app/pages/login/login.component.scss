@@ -3,6 +3,33 @@ input{
     border-radius: 4px;
 }
 
-input:focus{
-    box-shadow: none;
+// input:focus{
+//     box-shadow: none;
+// }
+a{
+    color: #f36f02 !important;
 }
+
+.loginAll{
+    display: flex;
+    font-size: 15px;
+    
+    .webLogin{
+        // border-right: 1px solid  #c9c2c1;
+        button{
+            padding: 5px;
+        }
+        
+    }
+    .socialLogin{
+        img{
+            width:7%;
+        }
+    }    
+}
+
+select:focus, textarea:focus, input:focus{
+    border: 1px solid #c9c2c1 !important;
+    // outline: none;
+    box-shadow: none;
+  }

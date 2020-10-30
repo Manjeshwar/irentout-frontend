@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Options } from 'ng5-slider';
 // import 'rxjs/add/observable/interval';
 
 @Component({
@@ -9,8 +10,22 @@ import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@ang
 })
 export class PriceComponent implements OnInit {
 
+  value: number = 5;
+  options: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      {value: 3},
+      {value: 6},
+      {value: 9},
+      {value: 12},
+      {value:18},
+      {value:24},
+    ]
+  };
+
   // Using Output EventEmitter
   @Output() priceFilters = new EventEmitter();
+  togglePM:boolean;
     
   // define min, max and range
   public min : number = 100;

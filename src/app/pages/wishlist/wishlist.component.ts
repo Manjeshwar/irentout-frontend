@@ -15,6 +15,7 @@ export class WishlistComponent implements OnInit {
 
   public product        :   Observable<Product[]> = of([]);
   public wishlistItems  :   Product[] = [];
+  city = `${localStorage.getItem('city')}`;
 
   constructor(private router: Router, private wishlistService: WishlistService,
   private productsService: ProductsService, private cartService: CartService) { 

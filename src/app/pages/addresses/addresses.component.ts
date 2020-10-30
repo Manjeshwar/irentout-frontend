@@ -33,7 +33,7 @@ export class AddressesComponent implements OnInit {
       companyName:[''],
       gst:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      address: ['', [Validators.required, Validators.maxLength(50)]],
+      address: ['', [Validators.required, Validators.maxLength(200)]],
       town: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.minLength(6)]],

@@ -18,7 +18,6 @@ export class CartComponent implements OnInit {
   constructor(private productsService: ProductsService,
     private cartService: CartService) { }
     city = `${localStorage.getItem('city')}`;
-    currentCity= localStorage.getItem('city');
 
   ngOnInit() {
     // const location = window.location.href;

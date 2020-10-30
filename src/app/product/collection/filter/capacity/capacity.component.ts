@@ -11,7 +11,8 @@ export class CapacityComponent implements OnInit {
   // Using Input nad Output EventEmitter
   @Input()  capacityHFilters : any[] = [];
   @Output() capacityFilters  : EventEmitter<any[]> = new EventEmitter<any[]>();
-
+  togglePM:boolean; 
+  
   // Array
   public checkedTagsArray: any[] = [];
 

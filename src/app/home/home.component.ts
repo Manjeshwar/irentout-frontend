@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { Product } from '../shared/classes/product';
 import { ProductsService } from '../shared/services/products.service';
 declare var $: any;
@@ -11,8 +12,15 @@ declare var $: any;
 export class HomeComponent implements OnInit {
 
   public products: Product[] = [];
+  public url : any; 
   
-  constructor(private productsService: ProductsService) {   }
+  constructor(private productsService: ProductsService, private router: Router) {  
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.url = event.url;
+      }
+    });
+   }
 
   ngOnInit() {
     $.getScript('assets/js/script.js');

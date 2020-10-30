@@ -34,12 +34,13 @@
           </ul>
         </li>
         <li class="mobile-wishlist">
-          <a [routerLink]="'/categories/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
+          <a [routerLink]="['/',currentCity,'wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a>
+          <!-- <span class="wish_qty_cls">{{shoppingCartItems.length}}</span> -->
         </li>
         <li class="onhover-dropdown mobile-account">
           <!-- <i class="fa fa-user" aria-hidden="true"></i> -->
            <button *ngIf="!display" class="btn btn-solid" (click)="login()" data-lng="en">{{ accountName }} </button>
-           <a *ngIf="display" (click)="login()" data-lng="en">{{ accountName }} </a>
+           <a *ngIf="display" (click)="login()" data-lng="en">{{ (accountName.length>18)? (accountName | slice:0:18)+'...':(accountName) }} </a>
            <i *ngIf="display" class="fa fa-chevron-down right-text"></i>
           <ul class="onhover-show-div" *ngIf="display">
             <!-- <li *ngIf="!display">

@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
 
   emitsearch(val) {
     val = val === '' ? 'all' : val;
-    const url = `${localStorage.getItem('city')}/category/${val}`;
+    const url = `${localStorage.getItem('city')}/${val}`;
     this.route.navigate([url]);
   }
 

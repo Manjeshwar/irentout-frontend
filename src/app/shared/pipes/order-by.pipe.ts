@@ -87,6 +87,20 @@ export class OrderByPipe implements PipeTransform {
         }
       });
     }
+    else if(val == 'latest'){
+      return Array.from(array).sort((item: any) => { 
+        if(item['prod_newproducts']==1 || item['prod_qty']>0){
+         return -1;
+        }
+      });
+    }
+    else if(val == 'delivery'){
+      return Array.from(array).sort((item: any) => { 
+        if(item['prod_qty']>0 || item['prod_deliveryDate']>2){
+         return -1;
+        }
+      });
+    }
 
  }
 

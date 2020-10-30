@@ -1,9 +1,10 @@
 <!-- <app-header-one></app-header-one> -->
-<app-slider></app-slider>
-<app-collection-banner></app-collection-banner>
-<app-product-tab [products]="products"></app-product-tab>
-<app-parallax-banner></app-parallax-banner>
+<app-coming-soon *ngIf="url == '/Mumbai' || url == '/Pune' || url == '/Hyderabad'"></app-coming-soon>
+<app-slider *ngIf="url == '/Bangalore'"></app-slider>
+<app-collection-banner *ngIf="url == '/Bangalore'"></app-collection-banner>
+<app-product-tab *ngIf="url == '/Bangalore'" [products]="products"></app-product-tab>
+<app-parallax-banner *ngIf="url == '/Bangalore'"></app-parallax-banner>
 <!-- <app-blog></app-blog> -->
-<app-quick-view></app-quick-view>
-<app-modal-cart></app-modal-cart>
+<app-quick-view *ngIf="url == '/Bangalore'"></app-quick-view>
+<app-modal-cart *ngIf="url == '/Bangalore'"></app-modal-cart>
 <!-- <app-footer-one></app-footer-one> -->

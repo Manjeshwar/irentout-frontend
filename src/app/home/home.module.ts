@@ -68,7 +68,7 @@ import { ResolutionComponent } from '../product/collection/filter/resolution/res
 import { ZoomComponent } from '../product/collection/filter/zoom/zoom.component';
 import { DisplaySizeComponent } from '../product/collection/filter/display-size/display-size.component';
 import { SensorTypeComponent } from '../product/collection/filter/sensor-type/sensor-type.component';
-
+import { Ng5SliderModule } from 'ng5-slider'
 
 @NgModule({
   declarations: [
@@ -138,6 +138,7 @@ import { SensorTypeComponent } from '../product/collection/filter/sensor-type/se
     NgxPayPalModule,
     NgxImgZoomModule,
     NgbModule,
+    Ng5SliderModule,
     PagesModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]

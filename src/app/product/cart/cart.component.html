@@ -138,11 +138,9 @@
         </div>
       </div>
       <div class="row cart-buttons" *ngIf='shoppingCartItems.length'>
-        <div class="col-6">
-          <a [routerLink]="['../category/Laptop']" class="btn btn-solid">continue shopping</a>
-        </div>
-        <div class="col-6">
-          <a [routerLink]="['/',currentCity,'checkout']" class="btn btn-solid">check out</a>
+        <div class="col-12">
+          <a [routerLink]="['../Laptop']" class="btn btn-solid mr-1">continue shopping</a>
+          <a [routerLink]="['/',city,'checkout']" class="btn btn-solid">check out</a>
         </div>
       </div>
     </div>

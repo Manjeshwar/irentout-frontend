@@ -4,14 +4,14 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="page-title">
-            <h2>wishlist</h2>
+            <h2>Wishlist</h2>
           </div>
         </div>
         <div class="col-sm-6">
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
-              <li class="breadcrumb-item active">wishlist</li>
+              <li class="breadcrumb-item active">Wishlist</li>
             </ol>
           </nav>
         </div>
@@ -32,22 +32,22 @@
           <table class="table cart-table table-responsive-xs">
             <thead>
               <tr class="table-head">
-                <th scope="col">image</th>
-                <th scope="col">product name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Product name</th>
                 <th scope="col">Rent</th>
                 <th scope="col">Security deposit</th>
-                <th scope="col">action</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of wishlistItems">
               <tr>
                 <td>
-                  <a [routerLink]="['/category/product', item.prod_id]">
+                  <a [routerLink]="['../product',item.prod_id]">
                     <img src="http://localhost:3000/images/products/{{item.prod_img[0]}}" alt="">
                   </a>
                 </td>
                 <td>
-                  <a [routerLink]="['/categories/product', item.prod_id]">{{ item.prod_name }}</a>
+                  <a [routerLink]="['../product',item.prod_id]">{{ item.prod_name }}</a>
                   <div class="mobile-cart-content row">
                     <div class="col-xs-3">
                       <p>{{ item.prod_price}}</p>
@@ -60,7 +60,7 @@
                         <a [routerLink]="" (click)="removeItem(item)" class="icon mr-1">
                           <i class="ti-close"></i>
                         </a>
-                        <a [routerLink]="" (click)="addToCart(item)" class="cart">
+                        <a [routerLink]="" (click)="addToCart(item,1,item.prod_tenure[0][1],item.prod_price,item.prod_deliveryDate)" class="cart">
                           <i class="ti-shopping-cart"></i>
                         </a>
                       </h2>
@@ -77,7 +77,7 @@
                   <a [routerLink]="" (click)="removeItem(item)" class="icon mr-3">
                     <i class="ti-close"></i>
                   </a>
-                  <a [routerLink]="'/categories/cart'" (click)="addToCart(item)" class="cart">
+                  <a [routerLink]="'/categories/cart'" (click)="addToCart(item,1,item.prod_tenure[0][1],item.prod_price,item.prod_deliveryDate)" class="cart">
                     <i class="ti-shopping-cart"></i>
                   </a>
                 </td>
@@ -88,8 +88,8 @@
       </div>
       <div class="row wishlist-buttons" *ngIf='wishlistItems.length'>
         <div class="col-12">
-          <a [routerLink]="['/collection/all']" class="btn btn-solid">continue shopping</a>
-          <a [routerLink]="['/checkout']" class="btn btn-solid">check out</a>
+          <a [routerLink]="['../Laptop']" class="btn btn-solid">continue shopping</a>
+          <a [routerLink]="['/',city,'checkout']" class="btn btn-solid">check out</a>
         </div>
       </div>
     </div>

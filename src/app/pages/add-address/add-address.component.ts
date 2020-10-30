@@ -32,7 +32,7 @@ export class AddAddressComponent implements OnInit {
       fname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       addresstype:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      address: ['', [Validators.required, Validators.maxLength(50)]],
+      address: ['', [Validators.required, Validators.maxLength(200)]],
       town: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.minLength(6)]],

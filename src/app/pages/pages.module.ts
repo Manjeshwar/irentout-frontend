@@ -41,6 +41,7 @@ import { AddAddressComponent } from '../pages/add-address/add-address.component'
 import { AddBillingAddressComponent } from '../pages/add-billing-address/add-billing-address.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 @NgModule({
   imports: [
@@ -55,9 +56,12 @@ import { SettingsComponent } from './settings/settings.component';
   exports:[
     AddAddressComponent,
     AddBillingAddressComponent,
-    FaqComponent],
+    FaqComponent,
+    ComingSoonComponent
+  ],
   declarations: [
     AboutUsComponent,
+    ComingSoonComponent,
     ErrorPageComponent,
     LookbookComponent,
     LoginComponent,
@@ -90,7 +94,8 @@ import { SettingsComponent } from './settings/settings.component';
     ProfileComponent,
     ProfileAddressComponent,
     EditAddressComponent,
-    SettingsComponent
+    SettingsComponent,
+    ComingSoonComponent
   ]
 })
 export class PagesModule { }

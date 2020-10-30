@@ -37,7 +37,7 @@ export class AddBillingAddressComponent implements OnInit {
       companyName:[''],
       gst:[''],
       mobile: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      address: ['', [Validators.required, Validators.maxLength(250)]],
+      address: ['', [Validators.required, Validators.maxLength(200)]],
       town: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.minLength(6)]],
@@ -80,6 +80,18 @@ export class AddBillingAddressComponent implements OnInit {
     });
   }
 
+  formReset(){
+    this.billingAddressForm.controls['addresstype'].reset();
+    this.billingAddressForm.controls['nickname'].reset();
+    this.billingAddressForm.controls['fname'].reset();
+    this.billingAddressForm.controls['lname'].reset();
+    this.billingAddressForm.controls['companyName'].reset();
+    this.billingAddressForm.controls['gst'].reset();
+    this.billingAddressForm.controls['mobile'].reset();
+    this.billingAddressForm.controls['address'].reset();
+    this.billingAddressForm.controls['pincode'].reset();
+  }
+
   addBillAddress() {
     const controls = this.billingAddressForm.controls;
 
@@ -104,15 +116,15 @@ export class AddBillingAddressComponent implements OnInit {
           city: formVal.town,
           state: formVal.state,
           postal: formVal.pincode,
-          default: true
+          default: false
         };
-        const addrFields = JSON.parse(dta[0].billingaddress);
-        addrFields.forEach((res) => {
-          res.default = false;
-        });
-        addrFields.push(addr);
+        const billAddrFields = JSON.parse(dta[0].billingaddress);
+        // billAddrFields.forEach((res) => {
+        //   res.default = false;
+        // });
+        billAddrFields.push(addr);
   
-        this.userService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
+        this.userService.addUpdateBillAddress(localStorage.getItem('uid'), JSON.stringify(billAddrFields)).subscribe((addrs) => {
           this.addedBillAddress.emit();
           this.userService.getAddress(localStorage.getItem('uid')).subscribe((dta) => {
             const addr = {
@@ -128,14 +140,12 @@ export class AddBillingAddressComponent implements OnInit {
               default: false
             };
             const addrFields = JSON.parse(dta[0].address);
-            // addrFields.forEach((res) => {
-            //   res.default = false;
-            // });
             addrFields.push(addr);
       
             this.userService.addUpdateAddress(localStorage.getItem('uid'), JSON.stringify(addrFields)).subscribe((addrs) => {
               this.addedAddress.emit();
-              this.billingAddressForm.reset();
+              // this.billingAddressForm.reset();
+              this.formReset();
             });
           });
         });

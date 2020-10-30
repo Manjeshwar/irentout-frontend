@@ -41,7 +41,8 @@
     1.General CSS start
     ==========================*/
 html {
-  overflow-x: hidden;
+  // overflow-x: hidden;
+  overflow-x: initial !important;
   scroll-behavior: smooth;
 }
 
@@ -498,7 +499,7 @@ button {
 }
 
 .btn-solid {
-  padding: 13px 29px;
+  padding: 1% 2%;
   color: $white;
   letter-spacing: 0.05em;
   border: 2px solid $theme-deafult;
@@ -523,9 +524,9 @@ button {
     border-radius: 7px;
   }
 
-  &:focus {
-    color: $black;
-  }
+  // &:focus {
+  //   color: $black;
+  // }
 }
 
 .btn-outline {
@@ -984,7 +985,10 @@ header {
 
       .form-control {
         &:focus {
+          border-color: inherit;
+          -webkit-box-shadow: none;
           box-shadow: none;
+          outline: none;
         }
       }
 
@@ -994,6 +998,7 @@ header {
         border-bottom: 2px solid lighten($black, 46.5%);
         border-radius: 7px;
         padding: 20px 0;
+        
 
         &::-webkit-input-placeholder {
           /* Chrome/Opera/Safari */
@@ -1018,6 +1023,12 @@ header {
           color: lighten($black, 46.5%);
           font-size: 18px;
         }
+      }
+
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
       }
 
       button {
@@ -2564,7 +2575,7 @@ header {
   transition: all 0.5s ease;
 
   &.product-wrap {
-    //padding-bottom: 15px;
+    padding-bottom: 15px;
   }
 
   .img-block {
@@ -2795,9 +2806,8 @@ header {
   .product-detail,
   .product-info {
     padding-left: 10px;
-
     .rating {
-      margin-top: 15px;
+      margin-top: 2px;
       .pro-rating{
         .br-units{
           justify-content: center;
@@ -2827,7 +2837,7 @@ header {
     }
 
     h4 {
-      font-size: 18px;
+      font-size: 15px;
       color: $dark-font;
       font-weight: 700;
       margin-bottom: 0;
@@ -4577,11 +4587,20 @@ header {
 }
 
 
+
+
 /*=====================
     16.footer CSS start
     ==========================*/
 footer {
   position: relative;
+
+  // padding-bottom: 0px;
+  margin-bottom:-50px !important;
+  // position: absolute;
+  bottom:0 !important;
+  // width:100%;
+  // border: 1px solid black;
 
   .footer-lable {
     position: absolute;
@@ -4671,9 +4690,10 @@ footer {
 .footer-light {
   // padding-top: 500px;
   // padding-bottom: 0px;
-  // position:absolute;
-  // bottom:0;
+  // position: absolute;
+  // bottom:0 !important;
   // width:100%;
+  // border: 1px solid black;
   .subscribe {
     display: flex;
     height: 100%;
@@ -4692,9 +4712,9 @@ footer {
 
   .subscribe-form {
     display: flex;
-    align-items: center;
+    // align-items: center;
     height: 100%;
-    justify-content: flex-end;
+    justify-content:flex-start;
   }
 }
 .footer-theme2{
@@ -4881,22 +4901,29 @@ footer {
   }
 
   .form-control {
-    padding: 13px;
-    width: 345px;
+    padding: 7px;
+    width: 245px;
+    margin-left:-16px;
     border-radius: 7px;
     border: 1px solid $white-dark;
+    box-shadow: none;
+    height: 104%;
 
     &.name-cls {
       width: 265px;
     }
   }
 
+  // button{
+  //   padding: 1%!important;
+  // }
+
   &.classic-form {
     .form-control {
       border-radius: 0;
       border: none;
       background-color: $form-bg;
-      margin-left: 15px;
+      margin-left: 0px;
     }
 
     .btn-solid {
@@ -5909,7 +5936,7 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
 
     &:after {
@@ -5917,7 +5944,7 @@ footer {
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -5929,15 +5956,16 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
+    // border-bottom: 1px dashed $round-border;
 
     &:after {
       position: absolute;
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -5949,7 +5977,7 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
 
     &:after {
@@ -5957,7 +5985,7 @@ footer {
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -5969,7 +5997,7 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
 
     &:after {
@@ -5977,7 +6005,7 @@ footer {
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -5989,7 +6017,7 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
 
     &:after {
@@ -5997,7 +6025,7 @@ footer {
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -6009,7 +6037,7 @@ footer {
     text-transform: none;
     font-size: 16px;
     color: lighten($black, 26.5%);
-    font-weight: 600;
+    font-weight: 500;
     margin: 25px 0 0 0;
 
     &:after {
@@ -6017,7 +6045,7 @@ footer {
       display: block;
       top: 0;
       right: -3px;
-      content: "\f0d7";
+      // content: "\f0d7";
       font-family: $font-awesome;
       color: lighten($black, 26.5%);
     }
@@ -6069,7 +6097,7 @@ footer {
           cursor: pointer;
           font-size: 12px;
           color: lighten($black, 46.5%);
-          font-weight: 600;
+          font-weight: 400;
           letter-spacing: 0.5px;
 
           &:before {
@@ -6773,12 +6801,18 @@ footer {
     input {
       border-color: $round-border;
       font-size: 15px;
-      padding: 15px 25px;
+      padding: 10px 15px;
       margin-bottom: 15px;
       height: inherit;
       text-align: center;
       border-radius: 7px;
     }
+
+    select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
+      }
 
     .btn-solid {
       margin: 0 auto;
@@ -6813,10 +6847,16 @@ footer {
       input {
         border-color: $round-border;
         font-size: 12px;
-        padding: 17px 25px;
+        padding: 10px 15px;
         margin-bottom: 30px;
         height: inherit;
         border-radius: 7px;
+      }
+
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
       }
     }
   }
@@ -6866,10 +6906,16 @@ footer {
       input {
         border-color: $round-border;
         font-size: 12px;
-        padding: 17px 25px;
+        padding: 10px 15px;
         margin-bottom: 30px;
         height: inherit;
         border-radius: 7px;
+      }
+
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
       }
     }
   }
@@ -6899,6 +6945,12 @@ footer {
         &:focus {
           box-shadow: none;
         }
+      }
+
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
       }
 
       i {
@@ -6988,7 +7040,7 @@ footer {
     input {
       border-color: $round-border;
       font-size: 12px;
-      padding: 17px 25px;
+      padding: 10px 15px;
       margin-bottom: 30px;
       height: inherit;
       border-radius: 7px;
@@ -6997,11 +7049,17 @@ footer {
     textarea {
       border-color: $round-border;
       font-size: 12px;
-      padding: 17px 25px;
+      padding: 10px 15px;
       margin-bottom: 30px;
       height: inherit;
       border-radius: 7px;
     }
+
+    select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
+      }
 
   }
 
@@ -7351,8 +7409,13 @@ footer {
         border-color: $round-border;
         border-radius: 7px;
         font-size: 14px;
-        padding: 17px 25px;
+        padding: 10px 15px;
         margin-bottom: 30px;
+      }
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
       }
     }
   }
@@ -7789,10 +7852,10 @@ footer {
     top:10px; 
     margin-bottom: 10px;
 
-    input { height: 40px; border-radius: 7px;}
+    input { height: 38px; border-radius: 7px; padding: 2px;}
     .btn-solid,
     .btn-outline {
-      padding: 8px 25px;
+      padding: 7px 15px;
       border-radius: 7px;
     }
 
@@ -8125,12 +8188,12 @@ footer {
       border-color: $round-border;
       border-radius: 7px;
       font-size: 15px;
-      padding: 15px 25px;
+      padding: 10px 15px;
       margin-bottom: 15px;
       height: inherit;
       text-align: left;
     }
-
+    
     .btn-solid {
       margin: 0 auto;
     }
@@ -8143,6 +8206,11 @@ footer {
       margin-bottom: 15px;
       height: inherit;
     }
+    select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
+      }
   }
 
   .tab-content.nav-material {
@@ -8456,6 +8524,11 @@ footer {
       height: 45px;
       border: 1px solid #dddddd;
     }
+    select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
+      }
   }
 
   .check-box {
@@ -11629,6 +11702,10 @@ footer {
     background: none;
     padding: 0 10px;
   }
+  textarea:focus, input:focus{
+    outline: none;
+    box-shadow: none;
+  }
   button {
     position: absolute;
     top: 5px;
@@ -12188,6 +12265,11 @@ footer {
         padding-left: 15px;
         background-color: transparent;
       }
+      select:focus, textarea:focus, input:focus{
+        border: inherit;
+        outline: none;
+        box-shadow: none;
+      }
       .btn-search {
         position: absolute;
         right: 10px;
@@ -12380,6 +12462,10 @@ footer {
     background: none;
     padding: 0 10px;
     border-radius: 7px;
+  }
+  textarea:focus, input:focus{
+    outline: none;
+    box-shadow: none;
   }
   button {
     position: absolute;
@@ -13068,4 +13154,85 @@ footer {
 .duration .product-date{
   height:70%;
   // border-color: #f36f02!important;
+}
+
+
+
+// coming soon //
+.template-password {
+  background: url("#{$assetspath}/coming-soon.jpg");
+  background-size: cover;
+  height: 100vh;
+  #container {
+      height: 100vh;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      >div {
+          width: 100%;
+      }
+      #login {
+          width: 100%;
+          margin-bottom: 120px;
+          h2 {
+              color: var(--theme-deafult);
+              font-size: 30px;
+              font-weight: 400;
+          }
+          .theme-form {
+              h3 {
+                  color: $header-font;
+                  font-size: 20px;
+              }
+              input {
+                  border-color: $round-border;
+                  font-size: 12px;
+                  padding: 10px 15px;
+                  margin-bottom: 15px;
+                  height: inherit;
+              }
+              input {
+                  &:focus {
+                      box-shadow: none;
+                  }
+              }
+          }
+      }
+      #powered {
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          right: 0;
+      }
+      #owner {
+          a {
+              color: var(--theme-deafult);
+          }
+      }
+  }
+}
+
+.template-password {
+  #container {
+      #login {
+          .actions {
+              text-align: center;
+          }
+          .theme-form {
+              h3 {
+                  text-align: center;
+              }
+          }
+          h2 {
+              text-align: center;
+          }
+      }
+      #powered {
+          p {
+              text-align: center;
+          }
+      }
+  }
 }

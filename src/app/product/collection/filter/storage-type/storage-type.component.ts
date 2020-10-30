@@ -11,7 +11,8 @@ export class StorageTypeComponent implements OnInit {
   // Using Input nad Output EventEmitter
   @Input()  storageHFilters: any[] = [];
   @Output() storageFilters: EventEmitter<any[]> = new EventEmitter<any[]>();
-
+  togglePM:boolean;
+  
   // Array
   public checkedTagsArray: any[] = [];
 

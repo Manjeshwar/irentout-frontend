@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
   loginUserForm() {
     this.submitted = true;
     this.dbVerifiedPassword = false;
-    // const controls = this.loginForm.controls;
+    const controls = this.loginForm.controls;
 
-    // Object.keys(controls).forEach(key => {
-    //   controls[key].markAsTouched();
-    // })
+    Object.keys(controls).forEach(key => {
+      controls[key].markAsTouched();
+    });
     if(this.loginForm.valid) {
       let token;
       this.us.userLogin(this.loginForm.value).subscribe((res: any) => {

@@ -1,6 +1,6 @@
 <!-- brand filter start -->
 <div class="collection-collapse-block open">
-    <h4 class="collapse-block-title-brand">Brand</h4>
+    <p class="collapse-block-title-brand" (click)="togglePM=!togglePM">Brand <i class="float-right" *ngIf="togglePM">+</i><i class="float-right" *ngIf="!togglePM">-</i></p>
     <div class="collection-collapse-block-content">
       <div class="collection-brand-filter">
         <div class="custom-control custom-checkbox collection-filter-checkbox" *ngFor="let filter of tagsFilters">

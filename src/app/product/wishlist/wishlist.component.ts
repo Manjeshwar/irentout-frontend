@@ -16,6 +16,8 @@ export class WishlistComponent implements OnInit {
   public product        :   Observable<Product[]> = of([]);
   public wishlistItems  :   Product[] = [];
 
+  city = `${localStorage.getItem('city')}`;
+
   constructor(private router: Router, private wishlistService: WishlistService,
   private productsService: ProductsService, private cartService: CartService) { 
     this.product = this.wishlistService.getProducts();
@@ -25,7 +27,7 @@ export class WishlistComponent implements OnInit {
   ngOnInit() { }
 
   // Add to cart
-  public addToCart(product: Product,  quantity: number = 1,tenures,tenure_price, deliveryDate) {
+  public addToCart(product: Product,  quantity: number,tenures,tenure_price, deliveryDate) {
      if (quantity > 0)
       this.cartService.addToCart(product,quantity,tenures, tenure_price, deliveryDate);
       this.wishlistService.removeFromWishlist(product);

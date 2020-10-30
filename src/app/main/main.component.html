@@ -1,4 +1,4 @@
-<app-header-one *ngIf="url != '/categories/two' && url != '/categories/three' && url != '/categories/four' && url != '/categories/five' && url != '/categories/ten' && url != '/categories/eleven' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-header-one>
+<app-header-one *ngIf="url != '/Mumbai' && url != '/Pune' && url != '/Hyderabad' && url != '/categories/two' && url != '/categories/three' && url != '/categories/four' && url != '/categories/five' && url != '/categories/ten' && url != '/categories/eleven' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-header-one>
 
 <app-header-two *ngIf="url == '/categories/five' || url == '/categories/three'"></app-header-two>
 
@@ -14,7 +14,7 @@
 	
 	<router-outlet></router-outlet>
 	
-	<app-footer-one *ngIf="url != '/categories/three' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-footer-one>
+	<app-footer-one *ngIf="url != '/Mumbai' && url != '/Pune' && url != '/Hyderabad' && url != '/categories/three' && url != '/categories/twelve' && url != '/categories/thirteen' && url != '/categories/fourteen'"></app-footer-one>
 	
 	<app-footer-two *ngIf="url == '/categories/three' || url == '/categories/twelve'"></app-footer-two>
 

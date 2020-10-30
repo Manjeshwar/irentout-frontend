@@ -7,7 +7,10 @@
 // }
 
 /* With arrow tabs */
-
+*:focus{
+  -webkit-box-shadow:none;
+  box-shadow: none;
+}
 .with-arrow .nav-link.active {
     position: relative;
   }

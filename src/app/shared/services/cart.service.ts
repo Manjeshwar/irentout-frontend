@@ -117,7 +117,7 @@ export class CartService {
     localStorage.setItem("cartItem", JSON.stringify(products));
     const uid = localStorage.getItem('uid');
     this.http.put(`${users_url}/cart/${uid}`, { cart: JSON.stringify(products) }).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
     });
     document.querySelector('.cart_qty_cls').textContent = products.length;
   }
